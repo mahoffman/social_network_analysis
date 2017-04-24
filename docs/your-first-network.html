@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Social Network Analysis</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Social Network Analysis">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Social Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="markahoffman/social_network_analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Social Network Analysis" />
+  <meta name="twitter:site" content="@mark_a_hoffman" />
+  
+  
+
+<meta name="author" content="Peter Bearman and Mark Hoffman">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="understanding-network-data-structures.html">
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-r"><i class="fa fa-check"></i><b>1.1</b> Downloading and Installing R</a></li>
+<li class="chapter" data-level="1.2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-rstudio"><i class="fa fa-check"></i><b>1.2</b> Downloading and Installing RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>2</b> Tour RStudio with Udacity</a></li>
+<li class="chapter" data-level="3" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
+<li class="chapter" data-level="3.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-dataframes"><i class="fa fa-check"></i><b>3.1</b> Vectors, matrices and dataframes</a></li>
+<li class="chapter" data-level="3.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>3.2</b> Indexing and Subsetting</a></li>
+<li class="chapter" data-level="3.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>3.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html"><i class="fa fa-check"></i><b>4</b> Understanding network data structures</a><ul>
+<li class="chapter" data-level="4.1" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#edge-lists"><i class="fa fa-check"></i><b>4.1</b> Edge lists</a></li>
+<li class="chapter" data-level="4.2" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#adjacency-matrices"><i class="fa fa-check"></i><b>4.2</b> Adjacency matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="your-first-network.html"><a href="your-first-network.html"><i class="fa fa-check"></i><b>5</b> Your First Network</a><ul>
+<li class="chapter" data-level="5.1" data-path="your-first-network.html"><a href="your-first-network.html#creating-a-project"><i class="fa fa-check"></i><b>5.1</b> Creating a project</a></li>
+<li class="chapter" data-level="5.2" data-path="your-first-network.html"><a href="your-first-network.html#creating-data-in-excel"><i class="fa fa-check"></i><b>5.2</b> Creating data in Excel</a></li>
+<li class="chapter" data-level="5.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>5.3</b> Saving Excel data as a .csv file</a></li>
+<li class="chapter" data-level="5.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>5.4</b> Loading data into R</a></li>
+<li class="chapter" data-level="5.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>5.5</b> From data to networks</a></li>
+<li class="chapter" data-level="5.6" data-path="your-first-network.html"><a href="your-first-network.html#exploring-your-network"><i class="fa fa-check"></i><b>5.6</b> Exploring your network</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Social Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="your-first-network" class="section level1">
+<h1><span class="header-section-number">5</span> Your First Network</h1>
+<p>In this chapter, we will create our own network data in Excel, learn to load the data into R, and the turn the data into a network object using the igraph package. You can use these steps to begin analyzing data from your own projects.</p>
+<div id="creating-a-project" class="section level2">
+<h2><span class="header-section-number">5.1</span> Creating a project</h2>
+<p>First let’s create a new R project. RStudio projects allow you to keep your various data analysis projects separate from one another. Each project has its own working directory, workspace, history, and source documents. When you load a project, you will therefore see the work, history and files associated with that project, helping your organize your work.</p>
+<p>Go to the “File” menu at the top of the screen and click on “New Project…”</p>
+<hr />
+<p><img src="Images/new_project.png"/></p>
+<hr />
+<p>Then start a new directory. Directories are folders where you keep your R Project and all of the data, files, code etc. that you create and use in the project.</p>
+<hr />
+<p><img src="Images/new_directory.png"/></p>
+<hr />
+<p>Now start an empty project. Projects are created by RStudio and they maintain your R workspace for you, so that you can load it exactly as it was before you closed RStudio.</p>
+<hr />
+<p><img src="Images/empty_project.png"/></p>
+<hr />
+<p>Finally name your project (I named mine “SNA_Tutorial”) and browse to find the location on your computer where you would like it to be saved. We will use this directory to store all of the files and information for the class, so make sure to choose a name you can remember.</p>
+<hr />
+<p><img src="Images/project_name.png"/></p>
+<hr />
+<p>Now if you navigate to the folder of your new R Project (mine is on my Desktop in the folder titled “SNA Tutorial”, for example), you will see the R Project there, symbolized by a blue glass cube with an R in it. If you ever want to re-open this project, you can double click on the cube. Alternatively, in RStudio you can go “File -&gt; Open Project”, navigate to the project’s directory and open it from there.</p>
+<hr />
+<p><img src="Images/directory_entrails.png"/></p>
+<hr />
+<p>This folder is where you should keep all of your data and R scripts for this project. Since we just created the project that we will use for the remainder of the tutorials, it is the best place for you to put all future class materials.</p>
+</div>
+<div id="creating-data-in-excel" class="section level2">
+<h2><span class="header-section-number">5.2</span> Creating data in Excel</h2>
+<p>Imagine you want to collect some data on your local social network. You might go to each of your friends and ask them to nominate up to five people who are their friends. You then want to load this data into R and graph it as a network. How could you go about doing this?</p>
+<p>The first step is to record the data in some machine-readable way, either using Excel or Numbers or even in plain text files. Many people, before coming to R, have experience using Excel or some program like it to manage data, whether financial, academic, or otherwise. An Excel worksheet is organized into rows and columns with columns generally containing information of a single kind (say First Names) and rows generally containing the data for a single observation. You can freely input data into any of the cells.</p>
+<p><strong>An empty Excel spreadsheet</strong></p>
+<hr />
+<p><img src="Images/an_excel_spreadsheet.png"/></p>
+<hr />
+<p>The first step in any network analysis project is to create a dataset with the relationships between the people in your study. The easiest way to record relationships in Excel is as an edgelist, which, as we discussed in the last section, is a two column matrix that lists the pairs of actors in a relationship.</p>
+<p>Let’s build an edgelist together in Excel. Imagine we want to track patterns of monetary gift giving in a household (i.e. whether person A gives person B money). We construct an egelist, where column A is the Ego (the gift giver) and column B is the Alter (the gift receiver). We then fill in instances, or relationships, of gift giving from Ego to Alter. Below is an example:</p>
+<p><strong>Gift giving edgelist (Hoffman family)</strong></p>
+<hr />
+<p><img src="Images/gift_giving_el.png"/></p>
+<hr />
+<p>Try recording something similar for your family!</p>
+</div>
+<div id="saving-excel-data-as-a-.csv-file" class="section level2">
+<h2><span class="header-section-number">5.3</span> Saving Excel data as a .csv file</h2>
+<p>Great! Now we need to save this data in a format that R can easily read. I generally use the .csv format, which separates values by commas, because R has a default function for reading .csv files.</p>
+<p>To save an Excel sheet as a .csv file, in Excel go to “File -&gt; Save As…”</p>
+<hr />
+<p><img src="Images/save_as.png"/></p>
+<hr />
+<p>Then give your file a name (I chose “money_edgelist”), choose the place where you want to save it (inside of the directory you made for class), and finally (the most important part!), click on the “File Format” dropdown menu and choose “Comma Separated Values (.csv)”. Click “Save”!</p>
+<hr />
+<p><img src="Images/csv_choose.png"/></p>
+<hr />
+<p>It will ask will warn you that the workbook contains features that will not work or may be removed if you save it in the selected file format and ask if you want to continue. Click “Continue”.</p>
+<hr />
+<p><img src="Images/continue.png"/></p>
+<hr />
+<p>Great! Now, inside of your class directory, you should see a new file titled “money_edgelist” (or whatever you chose to name it). In the following section, we will learn how to read that edgelist into R.</p>
+</div>
+<div id="loading-data-into-r" class="section level2">
+<h2><span class="header-section-number">5.4</span> Loading data into R</h2>
+<p>Open up RStudio, make sure you are in your project for class (if not, go to “File -&gt; Open Project”, and selection your project), and open a new R Script by going “File -&gt; New File -&gt; R Script”. Save the empty script and name it “loading_data.R”. Your RStudio should look like this:</p>
+<hr />
+<p><img src="Images/new_script.png"/></p>
+<hr />
+<p>Now we will write our first line of code together. R has a simple function for loading .csv files: read.csv() To use read.csv, we just tell R the name of the .csv file that we want it to read. It will then look inside the directory for that file.</p>
+<p>If it can’t find the file - either because you typed the wrong name or you never dragged it to the directory - it will return the following error:</p>
+<blockquote>
+<p>Error in file(file, “rt”) : cannot open the connection In addition: Warning message: In file(file, “rt”) : cannot open file ‘money_edgelista.csv’: No such file or directory</p>
+</blockquote>
+<p>So sure money_edgelist.csv is in your directory or else the following lines of code won’t work!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">money_edgelist =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;money_edgelist.csv&quot;</span>)</code></pre></div>
+<p>Now you should see in your Environment pane “money_edgelist” under the “Data” heading. That means you successfully loaded the data into R.</p>
+<hr />
+<p><img src="Images/successful_load.png"/></p>
+<hr />
+<p>You can click on it to see its contents or else run View(money_edgelist) in the console.</p>
+<hr />
+<p><img src="Images/view_data.png"/></p>
+<hr />
+<p>Cool! We now have our data loaded into R, ready to be turned into a network.</p>
+</div>
+<div id="from-data-to-networks" class="section level2">
+<h2><span class="header-section-number">5.5</span> From data to networks</h2>
+<p>In this class, we will primarily use igraph, a user-maintained package in R, to analyze networks. Installing igraph gives us a bunch of new tools for graphing, analyzing and manipulating networks, that don’t come with base R. The first step then is to install igraph. To install a new package, we use the install.packages() function. It takes a character argument that is the name of the package you wish to install.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;igraph&quot;</span>, <span class="dt">repos=</span><span class="st">&#39;http://cran.us.r-project.org&#39;</span>)</code></pre></div>
+<pre><code>## 
+## The downloaded binary packages are in
+##  /var/folders/k0/_v5yt5b901v5vtff0y7zmgmr0000gn/T//RtmpzXlj2f/downloaded_packages</code></pre>
+<p>If you leave out the “repos” argument, it will cause a window to pop up with a list of CRAN mirrors. Then you can choose the repository nearest to you by double clicking on it.</p>
+<p>Now that igraph is installed, we need to use the library() function to load it into R. You will have to do this everytime you open RStudio or switch projects if you wish to make use of igraph’s functions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;igraph&quot;</span>)</code></pre></div>
+<p>Great! Now we can use all of igraph’s functions. To analyze networks, igraph uses an object class called: “igraph”. We therefore have to convert our edge list, freshly loaded into R, into an igraph object.</p>
+<p>igraph only takes matrices, so we then have to convert our data.frame (the default class of objects returned by read.csv()) to a matrix.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">money_edgelist &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(money_edgelist)</code></pre></div>
+<p>We can now turn the money_edgelist edge list into a network object. The required function is graph.edgelist() and it takes two arguments, the network data (an edge list) and whether the edges are directed or undirected. In this case, because giving money is not necessarily a reciprocal relationship (i.e. just because I give you money, doesn’t mean you necessarily give it back… in fact, the opposite is almost always the case!), the network should be directed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">moneyNetwork &lt;-<span class="st"> </span><span class="kw">graph.edgelist</span>(money_edgelist, <span class="dt">directed=</span><span class="ot">TRUE</span>)</code></pre></div>
+<blockquote>
+<p><strong>A Note on Function Documentation</strong> If you want to see more about graph.edgelist() or if you want to see other ways to graph data type, you can type ?graph.edgelist. Entering ? before any function will cause R to bring up documentation on that function.</p>
+</blockquote>
+<p>Now we have two objects in our Environment, the money_edgelist and a new networked, called moneyNetwork. Both contain the same information at the moment, but igraph can only make use of the latter.</p>
+<blockquote>
+<p><strong>What if my data was in adjacency matrix format?</strong> If your data was in adjacency matrix format, then you would use the graph.adjacency() function instead of the graph.edgelist() function. More about the graph.adjacency() function can be read in the function’s help section accessed by typing ?graph.adjacency</p>
+</blockquote>
+</div>
+<div id="exploring-your-network" class="section level2">
+<h2><span class="header-section-number">5.6</span> Exploring your network</h2>
+<p>We finally have a network in R! So.. what next? Well we can read a summary of it by typing its name into R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">moneyNetwork</code></pre></div>
+<pre><code>## IGRAPH DN-- 6 11 -- 
+## + attr: name (v/c)
+## + edges (vertex names):
+##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick 
+##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick 
+## [11] Lexi -&gt;Nick</code></pre>
+<p>The first line - which begins with IGRAPH DN - tells us moneyNetwork is an igraph object and a directed network (DN), with N nodes and E edges.</p>
+<p>The next line tells us some attributes of the nodes and edges network. At the moment, it only has the attribute “name” for the vertices (v/c). We can look at the values of the “name” attribute with the V()$ function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(moneyNetwork)$name</code></pre></div>
+<pre><code>## [1] &quot;Greg&quot;  &quot;Maria&quot; &quot;Mark&quot;  &quot;Lexi&quot;  &quot;Grace&quot; &quot;Nick&quot;</code></pre>
+<p>Finally, the last part gives us a snapshot of the edges present in the network, most of which are omitted.</p>
+<p>We can visualize the network using the plot() function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>The default visualization is pretty ugly… In the next section, we will learn how to improve the aesthetics of our network visualizations.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="understanding-network-data-structures.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

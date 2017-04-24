@@ -195,7 +195,7 @@ Now we have two objects in our Environment, the money_edgelist and a new network
 > **What if my data was in adjacency matrix format?**
 > If your data was in adjacency matrix format, then you would use the graph.adjacency() function instead of the graph.edgelist() function. More about the graph.adjacency() function can be read in the function's help section accessed by typing ?graph.adjacency
 
-## Our first network
+## Exploring your network
 
 We finally have a network in R! So.. what next? Well we can read a summary of it by typing its name into R.
 

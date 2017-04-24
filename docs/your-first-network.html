@@ -120,7 +120,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>5.3</b> Saving Excel data as a .csv file</a></li>
 <li class="chapter" data-level="5.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>5.4</b> Loading data into R</a></li>
 <li class="chapter" data-level="5.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>5.5</b> From data to networks</a></li>
-<li class="chapter" data-level="5.6" data-path="your-first-network.html"><a href="your-first-network.html#our-first-network"><i class="fa fa-check"></i><b>5.6</b> Our first network</a></li>
+<li class="chapter" data-level="5.6" data-path="your-first-network.html"><a href="your-first-network.html#exploring-your-network"><i class="fa fa-check"></i><b>5.6</b> Exploring your network</a></li>
 </ul></li>
 </ul>
 
@@ -229,7 +229,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;igraph&quot;</span>, <span class="dt">repos=</span><span class="st">&#39;http://cran.us.r-project.org&#39;</span>)</code></pre></div>
 <pre><code>## 
 ## The downloaded binary packages are in
-##  /var/folders/k0/_v5yt5b901v5vtff0y7zmgmr0000gn/T//RtmpmQ05m4/downloaded_packages</code></pre>
+##  /var/folders/k0/_v5yt5b901v5vtff0y7zmgmr0000gn/T//RtmpLdLTQk/downloaded_packages</code></pre>
 <p>If you leave out the “repos” argument, it will cause a window to pop up with a list of CRAN mirrors. Then you can choose the repository nearest to you by double clicking on it.</p>
 <p>Now that igraph is installed, we need to use the library() function to load it into R. You will have to do this everytime you open RStudio or switch projects if you wish to make use of igraph’s functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;igraph&quot;</span>)</code></pre></div>
@@ -246,8 +246,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><strong>What if my data was in adjacency matrix format?</strong> If your data was in adjacency matrix format, then you would use the graph.adjacency() function instead of the graph.edgelist() function. More about the graph.adjacency() function can be read in the function’s help section accessed by typing ?graph.adjacency</p>
 </blockquote>
 </div>
-<div id="our-first-network" class="section level2">
-<h2><span class="header-section-number">5.6</span> Our first network</h2>
+<div id="exploring-your-network" class="section level2">
+<h2><span class="header-section-number">5.6</span> Exploring your network</h2>
 <p>We finally have a network in R! So.. what next? Well we can read a summary of it by typing its name into R.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">moneyNetwork</code></pre></div>
 <pre><code>## IGRAPH DN-- 6 11 -- 

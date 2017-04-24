@@ -6,7 +6,7 @@ output: html_document
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 library(igraph)
 money_edgelist <- read.csv("money_edgelist.csv", stringsAsFactors = F)
-moneyNetwork <- graph.edgelist(money_edgelist, directed=TRUE)
+moneyNetwork <- graph.edgelist(as.matrix(money_edgelist), directed=TRUE)
 ```
 
 # Network Visualization and Aesthetics

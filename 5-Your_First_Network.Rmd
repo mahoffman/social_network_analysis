@@ -44,8 +44,6 @@ Finally name your project (I named mine "SNA_Tutorial") and browse to find the l
 
 ******
 
-## Getting the class materials
-
 Now if you navigate to the folder of your new R Project (mine is on my Desktop in the folder titled "SNA Tutorial", for example), you will see the R Project there, symbolized by a blue glass cube with an R in it. If you ever want to re-open this project, you can double click on the cube. Alternatively, in RStudio you can go "File -> Open Project", navigate to the project's directory and open it from there.
 
 ******
@@ -54,7 +52,7 @@ Now if you navigate to the folder of your new R Project (mine is on my Desktop i
 
 ******
 
-This folder, what R people call the "Working Directory", is where you should keep all of your data and R scripts for this project. Since we just created the project that we will use for the remainder of the tutorials, it is the best place for you to put all of the class materials. 
+This folder is where you should keep all of your data and R scripts for this project. Since we just created the project that we will use for the remainder of the tutorials, it is the best place for you to put all future class materials. 
 
 ## Creating data in Excel
 

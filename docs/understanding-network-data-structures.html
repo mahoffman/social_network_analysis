@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Social Network Analysis</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Social Network Analysis">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Social Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="markahoffman/social_network_analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Social Network Analysis" />
+  <meta name="twitter:site" content="@mark_a_hoffman" />
+  
+  
+
+<meta name="author" content="Peter Bearman and Mark Hoffman">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="r-basics.html">
+<link rel="next" href="your-first-network.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-r"><i class="fa fa-check"></i><b>1.1</b> Downloading and Installing R</a></li>
+<li class="chapter" data-level="1.2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-rstudio"><i class="fa fa-check"></i><b>1.2</b> Downloading and Installing RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>2</b> Tour RStudio with Udacity</a></li>
+<li class="chapter" data-level="3" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
+<li class="chapter" data-level="3.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-dataframes"><i class="fa fa-check"></i><b>3.1</b> Vectors, matrices and dataframes</a></li>
+<li class="chapter" data-level="3.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>3.2</b> Indexing and Subsetting</a></li>
+<li class="chapter" data-level="3.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>3.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html"><i class="fa fa-check"></i><b>4</b> Understanding network data structures</a><ul>
+<li class="chapter" data-level="4.1" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#edge-lists"><i class="fa fa-check"></i><b>4.1</b> Edge lists</a></li>
+<li class="chapter" data-level="4.2" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#adjacency-matrices"><i class="fa fa-check"></i><b>4.2</b> Adjacency matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="your-first-network.html"><a href="your-first-network.html"><i class="fa fa-check"></i><b>5</b> Your First Network</a><ul>
+<li class="chapter" data-level="5.1" data-path="your-first-network.html"><a href="your-first-network.html#creating-a-project"><i class="fa fa-check"></i><b>5.1</b> Creating a project</a></li>
+<li class="chapter" data-level="5.2" data-path="your-first-network.html"><a href="your-first-network.html#creating-data-in-excel"><i class="fa fa-check"></i><b>5.2</b> Creating data in Excel</a></li>
+<li class="chapter" data-level="5.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>5.3</b> Saving Excel data as a .csv file</a></li>
+<li class="chapter" data-level="5.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>5.4</b> Loading data into R</a></li>
+<li class="chapter" data-level="5.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>5.5</b> From data to networks</a></li>
+<li class="chapter" data-level="5.6" data-path="your-first-network.html"><a href="your-first-network.html#our-first-network"><i class="fa fa-check"></i><b>5.6</b> Our first network</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Social Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="understanding-network-data-structures" class="section level1">
+<h1><span class="header-section-number">4</span> Understanding network data structures</h1>
+<p>Underlying every network visualization is data about relationships. These relationships can be observed or simulated (that is, hypothetical). When analyzing a set of relationships, we will generally use one of two different data structures: edge lists or adjacency matrices.</p>
+<div id="edge-lists" class="section level2">
+<h2><span class="header-section-number">4.1</span> Edge lists</h2>
+<p>One simple way to represent a graph is to list the edges, which we will refer to as an edge list. For each edge, we just list who that edge is incident on. Edge lists are therefore two column matrices that directly tell the computer which actors are tied for each edge. In a directed graph, the actors in column A are the sources of edges, and the actors in Column B recieve the tie. In an undirected graph, order doesn’t matter.</p>
+<p>In R, we can create an example edge list using vectors and data.frames. I specify each column of the edge list with vectors and then assign them as the columns of a data.frame. We can use this to visualize what an edge list should look like.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personA &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Jill&quot;</span>)
+personB &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Jill&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Aaron&quot;</span>, <span class="st">&quot;Jill&quot;</span>, <span class="st">&quot;Aaron&quot;</span>)
+
+edgelist &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">PersonA =</span> personA, <span class="dt">PersonB =</span> personB, <span class="dt">stringsAsFactors =</span> F)
+
+<span class="kw">print</span>(edgelist)</code></pre></div>
+<pre><code>##   PersonA PersonB
+## 1    Mark   Peter
+## 2    Mark    Jill
+## 3   Peter     Bob
+## 4   Peter   Aaron
+## 5     Bob    Jill
+## 6    Jill   Aaron</code></pre>
+<p>What are the upsides of using the edge list format? As you can see, in an edge list, the number of rows accords to the number of edges in the network since each row details the actors in a specific tie. It is therefore really simple format for <em>recording</em> network data in an excel file or csv file.</p>
+<p>What are the downsides? The first is practical - it is impossible to represent isolates using an edge list since it details relations. There are ways to get around this problem in R, however. The second is technical - edge lists are not suitable for data formats for performing linear algebraic techniques. As a result, we will almost always convert and edge list into either an adjacency matrix, or into a network object.</p>
+</div>
+<div id="adjacency-matrices" class="section level2">
+<h2><span class="header-section-number">4.2</span> Adjacency matrices</h2>
+<p>Adjacency matrices have one row and one column for each actor in the network. The elements of the matrix can be any number but in most networks, will be either 0 or 1. A matrix element of 1 (or greater) signals that the respective column actor and row actor should be tied in the network. Zero signals that they are not tied.</p>
+<p>We can use what we learned in the last tutorial to create such a matrix. An example might look like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">adjacency &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">5</span>, <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Jill&quot;</span>, <span class="st">&quot;Aaron&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Jill&quot;</span>, <span class="st">&quot;Aaron&quot;</span>)))
+
+<span class="kw">print</span>(adjacency)</code></pre></div>
+<pre><code>##       Mark Peter Bob Jill Aaron
+## Mark     0     1   0    1     0
+## Peter    1     0   1    0     1
+## Bob      0     1   0    1     0
+## Jill     1     0   1    0     1
+## Aaron    0     1   0    1     0</code></pre>
+<p>What are the upsides of using the adjacency matrix format? Adjacency matrices are the most fundamental network analysis data format. They undergird all of the analytical techniques we will show you later on. They are also much more efficient than edge lists. For example, imagine searching for whether Peter and Jill are friends in an adjacency matrix as opposed to an edge list. In the adjacency matrix, we would go to Peter’s row and Jill’s column and we would find either a 1 or a 0, giving us our answer. In an edge list, we would have to search through each edge, which might seem simple in a dataset with only 5 people, but as the edge list grows, it will scale linearly with the number of edges.</p>
+<p>What are the downsides? It is really difficult to record network data with an adjacency matrix. They are better suited for computers than people.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="your-first-network.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

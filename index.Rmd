@@ -1,17 +1,14 @@
 ---
 knit: "bookdown::render_book"
 title: "Social Network Analysis"
-author: ["Peter Bearman","Mark Hoffman"]
-date: "May 1, 2017"
-description: "In this book, we will learn how to do descriptive network analysis with R. "
-github-repo: markahoffman/quantifiedmark
+author: ["Peter Bearman and Mark Hoffman"]
+github-repo: markahoffman/social_network_analysis
 twitter-handle: mark_a_hoffman
 site: bookdown::bookdown_site
 documentclass: book
 output:
   bookdown::gitbook: default
   bookdown::pdf_book: default
-  output_dir: "docs"
 ---
 
 # Welcome {-}
@@ -22,7 +19,7 @@ psb17@columbia.edu
 Mark Hoffman
 Mh3279@columbia.edu
 
-<img src="cover.png"/>
+<img src="Images/cover.png"/>
 
 This seminar is intended as a theoretical and methodological introduction to social network analysis. Though network analysis is an interdisciplinary endeavor, its roots can be found in classical anthropology and sociology. Network analysis focuses on patterns of relations between actors. Both relations and actors can be defined in many ways, depending on the substantive area of inquiry. For example, network analysis has been used to study the structure of affective links between persons, flows of commodities between organizations, shared members between social movement organizations, and shared needles between drug users. What is central is an emphasis on the structure of relationality, which serves to link micro- and macro-level processes.
 

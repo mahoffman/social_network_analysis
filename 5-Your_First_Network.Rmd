@@ -71,9 +71,9 @@ The first step is to record the data in some machine-readable way, either using 
 
 The first step in any network analysis project is to create a dataset with the relationships between the people in your study. The easiest way to record relationships in Excel is as an edge list, which, as we discussed in the last section, is a two column matrix that lists the pairs of actors in a relationship.  
 
-Let's build an edge list together in Excel. Imagine we want to track patterns of monetary gift giving in a household (i.e. whether person A gives person B money). We construct an edge list, where column A is the Ego (the gift giver) and column B  is the Alter (the gift receiver). We then fill in instances, or relationships, of gift giving from Ego to Alter. Below is an example:
+Let's build an edge list together in Excel. Imagine we want to track patterns of monetary provision in a household (i.e. whether person A gives person B money). We construct an edge list, where column A is the Ego (the money provider) and column B  is the Alter (the money taker). We then fill in instances, or relationships, of monetary provision from Ego to Alter. Below is an example:
 
-**Gift giving edge list (Hoffman family)**
+**Money providing edge list (Hoffman family)**
 
 ******
 

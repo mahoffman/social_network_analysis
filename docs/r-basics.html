@@ -208,21 +208,21 @@ matrix_data</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_data2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>), <span class="dv">25</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob=</span><span class="kw">c</span>(.<span class="dv">5</span>,.<span class="dv">5</span>)), <span class="dt">nrow=</span><span class="dv">5</span>, <span class="dt">ncol=</span><span class="dv">5</span>, <span class="dt">byrow =</span><span class="ot">TRUE</span>)
 matrix_data2</code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    0    0    1    0
-## [2,]    1    1    1    1    1
+## [1,]    1    1    1    1    0
+## [2,]    1    1    0    1    1
 ## [3,]    1    1    0    0    1
-## [4,]    0    1    1    0    0
-## [5,]    1    0    0    1    0</code></pre>
+## [4,]    0    0    0    1    0
+## [5,]    1    0    1    0    1</code></pre>
 <p>Finally, using dimnames, we can name each dimension, which makes sense given we are working with “social” networks.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_data3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>), <span class="dv">25</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob=</span><span class="kw">c</span>(.<span class="dv">5</span>,.<span class="dv">5</span>)), <span class="dt">nrow=</span><span class="dv">5</span>, <span class="dt">ncol=</span><span class="dv">5</span>, <span class="dt">byrow =</span><span class="ot">TRUE</span>, <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;Thea&quot;</span>, <span class="st">&quot;Pravin&quot;</span>, <span class="st">&quot;Troy&quot;</span>, <span class="st">&quot;Albin&quot;</span>, <span class="st">&quot;Clementine&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;Thea&quot;</span>, <span class="st">&quot;Pravin&quot;</span>, <span class="st">&quot;Troy&quot;</span>, <span class="st">&quot;Albin&quot;</span>, <span class="st">&quot;Clementine&quot;</span>)))
 
 matrix_data3</code></pre></div>
 <pre><code>##            Thea Pravin Troy Albin Clementine
-## Thea          0      0    1     1          0
-## Pravin        1      0    0     0          0
-## Troy          1      0    1     1          1
-## Albin         1      0    0     0          1
-## Clementine    1      0    0     1          0</code></pre>
+## Thea          0      1    0     0          1
+## Pravin        0      0    0     1          0
+## Troy          0      0    1     0          0
+## Albin         1      1    1     0          0
+## Clementine    0      1    0     1          1</code></pre>
 <p>We can convert a matrix into a data.frame and vice versa. The class() function tells us what type of object we are working with.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_data3 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(matrix_data3)
 <span class="kw">class</span>(matrix_data3)</code></pre></div>
@@ -238,29 +238,29 @@ matrix_data3</code></pre></div>
 <p>When we are working with a matrix or data.frame, we might want to access or manipulate a single row or column at a time. To do so, we need to index a row or column. This can be done in two ways. If we are working with a data.frame, we can use the $ operator. The name of the column we wish to access follows the dollar sign. matrix_data3$Thea will return the column values for Thea.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_data3</code></pre></div>
 <pre><code>##            Thea Pravin Troy Albin Clementine
-## Thea          0      0    1     1          0
-## Pravin        1      0    0     0          0
-## Troy          1      0    1     1          1
-## Albin         1      0    0     0          1
-## Clementine    1      0    0     1          0</code></pre>
+## Thea          0      1    0     0          1
+## Pravin        0      0    0     1          0
+## Troy          0      0    1     0          0
+## Albin         1      1    1     0          0
+## Clementine    0      1    0     1          1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_data3$Thea</code></pre></div>
-<pre><code>## [1] 0 1 1 1 1</code></pre>
+<pre><code>## [1] 0 0 0 1 0</code></pre>
 <p>We can then manipulate the column directly</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_data3$Thea &lt;-<span class="st"> </span><span class="dv">1</span>
 matrix_data3</code></pre></div>
 <pre><code>##            Thea Pravin Troy Albin Clementine
-## Thea          1      0    1     1          0
-## Pravin        1      0    0     0          0
-## Troy          1      0    1     1          1
-## Albin         1      0    0     0          1
-## Clementine    1      0    0     1          0</code></pre>
+## Thea          1      1    0     0          1
+## Pravin        1      0    0     1          0
+## Troy          1      0    1     0          0
+## Albin         1      1    1     0          0
+## Clementine    1      1    0     1          1</code></pre>
 <p>We can also use subscripting. For example, matrix_data3[,1] tells R to return the first column while matrix_data3[1,] tells R to return the first row. Finally, matrix_data3[1,1] is the cell located in the first row of the first column.</p>
 <p>This is more flexible than $, but requires you to know the locations of the intended data in the dataset or matrix.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_data3[,<span class="dv">1</span>]</code></pre></div>
 <pre><code>## [1] 1 1 1 1 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_data3[<span class="dv">1</span>,]</code></pre></div>
 <pre><code>##      Thea Pravin Troy Albin Clementine
-## Thea    1      0    1     1          0</code></pre>
+## Thea    1      1    0     0          1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matrix_data3[<span class="dv">1</span>,<span class="dv">1</span>]</code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Vectors are also indexed, but they only have one dimension, so no comma is needed.</p>

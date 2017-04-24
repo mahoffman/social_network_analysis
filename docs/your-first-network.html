@@ -176,8 +176,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><img src="Images/an_excel_spreadsheet.png"/></p>
 <hr />
 <p>The first step in any network analysis project is to create a dataset with the relationships between the people in your study. The easiest way to record relationships in Excel is as an edge list, which, as we discussed in the last section, is a two column matrix that lists the pairs of actors in a relationship.</p>
-<p>Let’s build an edge list together in Excel. Imagine we want to track patterns of monetary gift giving in a household (i.e. whether person A gives person B money). We construct an edge list, where column A is the Ego (the gift giver) and column B is the Alter (the gift receiver). We then fill in instances, or relationships, of gift giving from Ego to Alter. Below is an example:</p>
-<p><strong>Gift giving edge list (Hoffman family)</strong></p>
+<p>Let’s build an edge list together in Excel. Imagine we want to track patterns of monetary provision in a household (i.e. whether person A gives person B money). We construct an edge list, where column A is the Ego (the money provider) and column B is the Alter (the money taker). We then fill in instances, or relationships, of monetary provision from Ego to Alter. Below is an example:</p>
+<p><strong>Money providing edge list (Hoffman family)</strong></p>
 <hr />
 <p><img src="Images/gift_giving_el.png"/></p>
 <hr />
@@ -229,7 +229,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;igraph&quot;</span>, <span class="dt">repos=</span><span class="st">&#39;http://cran.us.r-project.org&#39;</span>)</code></pre></div>
 <pre><code>##
 ## The downloaded binary packages are in
-##  /var/folders/k0/_v5yt5b901v5vtff0y7zmgmr0000gn/T//RtmpSQxVRU/downloaded_packages</code></pre>
+##  /var/folders/k0/_v5yt5b901v5vtff0y7zmgmr0000gn/T//Rtmpk1b5n4/downloaded_packages</code></pre>
 <p>If you leave out the “repos” argument, it will cause a window to pop up with a list of CRAN mirrors. Then you can choose the repository nearest to you by double clicking on it.</p>
 <p>Now that igraph is installed, we need to use the library() function to load it into R. You will have to do this every time you open RStudio or switch projects if you wish to make use of igraph’s functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;igraph&quot;</span>)</code></pre></div>

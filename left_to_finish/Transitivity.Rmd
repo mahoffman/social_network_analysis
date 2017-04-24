@@ -1,0 +1,227 @@
+---
+title: "Transitivity"
+author: "Mark Hoffman"
+output: html_document
+---
+
+# Structural Balance in Networks
+
+The main goal of this tutorial is to explain the triad census, how to calculate it in igraph and how to use simulation to estimate the expected triad census result under a null model to use as a basis of comparison in evaluating an observed network. 
+
+We can break large social networks down into their constituent parts. These constituent parts are referred to as "motifs". The most basic motif consists of two nodes and is called a dyad. Edges in a network signify the presence or absence of dyadic relations. It follows that a dyad in an undirected network can have two possible structures: connected or disconnected; and four possible structures in a directed network.
+
+Density captures, at the macrolevel, the proportion of dyads that are present over the possible total number of dyads in the network. We are simply reframing what we discussed last class, except we are focusing on the configuration of nodes as opposed to edges.
+
+Triads consist of three nodes and are therefore more complex than dyads, with more possible arrangements.  
+This becomes clear when you realize an undirected triad consists of _three_ dyads: A and B, B and C, and A and C. 
+In an undirected graph, there are eight possible triads (2^3... sort of obvious given that each dyad can be present or absent and there are three dyads). Of those eight possible triads, four are isomorphic, so that there are four unique triads. 
+
+In an directed graph, there will be sixteen unique triads (the unique number of motifs in directed graphs is not easily reduced to a functional form).
+
+Take Professor Bearman's paper "Chains of Affection" as an example. He and his colleagues found that the spanning tree network observed in the high school lacked 3, 4 and 5 "cycles".
+
+This is another way of saying there were no complete triads, quadrads or pentrads in the network.  If we see a network with very few triads, then we know something about the macro-level structure, just by looking at the frequencies of its micro-level parts.
+
+The triad census calculates how many triads there are of each type (which, as I just mentioned, in a directed network amounts to 16).  If this distribution of triads is different than the distribution in a random network, then it could tell us something about the macro-level structure that we couldn't observe just by looking at a visualization of the network.
+
+# Calculating a triad census
+
+igraph has a built in function for the triad census: triad.census()
+
+It takes a network object as an argument (say, countrysideNetwork) and returns the number of each type of triad in the network.
+
+First, load in igraph.
+```{r}
+library(igraph)
+```
+
+Next load in countrysideNetwork again.
+```{r}
+countrysideEL <- read.csv('~/gh_repos/sna_teaching/Data/countrysideEL.csv', stringsAsFactors = F)
+
+countrysideAtts <- read.csv('~/gh_repos/sna_teaching/Data/countrysideAtts.csv', stringsAsFactors = F)
+
+countrysideNetwork <- graph_from_data_frame(countrysideEL, directed = T, vertices = countrysideAtts)
+```
+
+Now we can run the triad.census() function from igraph.
+```{r}
+triad.census(countrysideNetwork)
+```
+
+As you can see, it returns 16 different numbers.  It uses the M-A-N classification structure: M stands for the number of Mutual ties, A stands for the number of Assymetric ties, and N stands for the number of Null ties. 
+
+Mutual means that ego and alter (say A and B) have a mutual relation with each other (A likes B and B likes A). A means that ego and alter have an assymetric relation with one another, i.e. A likes B but B doesn't like A... the relation is not reciprocated. Finally, N means that A and B do not have any relation.
+
+Go to the following website on your computer: [http://www.paulmichaelcohen.com/wp-content/uploads/2012/08/1-s2.0-S0378873301000351-gr1.jpg]
+
+It visualizes the different types of triads possible in a directed graph. 
+
+?triad.census also describes these possible types
+It tells you the order that the triad types are presented in the triad.census() output.
+
+003 for example means there are 0 mutual relation, 0 assymetric relations and 3 null relations. This means there are no relations in this triad. 201 would mean there are two mutual relations, zero assymetric relations, and 1 null relation. Of three dyads in the triad, two dyads are in a relation, and one dyad is not.
+
+However, we are generally not intersted in pure counts. Like in any statistical analysis, we want to know what distribution we would expect by chance, so that we can see if our distribution is meaningfully different. We can approach this question from two different angles: simulation or mathematical derivation.
+
+In both cases, we will utilize random graphs as our null model. In random graphs, the chance that any two dyads are in a relation is determined by chance (i.e. the flip of a coin). This means that the likelihood of observing a given tie is independent from observing a tie between any other dyad.
+
+There are a lot of reasons that this is unrealistic.. For example, if A and B are friends and A and C are friends, then we would expect the probability that B and C are friends to be higher. This is a basic feature of most social networks... you are more likely to be friends with your friends friends than with strangers. We therefore might want to factor in this human tendency towards triadic closure into our null model - later in the class I will discuss ways of doing this. However, random graphs have many properties that are mathematically and heuristically useful, which is why they are commonly used as null models. We will try to think of better null structures as class goes on.
+
+igraph has a fast and easy function for generating random graphs. 
+```{r}
+?erdos.renyi.game
+```
+
+In an erdos.renyi.graph, each edge has the same probability of being created.  We determine the probability and it returns a random graph with a density that equals this probability.
+
+```{r}
+random_graph <- erdos.renyi.game(n = vcount(countrysideNetwork), p.or.m = graph.density(countrysideNetwork), directed = TRUE) # where n is the number of nodes, p.or.m is the probability of drawing an edge, directed is whether the network is directed or not
+
+plot(random_graph,  
+     vertex.size = 3, 
+     vertex.label = NA, 
+     edge.curved = .1, 
+     vertex.color = "tomato", 
+     edge.arrow.size = .1, 
+     edge.width = .5, 
+     edge.color = "grey30")
+
+graph.density(random_graph) # rougly .5%!
+```
+
+We will look more closely at the properties of random graphs when we focus on simulation in later weeks. For now let's look at the triad census of this random graph.
+```{r}
+triad.census(random_graph)
+```
+
+Most triads are null. This is because edges only have a 5% chance of being drawn. It follows that 95% of the total possible edges are missing.
+
+There are not many cases of transitive triads, or even in which all three dyads have a relationship. Thus, the majority of triads are concentrated in the left side of the triad distribution
+
+Let's compare it countryside. 
+```{r}
+triad.census(countrysideNetwork)
+```
+
+What do you see? Which triads are common in countryside, but not in the random graph? What might this tell us?
+
+The problem is that we are basing our analysis on a single random graph.  But since drawing edges is random, there is a lot of variation in the structure of random graphs, especially when the number of nodes in the graph is small (less than one thousand).
+
+So let's generate one hundred random graphs, and create a distribution of random graph triad censuses and see where our graph lies on that distribution
+
+```{r}
+trial <- vector("list", 100) # this creates a list with 100 spaces to store things.  We will store each result here. 
+
+for ( i in 1:100 ){ # We repeat our exercise 100 times
+  random_graph <- erdos.renyi.game(n = vcount(countrysideNetwork), p.or.m = graph.density(countrysideNetwork), directed = TRUE) 
+  trial[[i]] <- triad.census(random_graph) # We assign to the ith space the result. So for the first iteration, it will assign the result to the first space in the list
+}
+
+Reduce("+",trial)/100 # The Reduce function will sum each element of the vectors in the list. We divide these values by 100 (the number of iterations) to get the average value for each type of triad for the 100 random graphs we generated
+
+# Now we can compare this result to the observed network
+triad.census(countrysideNetwork)
+```
+
+Beautiful! What do you see? Which triads are more common in our graph than in a random graph? What might this tell us about the macro-structure?
+
+# Mathematically derived expected values
+
+In the Useful R Functions folder, there is a script called "BetterTriadCensus.R", which is a function that returns the expected distribution of triads under a random graph null hypothesis.
+
+Load it like so. Just be sure to direct R to the correct location on your computer.
+
+```{r}
+source('~/gh_repos/sna_teaching/Useful R Functions/BetterTriadCensus.R', echo=TRUE) # you might have to change this path
+```
+
+We can then run this function, TriadCensus() to generate a better triad census. It has two arguments, matrix and weight.  Weight can be set to 1 for now. 
+
+```{r}
+countrysideNetworkMatrix <- as.matrix(get.adjacency(countrysideNetwork)) # First we need to turn our network object into a matrix. 
+TriadCensus(countrysideNetworkMatrix, 1)
+```
+
+Cool! Check out the paper "Matrix Methods for Calculating the Triad Census" by James Moody for more details on how this function works. 
+
+**Note on undirected graphs**
+In an undirected graph, all triangles are transitive.  Therefore, the calculation of transitivity simply equates to the number of triads in the network, and we no longer need the triad census. 
+Transitivity in an undirected graph is calculated by taking the number of observed triads and dividing that number by the number of total possible triads in a network of this size or by using the transitivity() function in igraph
+
+For example:
+```{r}
+transitivity(countrysideNetwork)
+```
+
+# Advanced Script: Transitivity and Reciprocity at the Local Level
+```{r}
+
+get_individ_trans_recip <- function(net){
+  trans <- c()
+  recip <- c()
+  for ( i in 1:vcount(net)){
+    neighbor_net <- delete.vertices(net, which(!V(net)$name %in% neighbors(net, i)$name))
+    temp_tc <- triad_census(neighbor_net)
+    temp_recip <- reciprocity(neighbor_net)
+    if ( is.na(temp_recip) ){
+      temp_recip = 0
+    }
+    total_tri <- sum(temp_tc)
+    intransitive <- sum(temp_tc[c(6,7,8,10,11)])
+    imbalance_percent <- intransitive/total_tri
+    trans <- c(trans, imbalance_percent)
+    recip <- c(recip, temp_recip)
+  }
+  trans <- ifelse(is.na(trans), 0, trans)
+  return(list(Transitivity = trans, Reciprocity = recip))
+}
+
+individual_level_results <- get_individ_trans_recip(countrysideNetwork)
+
+V(countrysideNetwork)$transitivity <-    individual_level_results$Transitivity
+
+V(countrysideNetwork)$reciprocity <-  individual_level_results$Reciprocity
+
+colfunc <- colorRampPalette(c("white", "red"))
+gradient <- colfunc(101)
+
+V(countrysideNetwork)$color_trans <- gradient[round(V(countrysideNetwork)$transitivity*100)+1]
+
+V(countrysideNetwork)$color_recip <- gradient[round(V(countrysideNetwork)$reciprocity*100)+1]
+```
+
+### Individual-level intransitivity
+```{r}
+kamadaLayout <- layout.kamada.kawai(countrysideNetwork)
+
+plot(countrysideNetwork, 
+     layout = kamadaLayout, 
+     vertex.color = V(countrysideNetwork)$color_trans,
+     vertex.size = 3, 
+     vertex.label.cex = .7, 
+     vertex.label = NA, 
+     edge.curved = .1, 
+     vertex.frame.color = "black", 
+     edge.arrow.size = .1, 
+     edge.width = .5, 
+     edge.color = "grey30")
+```
+
+### Individual-level reciprocity
+```{r}
+plot(countrysideNetwork, 
+     layout = kamadaLayout, 
+     vertex.color = V(countrysideNetwork)$color_recip,
+     vertex.size = 3, 
+     vertex.label.cex = .7, 
+     vertex.label = NA, 
+     edge.curved = .1, 
+     vertex.frame.color = "black", 
+     edge.arrow.size = .1, 
+     edge.width = .5, 
+     edge.color = "grey30")
+```
+
+
+

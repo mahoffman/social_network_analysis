@@ -64,7 +64,7 @@ cat(log1, log2, log3, log4, log5)
 
 As you can see, the fifth specification of the logarithm returned different results.
 
-## Vectors, matrices and dataframes 
+## Vectors, matrices and data.frames 
 
 Vectors are the most basic object in R. They contain ordered elements of the same type. Vectors of size > 1 are created using the "c" function. 
 
@@ -93,7 +93,7 @@ matrix_data <- matrix(c(zero,one,zero,one,zero), nrow = 5, ncol = 5, byrow = FAL
 matrix_data
 ```
 
-Using the sample function, we can fill each cell randomly with either 0 or 1. This simulates an adjancency matrix for a network where connections between people are random.
+Using the sample function, we can fill each cell randomly with either 0 or 1. This simulates an adjacency matrix for a network where connections between people are random.
 
 ```{r}
 matrix_data2 <- matrix(sample(c(1,0), 25, replace = TRUE, prob=c(.5,.5)), nrow=5, ncol=5, byrow =TRUE)

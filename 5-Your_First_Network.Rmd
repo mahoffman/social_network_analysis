@@ -69,11 +69,11 @@ The first step is to record the data in some machine-readable way, either using 
 ******
 
 
-The first step in any network analysis project is to create a dataset with the relationships between the people in your study. The easiest way to record relationships in Excel is as an edgelist, which, as we discussed in the last section, is a two column matrix that lists the pairs of actors in a relationship.  
+The first step in any network analysis project is to create a dataset with the relationships between the people in your study. The easiest way to record relationships in Excel is as an edge list, which, as we discussed in the last section, is a two column matrix that lists the pairs of actors in a relationship.  
 
-Let's build an edgelist together in Excel. Imagine we want to track patterns of monetary gift giving in a household (i.e. whether person A gives person B money). We construct an egelist, where column A is the Ego (the gift giver) and column B  is the Alter (the gift receiver). We then fill in instances, or relationships, of gift giving from Ego to Alter. Below is an example:
+Let's build an edge list together in Excel. Imagine we want to track patterns of monetary gift giving in a household (i.e. whether person A gives person B money). We construct an edge list, where column A is the Ego (the gift giver) and column B  is the Alter (the gift receiver). We then fill in instances, or relationships, of gift giving from Ego to Alter. Below is an example:
 
-**Gift giving edgelist (Hoffman family)**
+**Gift giving edge list (Hoffman family)**
 
 ******
 
@@ -112,7 +112,7 @@ It will ask will warn you that the workbook contains features that will not work
 
 ******
 
-Great! Now, inside of your class directory, you should see a new file titled "money_edgelist" (or whatever you chose to name it).  In the following section, we will learn how to read that edgelist into R. 
+Great! Now, inside of your class directory, you should see a new file titled "money_edgelist" (or whatever you chose to name it).  In the following section, we will learn how to read that edge list into R. 
 
 ## Loading data into R
 
@@ -168,7 +168,7 @@ install.packages("igraph", repos='http://cran.us.r-project.org')
 
 If you leave out the "repos" argument, it will cause a window to pop up with a list of CRAN mirrors. Then you can choose the repository nearest to you by double clicking on it. 
 
-Now that igraph is installed, we need to use the library() function to load it into R.  You will have to do this everytime you open RStudio or switch projects if you wish to make use of igraph's functions.
+Now that igraph is installed, we need to use the library() function to load it into R.  You will have to do this every time you open RStudio or switch projects if you wish to make use of igraph's functions.
 
 ```{r}
 library("igraph")

@@ -106,7 +106,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>2</b> Tour RStudio with Udacity</a></li>
 <li class="chapter" data-level="3" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-dataframes"><i class="fa fa-check"></i><b>3.1</b> Vectors, matrices and dataframes</a></li>
+<li class="chapter" data-level="3.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-data.frames"><i class="fa fa-check"></i><b>3.1</b> Vectors, matrices and data.frames</a></li>
 <li class="chapter" data-level="3.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>3.2</b> Indexing and Subsetting</a></li>
 <li class="chapter" data-level="3.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>3.3</b> Loading Packages</a></li>
 </ul></li>
@@ -144,7 +144,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Underlying every network visualization is data about relationships. These relationships can be observed or simulated (that is, hypothetical). When analyzing a set of relationships, we will generally use one of two different data structures: edge lists or adjacency matrices.</p>
 <div id="edge-lists" class="section level2">
 <h2><span class="header-section-number">4.1</span> Edge lists</h2>
-<p>One simple way to represent a graph is to list the edges, which we will refer to as an edge list. For each edge, we just list who that edge is incident on. Edge lists are therefore two column matrices that directly tell the computer which actors are tied for each edge. In a directed graph, the actors in column A are the sources of edges, and the actors in Column B recieve the tie. In an undirected graph, order doesn’t matter.</p>
+<p>One simple way to represent a graph is to list the edges, which we will refer to as an edge list. For each edge, we just list who that edge is incident on. Edge lists are therefore two column matrices that directly tell the computer which actors are tied for each edge. In a directed graph, the actors in column A are the sources of edges, and the actors in Column B receive the tie. In an undirected graph, order doesn’t matter.</p>
 <p>In R, we can create an example edge list using vectors and data.frames. I specify each column of the edge list with vectors and then assign them as the columns of a data.frame. We can use this to visualize what an edge list should look like.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personA &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Jill&quot;</span>)
 personB &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Jill&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Aaron&quot;</span>, <span class="st">&quot;Jill&quot;</span>, <span class="st">&quot;Aaron&quot;</span>)

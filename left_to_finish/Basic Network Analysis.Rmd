@@ -1,0 +1,373 @@
+---
+title: "Basic Network Analysis"
+author: "Mark Hoffman"
+output: html_document
+---
+
+In this tutorial, we will cover basic network analysis in R. We will make our foray into network statistics and measures by analyzing a series of smaller networks (N < 100). Though larger networks are sexier, for pedagogical purposes, it is better to start small, so that we can visually comprehend how the various measures work.
+
+We begin by looking at ego networks using the GSS network module from 2004, as mentioned by Peter in his lecture. We will use the GSS data to become acquainted with measures of network density and heterogeneity.
+
+We then move to exploring transitivity at the macro and micro levels by returning to Countryside High School. 
+
+# Ego Networks
+
+We begin by reading in the data from the GSS network module, which I have included in the "Data" section of the materials for this class.  
+
+```{r}
+library(igraph)
+
+gss <- read.csv("~/gh_repos/sna_teaching_no_upload/Data/gss_local_nets.csv", stringsAsFactors = TRUE) 
+```
+
+Let's have a look at the data.  You can either click on it in your environment, type View(gss) or:
+
+```{r}
+head(gss)
+```
+
+There are 42 variables.  The first five concern the attributes of a given respondent: their sex, age, race, partyid and religion. The next 36 make up the "network" part of the GSS Network Module. The structure can be a bit confusing, especially if you haven't read any papers that use this data. The basic idea of the module was to ask people about up to five others with whom they discussed "important matters" in the past six months.  The respondents reported the number of people whom they discussed "important matters": which is the variable "numgiven" in our dataset. They were also asked to detail the relations between those five people: whether they were especially close, knew each other, or were total strangers. This accords to the close variables in the dataset, where, for example, close12 is the closeness of person 1 to person 2, for each respondent. Finally they were asked about the attributes of each of the up to five people in their ego network (sex, race, age).
+
+To see why these are called ego networks, let's take a respondent and graph the relations of the up to five people they said they discussed "important matters" with.  To do so, we have to first turn the variables close12 through close45 into an edge list. 
+
+This requires a tricky bit of code.
+First let's just select respondent 3.
+
+```{r}
+respondent <- gss[3,]
+```
+
+Next, let's make a general edgelist, which can hold the values for the relations between persons 1 and 2, persons 1 and 3 all the way to persons 4 and 5. We can use the combn function to do this - it will give you all of the possible unique, unordered combinations of a vector of size m. Here we do all of the unique combinations of numbers one through five of size 2. 
+
+```{r}
+respondent_edge_list <- as.data.frame(t(combn(1:5, 2)), stringsAsFactors = F)
+```
+
+Let's change the column names...
+```{r}
+colnames(respondent_edge_list) <- c("PersonA", "PersonB")
+```
+ 
+Next we need to assign the values from the respondent we saved above to a new variable in our edge list. In this next line of code, we assign to the "weight variable" the values of the variables from close12 to close45. 
+```{r} 
+respondent_edge_list$weight <- as.numeric(respondent[,which(colnames(respondent) == "close12"):which(colnames(respondent) == "close45")])
+```
+
+Finally, let's drop all of the ties that are equal to either NA or 0. 
+```{r}
+respondent_edge_list <- subset(respondent_edge_list, weight == 1 | weight == 2)
+```
+
+How does it look?
+
+```{r}
+head(respondent_edge_list)
+```
+
+Great! We can use this edge list to creat a network, in the same way that we did in the last tutorial. 
+```{r}
+respondent_edge_list <- as.matrix(respondent_edge_list)
+
+
+ego_net <- graph.edgelist(respondent_edge_list[,1:2], directed = F)
+V(ego_net)$name <- 1:vcount(ego_net)
+
+plot(ego_net, vertex.size = 30, vertex.label.color = "black", vertex.label.cex = 1)
+```
+
+Now let's add attributes to the nodes of the network. First we build an attribute list.
+```{r}
+attributes <- data.frame(name = 1:5, sex = NA, race = NA, age = NA, stringsAsFactors = F)
+
+attributes$race =  as.numeric(respondent[,which(colnames(respondent) == "race1"):which(colnames(respondent) == "race5")])
+
+attributes$sex =  as.numeric(respondent[,which(colnames(respondent) == "sex1"):which(colnames(respondent) == "sex5")])
+
+attributes$age =  as.numeric(respondent[,which(colnames(respondent) == "age1"):which(colnames(respondent) == "age5")])
+
+attributes <- na.omit(attributes)
+```
+
+Next we assign them to the network. We can use the assign_atts() function from last tutorial.
+```{r}
+source("~/gh_repos/sna_teaching/Useful R Functions/assign_atts.r")
+ego_net <- assign_atts(ego_net, attributes)
+```
+
+Let's see the structure of the graph with the nodes colored by sex.
+```{r}
+V(ego_net)$color <- ifelse(V(ego_net)$sex == 1, "blue", "pink")
+
+plot(ego_net, vertex.size = 30, vertex.label.color = "black", vertex.label.cex = 1)
+```
+
+# Calculating Network Size and Density
+
+Network size is the number of nodes in a network. To find this, we use the vcount() function. We can also find the number of edges using ecount()
+```{r}
+vcount(ego_net)
+ecount(ego_net)
+```
+
+Density captures how many edges there are in a network divided by the total possible number of edges. In an undirected network of size N, there will be  (N * (N-1))/2  possible edges. 
+
+We could calculate this on our own as follows.
+```{r}
+ecount(ego_net)/((vcount(ego_net) * (vcount(ego_net) - 1))/2)
+```
+
+igraph has its own function - graph.density
+```{r}
+graph.density(ego_net)
+```
+
+# Computing Heterogeneity for Continuous variables using Standard Deviation
+
+For continuous variables, we can use standard deviation to measure heterogeneity. 
+
+The sd function returns the standard deviation.
+```{r}
+sd(V(ego_net)$age, na.rm = T)
+```
+
+# Computing Heterogeneity for Categorical Variables using Index of Qualitative Variation (IQV)
+
+The IQV returns the amount of heterogeneity for a categorical variable.
+
+> **IQV**
+> IQV = K(100^2 - SUM(Pct^2))/100^2(K-1)
+
+For the first time in this class, we will define our own function, so that we can run IQV, since it isn't part of igraph.
+```{r}
+IQV <- function(tbl, k) {
+  perc <- tbl * 100
+  sumsquared <- sum(perc^2)
+  sumsquared <- 10000-sumsquared
+  heterogeneity <- (k * sumsquared)/((k-1)*(10000))
+  if (is.nan(heterogeneity) == TRUE) heterogeneity = NA
+  return(heterogeneity)
+}
+```
+
+prop.table returns the proportion of each category that makes up your dataset. For example, for the respondent we are working with it returns .5 male and .5 female
+```{r}
+prop.sex <- prop.table(table(V(ego_net)$sex))
+IQV(prop.sex, 2)
+prop.race <- prop.table(table(V(ego_net)$race))
+IQV(prop.race, length(unique(gss$race)))
+```
+
+# Structural Balance in Networks
+
+The main goal of this tutorial is to explain the triad census, how to calculate it in igraph and how to use simulation to estimate the expected triad census result under a null model to use as a basis of comparison in evaluating an observed network. 
+
+We can break large social networks down into their constituent parts. These constituent parts are referred to as "motifs". The most basic motif consists of two nodes and is called a dyad. Edges in a network signify the presence or absence of dyadic relations. It follows that a dyad in an undirected network can have two possible structures: connected or disconnected; and four possible structures in a directed network.
+
+Density captures, at the macrolevel, the proportion of dyads that are present over the possible total number of dyads in the network. We are simply reframing what we discussed last class, except we are focusing on the configuration of nodes as opposed to edges.
+
+Triads consist of three nodes and are therefore more complex than dyads, with more possible arrangements.  
+This becomes clear when you realize an undirected triad consists of _three_ dyads: A and B, B and C, and A and C. 
+In an undirected graph, there are eight different types of triads (2^3... sort of obvious given that each dyad can be present or absent and there are three dyads).
+
+In an directed graph, there will be sixteen unique triads (the unique number of motifs in directed graphs is not easily reduced to a functional form).
+
+Take Professor Bearman's paper "Chains of Affection" as an example. He and his colleagues found that the spanning tree network observed in the high school had no 3, 4 or 5 "cycles".
+
+This is another way of saying there were no complete triads, quadrads or pentrads in the network.  If we see a network with very few triads, then we know something about the macro-level structure, just by looking at its micro-level parts.
+
+The triad census calculates how many triads there are of each type (which in a directed network is 16).  If this distribution of triads is different than the distribution in a random network, then it might tell us something about the macro-level structure that we couldn't observe just by looking at the graph.
+
+# Calculating a triad census
+
+igraph has a built in function for the traid census: triad.census()
+
+It takes a network object (say, countrysideNetwork) and returns the distribution of triads within that network.
+
+Let's load in countrysideNetwork again.
+```{r}
+countrysideEL <- read.csv("/Users/markhoffman/gh_repos/sna_teaching/Data/countrysideEL.csv", stringsAsFactors = F)
+
+countrysideAtts <- read.csv("/Users/markhoffman/gh_repos/sna_teaching/Data/countrysideAtts.csv", stringsAsFactors = F)
+
+countrysideNetwork <- graph_from_data_frame(countrysideEL, directed = T, vertices = countrysideAtts)
+```
+
+Now we can run the triad.census() function from igraph.
+```{r}
+triad.census(countrysideNetwork)
+```
+
+As you can see, it returns 16 different numbers.  It uses the M-A-N classification structure, as introduced by Peter, in which M stands for a Mutual tie, A stands for an Assymetric tie, and N stands for a Null tie. 
+
+Mutual means that ego and alter (say A and B) have a mutual relation with each other (A likes B and B likes A). A means that ego and alter have an assymetric relation with one another, i.e. A likes B but B doesn't like A... the relation is not reciprocated. Finally, N means that A and B do not have a relation.
+
+Go to the following website on your computer: [http://www.paulmichaelcohen.com/wp-content/uploads/2012/08/1-s2.0-S0378873301000351-gr1.jpg]
+
+It visualizes the different types of triads possible in a directed graph. 
+
+?triad.census also describes these possible types
+It tells you the order that the triad types are presented in the triad.census() output.
+
+003 for example means there are 0 mutual relation, 0 assymetric relations and 3 null relations. This means there are no relations in this triad. 201 would mean there are two mutual relations, zero assymetric relations, and 1 null relation. Of three dyads in the triad, two dyads are in a relation, and one dyad is not.
+
+However, we are generally not intersted in pure counts. Like in any statistical analysis, we want to know what distribution we would expect by chance, so that we can see if our distribution is meaningfully different. We can approach this question from two different angles: simulation or mathematical derivation.
+
+In both cases, we will utilize random graphs as our null model. In random graphs, the chance that any two dyads are in a relation is determined by chance (i.e. the flip of a coin). This means that the likelihood of observing a given is independent of observing a relation between any other dyad.
+
+There are a lot of reasons that this is unrealistic.. For example, if A and B are friends and A and C are friends, then we would expect the probability that B and C are friends to be higher. This is a basic feature of most social networks... you are more likely to be friends with your friends friends than with strangers. We therefore would want to factor in this human tendency towards triadic closure into our null model.
+
+However, random graphs have many properties that are mathematically and heuristically useful, which is why they are commonly used as null models. We will try to think of better
+null structures as class goes on.
+
+igraph has a fast and easy function for generating random graphs. 
+```{r}
+?erdos.renyi.game
+```
+
+In an erdos.renyi.graph, each edge has the same probability of being created.  We determine the probability and it returns a random graph with a density that accords to this probability.
+
+```{r}
+random_graph <- erdos.renyi.game(n = vcount(countrysideNetwork), p.or.m = graph.density(countrysideNetwork), directed = TRUE) # where n is the number of nodes, p.or.m is the probability of drawing an edge, directed is whether the network is directed or not
+
+plot(random_graph,  
+     vertex.size = 3, 
+     vertex.label = NA, 
+     edge.curved = .1, 
+     vertex.color = "tomato", 
+     edge.arrow.size = .1, 
+     edge.width = .5, 
+     edge.color = "grey30")
+
+graph.density(random_graph) # rougly .5%!
+```
+
+We will look more closely at the properties of random graphs when we focus on simulation in later weeks. For now let's look at the triad census of this random graph.
+```{r}
+triad.census(random_graph)
+```
+
+Most triads are null. This is because edges only have a 5% chance of being drawn. It follows that 95% of the total possible edges are missing.
+
+There are not many cases of transitive triads, or even in which all three dyads have a relationship. Thus, the majority of triads are concentrated in the left side of the triad distribution
+
+Let's compare it countryside. 
+```{r}
+triad.census(countrysideNetwork)
+```
+
+What do you see? Which triads are common in countryside, but not in the random graph? What might this tell us?
+
+The problem is that we are basing our analysis on a single random graph.  But since drawing edges is random, there is a lot of variation in the structure of random graphs, especially when the number of nodes in the graph is small (less than one thousand).
+
+So let's generate one hundred random graphs, and create a distribution of random graph triad censuses and see where our graph lies on that distribution
+
+```{r}
+trial <- vector("list", 100) # this creates a list with 100 spaces to store things.  We will store each result here. 
+
+for ( i in 1:100 ){ # We repeat our exercise 100 times
+  random_graph <- erdos.renyi.game(n = vcount(countrysideNetwork), p.or.m = graph.density(countrysideNetwork), directed = TRUE) 
+  trial[[i]] <- triad.census(random_graph) # We assign to the ith space the result. So for the first iteration, it will assign the result to the first space in the list
+}
+
+Reduce("+",trial)/100 # The Reduce function will sum each element of the vectors in the list. We divide these values by 100 (the number of iterations) to get the average value for each type of triad for the 100 random graphs we generated
+
+# Now we can compare this result to the observed network
+triad.census(countrysideNetwork)
+```
+
+Beautiful! What do you see? Which triads are more common in our graph than in a random graph? What might this tell us about the macro-structure?
+
+# Mathematically derived expected values
+
+In the Useful R Functions folder, there is a script called "BetterTriadCensus.R", which is a function that returns the expected distribution of triads under a random graph null hypothesis.
+
+Load it like so. Just be sure to direct R to the correct location on your computer.
+
+```{r}
+source('~/gh_repos/sna_teaching/Useful R Functions/BetterTriadCensus.R', echo=TRUE) # you might have to change this path
+```
+
+We can then run this function, TriadCensus() to generate a better triad census. It has two arguments, matrix and weight.  Weight can be set to 1 for now. 
+
+```{r}
+countrysideNetworkMatrix <- as.matrix(get.adjacency(countrysideNetwork)) # First we need to turn our network object into a matrix. 
+TriadCensus(countrysideNetworkMatrix, 1)
+```
+
+Cool! Check out the paper "Matrix Methods for Calculating the Triad Census" by James Moody for more details on how this function works. 
+
+> **Note on undirected graphs**
+> In an undirected graph, all triangles are transitive.  Therefore, the calculation is simply the number of triads in the network, and we don't need the triad census. 
+> It is calculated by taking the number of observed triads and dividing that number by the number of total possible triads in a network of this size or by using transitivity() in igraph
+
+# Transitivity and Reciprocity at the Local Level
+```{r}
+
+get_individ_trans_recip <- function(net){
+  trans <- c()
+  recip <- c()
+  for ( i in 1:vcount(net)){
+    neighbor_net <- delete.vertices(net, which(!V(net)$name %in% neighbors(net, i)$name))
+    temp_tc <- triad_census(neighbor_net)
+    temp_recip <- reciprocity(neighbor_net)
+    if ( is.na(temp_recip) ){
+      temp_recip = 0
+    }
+    total_tri <- sum(temp_tc)
+    intransitive <- sum(temp_tc[c(6,7,8,10,11)])
+    imbalance_percent <- intransitive/total_tri
+    trans <- c(trans, imbalance_percent)
+    recip <- c(recip, temp_recip)
+  }
+  trans <- ifelse(is.na(trans), 0, trans)
+  return(list(Transitivity = trans, Reciprocity = recip))
+}
+
+individual_level_results <- get_individ_trans_recip(countrysideNetwork)
+
+V(countrysideNetwork)$transitivity <-    individual_level_results$Transitivity
+
+V(countrysideNetwork)$reciprocity <-  individual_level_results$Reciprocity
+
+colfunc <- colorRampPalette(c("white", "red"))
+gradient <- colfunc(101)
+
+V(countrysideNetwork)$color_trans <- gradient[round(V(countrysideNetwork)$transitivity*100)+1]
+
+V(countrysideNetwork)$color_recip <- gradient[round(V(countrysideNetwork)$reciprocity*100)+1]
+```
+
+### Individual-level intransitivity
+```{r}
+kamadaLayout <- layout.kamada.kawai(countrysideNetwork)
+
+plot(countrysideNetwork, 
+     layout = kamadaLayout, 
+     vertex.color = V(countrysideNetwork)$color_trans,
+     vertex.size = 3, 
+     vertex.label.cex = .7, 
+     vertex.label = NA, 
+     edge.curved = .1, 
+     vertex.frame.color = "black", 
+     edge.arrow.size = .1, 
+     edge.width = .5, 
+     edge.color = "grey30")
+```
+
+### Individual-level reciprocity
+```{r}
+plot(countrysideNetwork, 
+     layout = kamadaLayout, 
+     vertex.color = V(countrysideNetwork)$color_recip,
+     vertex.size = 3, 
+     vertex.label.cex = .7, 
+     vertex.label = NA, 
+     edge.curved = .1, 
+     vertex.frame.color = "black", 
+     edge.arrow.size = .1, 
+     edge.width = .5, 
+     edge.color = "grey30")
+```
+
+
+

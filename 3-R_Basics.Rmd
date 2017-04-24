@@ -1,0 +1,200 @@
+---
+title: "R Basics"
+author: "Mark Hoffman"
+output: html_document
+---
+
+# R Basics
+
+This initial tutorial for R has two primary learning objectives.  The first is to become affiliated with the R environment and the second is to learn how to extend the basic set of R functions to make it suitable for your own research purposes.  
+
+The lessons we learn in this tutorial will serve as a strong basis for the those that follow, which focus on the actual analysis of networks using R. 
+
+
+Like most programming languages, R can serve as a calculator.  We will use many of these basic mathematical operations when working with network data.
+
+```{r}
+2+2
+((2+2)*3)/6
+2^2
+```
+
+We use the assignment operator "<-" to save the results in a vector for later. 
+
+```{r}
+four <- 2+2
+sixteen <- (2+2)^2
+```
+
+If we type the name of the vector, it will return its values. 
+
+```{r}
+four
+sixteen
+```
+
+Functions in R also have names. Later on, we will learn to write our own functions.  For now, we can make use of the large body of default functions that exist within R.
+
+The most basic function is print.  We can use it to output text in the console.
+
+```{r}
+print("Hello world!")
+```
+
+log() is another useful function and it has two arguments, x and base.  When you call the function log() you have to specify x (the input value), while base has a default of exp(1). 
+
+```{r}
+log82 <- log(x = 8, base = 2)
+```
+
+If you don't specify the arguments in their correct order, you must use argument=value form or else you will get a different result.
+
+```{r}
+log1 <- log(8, base = 2)
+log2 <- log(x = 8, base = 2)
+log3 <- log(8, 2)
+log4 <- log(base = 2, x = 8)
+log5 <- log(2, 8)
+```
+
+The cat function concatenates the R objects and prints them. 
+```{r}
+cat(log1, log2, log3, log4, log5)
+```
+
+As you can see, the fifth specification of the logarithm returned different results.
+
+## Vectors, matrices and dataframes 
+
+Vectors are the most basic object in R. They contain ordered elements of the same type. Vectors of size > 1 are created using the "c" function. 
+
+```{r}
+v <- c(0,1,2,3,4,5,6,7,8,9)
+print(v)
+```
+
+Computations on vectors are performed element-wise.
+
+```{r}
+v <- v * 3
+print(v)
+```
+
+Matrices can be created using the matrix function.  I specify what I want in each cell of the matrix and the dimensions of the matrix.  This will make a square 5 by 5 matrix with all zeroes. If the argument "byrow" is TRUE, the matrix will be filled row by row (horizontally).  Otherwise, it will be filled by column (vertically). 
+
+```{r}
+zero <- rep(0,5) # the rep function replicates the values in x a given number of times
+one <- rep(1,5)
+
+matrix_data <- matrix(c(zero,one,zero,one,zero), nrow = 5, ncol = 5, byrow = TRUE)
+matrix_data
+
+matrix_data <- matrix(c(zero,one,zero,one,zero), nrow = 5, ncol = 5, byrow = FALSE)
+matrix_data
+```
+
+Using the sample function, we can fill each cell randomly with either 0 or 1. This simulates an adjancency matrix for a network where connections between people are random.
+
+```{r}
+matrix_data2 <- matrix(sample(c(1,0), 25, replace = TRUE, prob=c(.5,.5)), nrow=5, ncol=5, byrow =TRUE)
+matrix_data2
+```
+
+Finally, using dimnames, we can name each dimension, which makes sense given we are working with "social" networks.
+
+```{r}
+matrix_data3 <- matrix(sample(c(1,0), 25, replace = TRUE, prob=c(.5,.5)), nrow=5, ncol=5, byrow =TRUE, dimnames = list(c("Thea", "Pravin", "Troy", "Albin", "Clementine"), c("Thea", "Pravin", "Troy", "Albin", "Clementine")))
+
+matrix_data3
+```
+
+We can convert a matrix into a data.frame and vice versa. The class() function tells us what type of object we are working with.
+
+```{r}
+matrix_data3 <- as.matrix(matrix_data3)
+class(matrix_data3)
+
+matrix_data3 <- as.data.frame(matrix_data3)
+class(matrix_data3)
+```
+
+Data frames behave like a Stata dataset, for those that are familiar. However, they are inefficient in R and are increasingly being replaced by user-created data classes, such as data.table. 
+
+In this class, we will deal primarily with matrices, but if you use regression analysis it will be worth your time to explore data.frames.
+
+## Indexing and Subsetting 
+
+When we are working with a matrix or data.frame, we might want to access or manipulate a single row or column at a time. To do so, we need to index a row or column.  This can be done in two ways.  If we are working with a data.frame, we can use the $ operator.  The name of the column we wish to access follows the dollar sign. matrix_data3$Thea will return the column values for Thea.
+
+```{r}
+matrix_data3
+matrix_data3$Thea
+```
+
+We can then manipulate the column directly
+```{r}
+matrix_data3$Thea <- 1
+matrix_data3
+```
+
+We can also use subscripting.  For example, matrix\_data3[,1] tells R to return the first column while matrix\_data3[1,] tells R to return the first row. Finally, matrix_data3[1,1] is the cell located in the first row of the first column.
+
+This is more flexible than $, but requires you to know the locations of the intended data in the dataset or matrix.
+
+```{r}
+matrix_data3[,1]
+matrix_data3[1,]
+matrix_data3[1,1]
+```
+
+Vectors are also indexed, but they only have one dimension, so no comma is needed.
+
+```{r}
+trial_vector <- c(1,2,3,4,5,6)
+trial_vector[1]
+```
+
+Finally, we may wish to remove columns in a data.frame, matrix or vector.  We can use the subset function to do this.
+
+```{r}
+trial_vector <- subset( trial_vector, trial_vector > 2)
+trial_vector
+```
+
+We can perform this same operation with subscripts
+```{r}
+trial_vector <- c(1,2,3,4,5,6)
+trial_vector <- trial_vector[trial_vector > 2]
+```
+
+In effect, they both say - take a subset of trial_vector in which the value in the vector is greater than 2
+
+Finally we can use the subscript index method to change values if they meet a certain criteria
+
+```{r}
+trial_vector <- c(1,2,3,4,5,6)
+trial_vector[trial_vector > 2] <- 10
+
+trial_vector
+```
+
+We won't use subset with matrices, but we will likely index them. Subsetting is more commonly used with data.frames
+
+
+## Loading Packages
+
+Packages are collections of R functions, data, and compiled code. They are built by members of the R community to add functionality to base R. Generally, if you wish you could do something with R, someone has built a package to do it already!
+
+We will use a few packages, some of which are built into R. We will need to install the others. For now, we just need to install igraph, which is the most developed network analysis package for R. To do so, we use the install.packages() function.
+
+```{r}
+# install.packages("igraph")
+```
+
+The library function tells R to add the package to the current R session
+
+```{r}
+library(igraph)
+```
+
+We will use the library() function every time we start a new R session.  If R cannot find a function that you are sure is in a package you use, it normally means the package isn't loaded or that you somehow misspelled the function name.

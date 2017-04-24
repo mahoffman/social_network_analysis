@@ -1,0 +1,35 @@
+---
+knit: "bookdown::render_book"
+title: "Social Network Analysis"
+author: ["Peter Bearman","Mark Hoffman"]
+date: "May 1, 2017"
+description: "In this book, we will learn how to do descriptive network analysis with R. "
+github-repo: markahoffman/quantifiedmark
+twitter-handle: mark_a_hoffman
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook: default
+  bookdown::pdf_book: default
+  output_dir: "docs"
+---
+
+# Welcome {-}
+
+Peter Bearman
+psb17@columbia.edu
+
+Mark Hoffman
+Mh3279@columbia.edu
+
+<img src="cover.png"/>
+
+This seminar is intended as a theoretical and methodological introduction to social network analysis. Though network analysis is an interdisciplinary endeavor, its roots can be found in classical anthropology and sociology. Network analysis focuses on patterns of relations between actors. Both relations and actors can be defined in many ways, depending on the substantive area of inquiry. For example, network analysis has been used to study the structure of affective links between persons, flows of commodities between organizations, shared members between social movement organizations, and shared needles between drug users. What is central is an emphasis on the structure of relationality, which serves to link micro- and macro-level processes.
+
+We will spend this course becoming familiar with the theoretical foundations of structural network analysis, including principles of balance and transitivity, the implications of connectivity and density, the relationship between categories and networks, the nature of exchange structures, and power and centrality. We will also discuss substantive applications of the network approach. 
+
+Each class covers substantive and theoretical material and is associated with a technical lab.  You will need to bring your laptops to each class. In the technical labs you will learn how to analyze network data in R. 
+
+This e-book contains all of the technical labs, in the order that we will cover them. Should you forget anything we  learned, you will be to return to this book and go through the tutorial again. In addition, at the end of each chapter is a list of readings, which pertain to the theoretical and methodological topics discussed in each class. 
+
+We start with the basics: installing R and R Studio, creating and loading network data structures into R and plotting networks and network aesthetics. We then analyze networks using descriptive statistics, including size, density, reciprocity, transitivity, centrality, assortativity and modularity. Next we discuss bipartite graphs and their analysis. We conclude with network simulation and modeling.

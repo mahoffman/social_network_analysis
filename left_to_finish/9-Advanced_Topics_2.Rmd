@@ -1,0 +1,41 @@
+---
+title: "Blockmodeling Tutorial"
+author: "Mark Hoffman"
+output: html_document
+---
+
+# Blockmodeling
+
+Blockmodeling is not implemented in igraph. However, I included some code which will allow you to do it easily. You will need to install a package called sna for it to run. 
+
+To begin, we load igraph.
+
+```{r}
+# install.packages("sna")
+library(igraph)
+```
+
+Next load in the bank_wiring.rda data included in the Data folder, which comes from Breiger et. al's 1975 paper on blockmodeling. .rda is a type of R-specific data which can be loaded with the load function. The only thing you need to change is the file path. 
+
+```{r}
+load("/Users/markhoffman/gh_repos/sna_teaching/Data/bank_wiring.rda")
+```
+
+We can look at the data.  It is a list of matrices. 
+```{r}
+bank_wiring
+```
+
+I made the CONCOR/blocking function work for either matrices or igraph objects, so you could also put a series of igraph objects in a list to perform blockmodeling. Just to show you that it works, let's convert all of the matrices in the bank_wiring list to igrpah objects using the lapply function.
+```{r}
+bank_wiring <- lapply(bank_wiring, FUN = function(x) graph_from_adjacency_matrix(as.matrix(x)))
+
+bank_wiring
+```
+
+Finally, let's source the file which includes the necessary function and run the concor_blockmodel function.
+```{r}
+source("/Users/markhoffman/gh_repos/sna_teaching/Useful R Functions/blockmodeling and concor.R")
+bank_blockmodel <- concor_blockmodel(bank_wiring, p = 2)
+```
+

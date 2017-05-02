@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Social Network Analysis</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Social Network Analysis">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Social Network Analysis" />
+  <meta property="og:type" content="book" />
+
+
+
+  <meta name="github-repo" content="markahoffman/social_network_analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Social Network Analysis" />
+  <meta name="twitter:site" content="@mark_a_hoffman" />
+
+
+
+<meta name="author" content="Peter Bearman and Mark Hoffman">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+<link rel="prev" href="your-first-network.html">
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-r"><i class="fa fa-check"></i><b>1.1</b> Downloading and Installing R</a></li>
+<li class="chapter" data-level="1.2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-rstudio"><i class="fa fa-check"></i><b>1.2</b> Downloading and Installing RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>2</b> Tour RStudio with Udacity</a></li>
+<li class="chapter" data-level="3" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
+<li class="chapter" data-level="3.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-data.frames"><i class="fa fa-check"></i><b>3.1</b> Vectors, matrices and data.frames</a></li>
+<li class="chapter" data-level="3.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>3.2</b> Indexing and Subsetting</a></li>
+<li class="chapter" data-level="3.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>3.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html"><i class="fa fa-check"></i><b>4</b> Understanding network data structures</a><ul>
+<li class="chapter" data-level="4.1" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#edge-lists"><i class="fa fa-check"></i><b>4.1</b> Edge lists</a></li>
+<li class="chapter" data-level="4.2" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#adjacency-matrices"><i class="fa fa-check"></i><b>4.2</b> Adjacency matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="your-first-network.html"><a href="your-first-network.html"><i class="fa fa-check"></i><b>5</b> Your First Network</a><ul>
+<li class="chapter" data-level="5.1" data-path="your-first-network.html"><a href="your-first-network.html#creating-a-project"><i class="fa fa-check"></i><b>5.1</b> Creating a project</a></li>
+<li class="chapter" data-level="5.2" data-path="your-first-network.html"><a href="your-first-network.html#creating-data-in-excel"><i class="fa fa-check"></i><b>5.2</b> Creating data in Excel</a></li>
+<li class="chapter" data-level="5.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>5.3</b> Saving Excel data as a .csv file</a></li>
+<li class="chapter" data-level="5.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>5.4</b> Loading data into R</a></li>
+<li class="chapter" data-level="5.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>5.5</b> From data to networks</a></li>
+<li class="chapter" data-level="5.6" data-path="your-first-network.html"><a href="your-first-network.html#exploring-your-network"><i class="fa fa-check"></i><b>5.6</b> Exploring your network</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>6</b> Network Visualization and Aesthetics</a><ul>
+<li class="chapter" data-level="6.1" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#the-basics"><i class="fa fa-check"></i><b>6.1</b> The Basics</a></li>
+<li class="chapter" data-level="6.2" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#layouts"><i class="fa fa-check"></i><b>6.2</b> Layouts</a></li>
+<li class="chapter" data-level="6.3" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>6.3</b> Adding attributes to a network object</a></li>
+<li class="chapter" data-level="6.4" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#plotting-based-on-attributes"><i class="fa fa-check"></i><b>6.4</b> Plotting based on attributes</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Social Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="network-visualization-and-aesthetics" class="section level1">
+<h1><span class="header-section-number">6</span> Network Visualization and Aesthetics</h1>
+<p>As social scientists, we want to tell convincing stories about the structure and dynamics of the networks we study. Visualization and statistics are the primary tools at our disposable for conveying these stories.</p>
+<p>In this tutorial we will learn how to change the aesthetics of our network visualizations. When visualizing networks, there are a number of different elements we can adjust. First, we can change the color, size, shapes and labels of nodes. Second, we can change the color, width, curviture and appearance of edges. We can highlight the location of different groups in the network. Finally, we can manipulate the overall layout of the network.</p>
+<div id="the-basics" class="section level2">
+<h2><span class="header-section-number">6.1</span> The Basics</h2>
+<p>Let’s start by adjusting the basic visualization. First, load in the data we created in the last tutorial and graph it as a network. The code below should look familiar. The only difference is that I converted money_edgelist into a matrix in the same line as graphing it as an edgelist. This is called nesting functions. There is no limit to the amount of functions you can have nested, though often times it is easier to read if you break them up into multiple lines.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(igraph)
+money_edgelist &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;money_edgelist.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> F)
+moneyNetwork &lt;-<span class="st"> </span><span class="kw">graph.edgelist</span>(<span class="kw">as.matrix</span>(money_edgelist), <span class="dt">directed=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p>Visualizing the network is as simple as typing plot(moneyNetwork). But as I mentioned earlier, the default plot is really horrible (and it used to be worse…). We can adjust the settings of the plot so that the resulting visualization is more aesthetically pleasing. There are many settings for the igraph plot() function, and we will go over the bare minimum you need to start making decent visualizations on your own.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork)</code></pre></div>
+<p><img src="Images/unnamed-chunk-35-1.png" width="672" /></p>
+<p>The most basic things we can change are the sizes and colors of nodes. When your network is large, often the nodes will appear too large and clumped together. The argument vertex.size allows you to adjust node size (vertex is the graph-theory term for node!).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-36-1.png" width="672" /></p>
+<p>This is the basic way you change the settings of the plot function in igraph - you put a comma next to the next to the network object, type the name of the setting you want to change, and set it to a new value. Here we set vertex.size to 10. When you don’t change any settings, R will automatically use the default settings. You can find them in the help section for that function (i.e. by typing ?plot.igraph, for example). All you have to do is remember the names of the various settings, or look them up at: <a href="http://igraph.org/r/" class="uri">http://igraph.org/r/</a></p>
+<p>The nodes have an ugly light orange color… We can use vertex.color to change their color to something nicer. We can also remove the ugly black frames by changing the vertex.frame.color setting to NA.</p>
+<blockquote>
+<p><strong>Useful Link</strong> You can find a list of all the named colors in R at <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf" class="uri">http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf</a></p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-37-1.png" width="672" /></p>
+<p>The labels are too large and blue. We can adjust label size with vertex.label.cex. We can adjust the color with vertex.label.color</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-38-1.png" width="672" /></p>
+<p>Alternatively, if we want to get rid of the labels, we can just set vertex.label to NA.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-39-1.png" width="672" /></p>
+<p>Finally we can make the edges smaller and curved to give them a nicer aesthetic</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-40-1.png" width="672" /></p>
+<p>But don’t go too crazy! If you set edge.curved to be greater than .1, it will start to look like spaghetti.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> <span class="fl">1.7</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-41-1.png" width="672" /></p>
+</div>
+<div id="layouts" class="section level2">
+<h2><span class="header-section-number">6.2</span> Layouts</h2>
+<p>An essential part of a network visualization is its layout, which determines the nodes’ positions in the plot. There are a wide range of layouts that have been developed for social network analysis. They all try to minimize the number of edges that cross, but use different algorithms for achieving this goal. Generally, I use either the Kamada Kawai algorithm or the Fruchterman Reingold algorithm.</p>
+<p>igraph has set of layout functions which, when passed a network object, return an array of coordinates that can then used when plotting that network. These coordinates should be saved to a separate R object, which is then called within the plot function. They all have the format: layout DOT algorithm name. For example, layout.kamada.kawai() or layout.fruchterman.reingold()</p>
+<p><strong>Kamada Kawai</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first we run the layout function on our graph</span>
+kamadaLayout &lt;-<span class="st"> </span><span class="kw">layout.kamada.kawai</span>(moneyNetwork)
+
+<span class="co"># and then we change the default layout setting to equal the layout we generated above</span>
+<span class="kw">plot</span>(moneyNetwork, <span class="dt">layout =</span> kamadaLayout, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-42-1.png" width="672" /></p>
+<p><strong>Frucherman-Reingold</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first we run the layout function on our graph</span>
+fruchtermanLayout &lt;-<span class="st"> </span><span class="kw">layout.fruchterman.reingold</span>(moneyNetwork)
+
+<span class="co"># and then we change the default layout setting to equal the layout we generated above</span>
+<span class="kw">plot</span>(moneyNetwork, <span class="dt">layout =</span> fruchtermanLayout, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-43-1.png" width="672" /></p>
+<p>You can see ?layout_ for more options and details.</p>
+</div>
+<div id="adding-attributes-to-a-network-object" class="section level2">
+<h2><span class="header-section-number">6.3</span> Adding attributes to a network object</h2>
+<p>We can affect any of these aesthetics arbitrarily. You might prefer the way networks look when the edges are curved as opposed to straight for example. However, we often make decisions informed by theories we have about our empirical setting. If we think that race is important to the structure of the network, we might color nodes according to race. If we think both race and gender are important, we could color nodes by race and change the shape of nodes by gender. We could also size nodes according to wealth. We are generally limited to visualizing three attributes of nodes at once (using color, shape and size), though I find that anything more than two (color and size) is difficult to interpret.</p>
+<p>It follows that, to visualize how attributes are distributed over the nodes of the network, most network projects need two separate datasets. In addition to creating and loading a dataset of relations, which we covered in the previous tutorial, we need a second dataset that details actors’ attributes and we need to add the data to our network. Deciding wich attributes are relevant will depend on the domain and your research question; if you are studying gangs in the southside Chicago, you might record actors’ gang affiliations and residence; if you are interested in the business relationships between Saudi elites, you might record their age and lineage.</p>
+<p>Let’s return to Excel and build an attribute dataset for our network. This kind of dataset is much more traditional: each row is a person (otherwise known as an observation) and each column accords with some attribute you measured for that person. Here is a picture of an example attribute dataset I made for my family’s money provision network.</p>
+<p><strong>Hoffman family attributes</strong></p>
+<hr />
+<p><img src="Images/attribute_df.png"/></p>
+<hr />
+<p>I saved this attribute dataset as a .csv file inside of my R directory. I will load it into R, just as I did the edgelist in the previous tutorial (all of this should be practiced and familiar! if not, revisit the previous tutorial).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">attributes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;attribute_df.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> F)
+<span class="kw">head</span>(attributes)</code></pre></div>
+<pre><code>##    Name Age Gender     Role
+## 1  Greg  53   Male   Father
+## 2 Maria  52 Female   Mother
+## 3  Mark  25   Male      Son
+## 4  Lexi  23 Female Daughter
+## 5 Grace  19 Female Daughter
+## 6  Nick  14   Male      Son</code></pre>
+<p>This gives us a data.frame, where each row corresponds to a person and each column corresponds to one attribute of the people in our network, but to use these attributes in igraph, we have to assign them to the nodes in the igraph object (moneyNetwork, that is).</p>
+<p>Attributes in igraph are assigned to nodes and edges separately. As mentioned in the previous tutorial, vertices are accessed using the V() function while edges are accessed with the E() function. Attributes are then accessed with the dollar sign operator followed by the attribute name. For example, as we showed earlier, V(countrysideNetwork)$name will tell us the names of all of the nodes in the network. To change an attribute, we can just use the equals sign to set them equal to something else. So for example, here I change the names of the nodes in my network</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Change the names</span>
+<span class="kw">V</span>(moneyNetwork)$name =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Linda&quot;</span>, <span class="st">&quot;Elias&quot;</span>, <span class="st">&quot;Catherine&quot;</span>, <span class="st">&quot;Eloise&quot;</span>, <span class="st">&quot;Pumpkin&quot;</span>)
+
+<span class="co"># Print the node names to see that it worked!</span>
+<span class="kw">print</span>(<span class="kw">V</span>(moneyNetwork)$name)</code></pre></div>
+<pre><code>## [1] &quot;Bob&quot;       &quot;Linda&quot;     &quot;Elias&quot;     &quot;Catherine&quot; &quot;Eloise&quot;    &quot;Pumpkin&quot;</code></pre>
+<p>At the moment, our network doesn’t have any attributes other than name. If we try to look at the sex of our nodes, we will get NULL as a result.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(moneyNetwork)$gender[<span class="dv">1</span>:<span class="dv">6</span>]</code></pre></div>
+<pre><code>## NULL</code></pre>
+<p>We therefore need to attach the attributes from our attribute file to our network. The method for doing can be a bit complicated.</p>
+<p>If we have an edge list, we can use the _from_data_frame() function instead of graph.edgelist(), and include the attributes file as the vertices argument. For whatever reason, in this case, the edge list needs to be a data.frame, so no need to convert it to a matrix. Also, it is important to note that igraph <em>assumes</em> that the first column is the name column, so make sure that is the case!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load in the edge list again</span>
+money_edgelist &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;money_edgelist.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> F)
+
+<span class="co"># Load in the attributes again</span>
+attributes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;attribute_df.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> F)
+
+<span class="co"># Put them both in the network.</span>
+moneyNetwork &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>(money_edgelist, <span class="dt">directed =</span> T, <span class="dt">vertices =</span> attributes)</code></pre></div>
+<p>Now, if we look at our network, we will see that there are many more next to attr.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">moneyNetwork</code></pre></div>
+<pre><code>## IGRAPH DN-- 6 11 --
+## + attr: name (v/c), Age (v/n), Gender (v/c), Role (v/c)
+## + edges (vertex names):
+##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick
+##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick
+## [11] Lexi -&gt;Nick</code></pre>
+<p>We can look at each one with the V()$ function. For example, here is gender.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(moneyNetwork)$Gender </code></pre></div>
+<pre><code>## [1] &quot;Male&quot;   &quot;Female&quot; &quot;Male&quot;   &quot;Female&quot; &quot;Female&quot; &quot;Male&quot;</code></pre>
+<p>Awesome! Now the attributes are in the network.</p>
+</div>
+<div id="plotting-based-on-attributes" class="section level2">
+<h2><span class="header-section-number">6.4</span> Plotting based on attributes</h2>
+<p>In the last section, we imported attributal data into our network object, which will allow us to manipulate our network according to nodal attributes. Let’s start by manipulating color according to gender</p>
+<p>To do this we have to assign colors to people according to their sex. We use the ifelse function. The ifelse() function takes three arguments. The first is a test (something that evaluates to TRUE or FALSE), the second is what to return if the test is TRUE and third is what to return if the test is FALSE.</p>
+<p>We therefore set up an ifelse function, which tests whether a node’s gender is male, assigning it the color “blue” if TRUE (i.e. if they are a male) and “green” if FALSE (i.e. otherwise/they are a female). Remember that R is case sensitive, so if your gender variable contains “Males” and “Females”, then make sure you put Male or Female (capitalized) in the ifelse statement.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(moneyNetwork)$color &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(moneyNetwork)$Gender ==<span class="st"> &quot;Male&quot;</span>, <span class="st">&quot;dodgerblue3&quot;</span>,<span class="st">&quot;seagreen&quot;</span>)</code></pre></div>
+<p>Now we can replot the network. This time a node’s color will be green or blue depending on their gender. Notice that I didn’t set the vertex.colors inside the plot function this time, since doing so would override the colors we just gave the nodes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.frame.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-51-1.png" width="672" /></p>
+<p>Now let’s try role. First, I reset color. There are four roles (Father, Mother, Son, Daughter), so we need a few more ifelse statements to code for all of them.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(moneyNetwork)$color &lt;-<span class="st"> </span><span class="ot">NA</span>
+<span class="kw">V</span>(moneyNetwork)$color &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(moneyNetwork)$Role ==<span class="st"> &quot;Father&quot;</span>, <span class="st">&quot;burlywood1&quot;</span>,<span class="st">&quot;tomato&quot;</span>)
+<span class="kw">V</span>(moneyNetwork)$color &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(moneyNetwork)$Role ==<span class="st"> &quot;Mother&quot;</span>, <span class="st">&quot;seagreen&quot;</span>, <span class="kw">V</span>(moneyNetwork)$color)
+<span class="kw">V</span>(moneyNetwork)$color &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(moneyNetwork)$Role ==<span class="st"> &quot;Son&quot;</span>, <span class="st">&quot;grey70&quot;</span>, <span class="kw">V</span>(moneyNetwork)$color)
+
+<span class="kw">plot</span>(moneyNetwork,<span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">vertex.frame.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>, <span class="dt">edge.color =</span> <span class="st">&quot;grey30&quot;</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-52-1.png" width="672" /></p>
+<p>Last but not least, let’s adjust the sizes of the nodes so that they reflect differences in age. We can set node size to be 1/5th of the node’s age with the code below. Simple, but effective. It looks like the oldest nodes give to the most people.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(moneyNetwork)$size =<span class="st"> </span><span class="kw">V</span>(moneyNetwork)$Age/<span class="dv">5</span>
+
+<span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">vertex.frame.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>, <span class="dt">edge.color =</span> <span class="st">&quot;grey30&quot;</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-53-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="your-first-network.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

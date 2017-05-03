@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Social Network Analysis</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Social Network Analysis">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Social Network Analysis" />
+  <meta property="og:type" content="book" />
+
+
+
+  <meta name="github-repo" content="markahoffman/social_network_analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Social Network Analysis" />
+  <meta name="twitter:site" content="@mark_a_hoffman" />
+
+
+
+<meta name="author" content="Peter Bearman and Mark Hoffman">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+<link rel="prev" href="network-visualization-and-aesthetics.html">
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="readings-for-the-course.html"><a href="readings-for-the-course.html"><i class="fa fa-check"></i><b>1</b> Readings for the course</a><ul>
+<li class="chapter" data-level="1.1" data-path="readings-for-the-course.html"><a href="readings-for-the-course.html#day-1-introduction-to-types-of-networks-and-strategies-for-analysis-articles-we-discussed"><i class="fa fa-check"></i><b>1.1</b> Day 1: Introduction to types of networks and strategies for analysis (Articles we discussed)</a></li>
+<li class="chapter" data-level="1.2" data-path="readings-for-the-course.html"><a href="readings-for-the-course.html#day-2-part-1-ego-networks"><i class="fa fa-check"></i><b>1.2</b> Day 2: Part 1 – Ego-Networks</a></li>
+<li class="chapter" data-level="1.3" data-path="readings-for-the-course.html"><a href="readings-for-the-course.html#day-2-part-2-balance-and-transitivity"><i class="fa fa-check"></i><b>1.3</b> Day 2 – Part 2 Balance and Transitivity</a></li>
+<li class="chapter" data-level="1.4" data-path="readings-for-the-course.html"><a href="readings-for-the-course.html#day-3-part-1-centrality"><i class="fa fa-check"></i><b>1.4</b> Day 3: Part 1 Centrality</a></li>
+<li class="chapter" data-level="1.5" data-path="readings-for-the-course.html"><a href="readings-for-the-course.html#day-3-part-2.-modularity-community-structure-and-small-worlds"><i class="fa fa-check"></i><b>1.5</b> Day 3: Part 2. Modularity, Community Structure and Small Worlds</a></li>
+<li class="chapter" data-level="1.6" data-path="readings-for-the-course.html"><a href="readings-for-the-course.html#day-4-part-1-rectangular-matrices"><i class="fa fa-check"></i><b>1.6</b> Day 4: Part 1, Rectangular Matrices</a></li>
+<li class="chapter" data-level="1.7" data-path="readings-for-the-course.html"><a href="readings-for-the-course.html#day-4-part-2-blockmodeling-multiple-relations"><i class="fa fa-check"></i><b>1.7</b> Day 4: Part 2 Blockmodeling Multiple Relations</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>2</b> Installing R and RStudio</a><ul>
+<li class="chapter" data-level="2.1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-r"><i class="fa fa-check"></i><b>2.1</b> Downloading and Installing R</a></li>
+<li class="chapter" data-level="2.2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-rstudio"><i class="fa fa-check"></i><b>2.2</b> Downloading and Installing RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>3</b> Tour RStudio with Udacity</a></li>
+<li class="chapter" data-level="4" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a><ul>
+<li class="chapter" data-level="4.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-data.frames"><i class="fa fa-check"></i><b>4.1</b> Vectors, matrices and data.frames</a></li>
+<li class="chapter" data-level="4.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>4.2</b> Indexing and Subsetting</a></li>
+<li class="chapter" data-level="4.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>4.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html"><i class="fa fa-check"></i><b>5</b> Understanding network data structures</a><ul>
+<li class="chapter" data-level="5.1" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#edge-lists"><i class="fa fa-check"></i><b>5.1</b> Edge lists</a></li>
+<li class="chapter" data-level="5.2" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#adjacency-matrices"><i class="fa fa-check"></i><b>5.2</b> Adjacency matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="your-first-network.html"><a href="your-first-network.html"><i class="fa fa-check"></i><b>6</b> Your First Network</a><ul>
+<li class="chapter" data-level="6.1" data-path="your-first-network.html"><a href="your-first-network.html#creating-a-project"><i class="fa fa-check"></i><b>6.1</b> Creating a project</a></li>
+<li class="chapter" data-level="6.2" data-path="your-first-network.html"><a href="your-first-network.html#creating-data-in-excel"><i class="fa fa-check"></i><b>6.2</b> Creating data in Excel</a></li>
+<li class="chapter" data-level="6.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>6.3</b> Saving Excel data as a .csv file</a></li>
+<li class="chapter" data-level="6.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>6.4</b> Loading data into R</a></li>
+<li class="chapter" data-level="6.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>6.5</b> From data to networks</a></li>
+<li class="chapter" data-level="6.6" data-path="your-first-network.html"><a href="your-first-network.html#exploring-your-network"><i class="fa fa-check"></i><b>6.6</b> Exploring your network</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>7</b> Network Visualization and Aesthetics</a><ul>
+<li class="chapter" data-level="7.1" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#the-basics"><i class="fa fa-check"></i><b>7.1</b> The Basics</a></li>
+<li class="chapter" data-level="7.2" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#layouts"><i class="fa fa-check"></i><b>7.2</b> Layouts</a></li>
+<li class="chapter" data-level="7.3" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>7.3</b> Adding attributes to a network object</a></li>
+<li class="chapter" data-level="7.4" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#plotting-based-on-attributes"><i class="fa fa-check"></i><b>7.4</b> Plotting based on attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="measuring-transitivity-and-structural-balance.html"><a href="measuring-transitivity-and-structural-balance.html"><i class="fa fa-check"></i><b>8</b> Measuring transitivity and structural balance</a><ul>
+<li class="chapter" data-level="8.1" data-path="measuring-transitivity-and-structural-balance.html"><a href="measuring-transitivity-and-structural-balance.html#calculating-a-triad-census"><i class="fa fa-check"></i><b>8.1</b> Calculating a triad census</a></li>
+<li class="chapter" data-level="8.2" data-path="measuring-transitivity-and-structural-balance.html"><a href="measuring-transitivity-and-structural-balance.html#generating-a-random-graph-for-comparison"><i class="fa fa-check"></i><b>8.2</b> Generating a random graph for comparison</a></li>
+<li class="chapter" data-level="8.3" data-path="measuring-transitivity-and-structural-balance.html"><a href="measuring-transitivity-and-structural-balance.html#random-graphs-galore"><i class="fa fa-check"></i><b>8.3</b> Random graphs galore!</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Social Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="measuring-transitivity-and-structural-balance" class="section level1">
+<h1><span class="header-section-number">8</span> Measuring transitivity and structural balance</h1>
+<p>The main goal of this tutorial is to explain the triad census, how to calculate it in igraph and how to use simulation to estimate the expected triad census result under a null model to use as a basis of comparison in evaluating an observed network.</p>
+<p>We can break large social networks down into their constituent parts. These constituent parts are referred to as “motifs”. The most basic motif consists of two nodes and is called a dyad. Edges in a network signify the presence or absence of dyadic relations. It follows that a dyad in an undirected network can have two possible structures: connected or disconnected; and four possible structures in a directed network.</p>
+<p>Density captures, at the macro-level, the proportion of dyads that are present over the possible total number of dyads in the network. We are simply re-framing what we discussed last class, except we are focusing on the configuration of nodes as opposed to edges.</p>
+<p>Triads consist of three nodes and are therefore more complex than dyads, with more possible arrangements.<br />
+This becomes clear when you realize an undirected triad consists of <em>three</em> dyads: A and B, B and C, and A and C. In an undirected graph, there are eight possible triads (2^3… sort of obvious given that each dyad can be present or absent and there are three dyads). Of those eight possible triads, four are isomorphic, so that there are four unique triads.</p>
+<p>In an directed graph, there will be sixteen unique triads (the unique number of motifs in directed graphs is not easily reduced to a functional form).</p>
+<p>Take Professor Bearman’s paper “Chains of Affection” as an example. He and his colleagues found that the spanning tree network observed in the high school lacked 3, 4 and 5 “cycles”.</p>
+<p>This is another way of saying there were no complete triads, quadrads or pentrads in the network. If we see a network with very few triads, then we know something about the macro-level structure, just by looking at the frequencies of its constituent parts at the micro-level.</p>
+<p>The triad census calculates how many triads there are of each type (which, as I just mentioned, in a directed network amounts to 16). If this distribution of triads is different than the distribution in a random network, then it could tell us something about the macro-level structure that we couldn’t observe just by looking at a visualization of the network.</p>
+<div id="calculating-a-triad-census" class="section level2">
+<h2><span class="header-section-number">8.1</span> Calculating a triad census</h2>
+<p>igraph has a built in function for the triad census: triad.census()</p>
+<p>It takes a network object as an argument and returns the number of each type of triad in the network.</p>
+<p>First, load in igraph.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(igraph)</code></pre></div>
+<p>Next download the network we will analyze (simulated data of an Add Health high school, called Faux Mesa High) and its network attributes by following this link: www.markanthonyhoffman.com/downloads/faux_mesa_files.zip</p>
+<p>It should download a zipped file to your computer . Unzip it and drag its contents into your R Project folder.</p>
+<p>Once you have the files in your folder, we can run the code below. It loads the network using the graph.data.frame() function from the previous tutorial.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">faux_edgelist &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;faux_edgelist.csv&#39;</span>, <span class="dt">stringsAsFactors =</span> F)
+faux_attributes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;faux_attributes.csv&#39;</span>, <span class="dt">stringsAsFactors =</span> F)
+
+fauxNetwork &lt;-<span class="st"> </span><span class="kw">graph.data.frame</span>(faux_edgelist, <span class="dt">directed =</span> T, <span class="dt">vertices =</span> faux_attributes)</code></pre></div>
+<p>Let’s plot it to see how it looks!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(fauxNetwork,
+     <span class="dt">vertex.size =</span> <span class="dv">3</span>,
+     <span class="dt">vertex.label =</span> <span class="ot">NA</span>,
+     <span class="dt">edge.curved =</span> .<span class="dv">1</span>,
+     <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>,
+     <span class="dt">edge.arrow.size =</span> .<span class="dv">1</span>,
+     <span class="dt">edge.width =</span> .<span class="dv">5</span>,
+     <span class="dt">edge.color =</span> <span class="st">&quot;grey30&quot;</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-56-1.png" width="672" /></p>
+<p>It appears to be pretty clustered, with a few distinct groups.</p>
+<p>Now we can run the triad.census() function from igraph in order to calculate the triad census.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">triad.census</span>(fauxNetwork)</code></pre></div>
+<pre><code>##  [1] 1374298   40077       0     215     105     153       0       0
+##  [9]      62       0       0       0       0       0       0       0</code></pre>
+<p>As you can see, it returns 16 different numbers. It uses the M-A-N classification structure: M stands for the number of Mutual ties, A stands for the number of Asymmetric ties, and N stands for the number of Null ties.</p>
+<p>Mutual means that ego and alter (say A and B) have a mutual relation with each other (A likes B and B likes A). A means that ego and alter have an asymmetric relation with one another, i.e. A likes B but B doesn’t like A… the relation is not reciprocated. Finally, N means that A and B do not have any relation.</p>
+<p>The image below visualizes the different types of triads possible in a directed graph.</p>
+<p><img src="Images/triad_census.jpg"/></p>
+<p>?triad.census also describes these possible types, telling you the order that the triad types are presented in the triad.census() output.</p>
+<p>003 for example means there are 0 mutual relation, 0 asymmetric relations and 3 null relations. This triad contains no relations. 201 would mean there are two mutual relations, zero asymmetric relations, and 1 null relation. Of three dyads in the triad, two dyads are in a relation, and one dyad is not.</p>
+</div>
+<div id="generating-a-random-graph-for-comparison" class="section level2">
+<h2><span class="header-section-number">8.2</span> Generating a random graph for comparison</h2>
+<p>However, we are generally not interested in pure counts. Like in any statistical analysis, we want to know what distribution we would expect by chance, so that we can see if our distribution is meaningfully different. We can approach this question from two different angles: simulation or mathematical derivation.</p>
+<p>In both cases, we will utilize random graphs as our null model. In random graphs, the chance that any two dyads are in a relation is determined by chance (i.e. the flip of a coin). This means that the likelihood of observing a given tie is independent from observing a tie between any other dyad.</p>
+<p>There are a lot of reasons that this is unrealistic.. For example, if A and B are friends and A and C are friends, then we would expect the probability that B and C are friends to be higher. This is a basic feature of most social networks… you are more likely to be friends with your friends friends than with strangers. We therefore might want to factor in this human tendency towards triadic closure into our null model - later in the class I will discuss ways of doing this. However, random graphs have many properties that are mathematically and heuristically useful, which is why they are commonly used as null models. We will try to think of better null structures as class goes on.</p>
+<p>igraph has a fast and easy function for generating random graphs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?erdos.renyi.game</code></pre></div>
+<p>In an erdos.renyi.graph, each edge has the same probability of being created. We determine the probability and it returns a random graph with a density that equals (in expectation) this probability.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">random_graph &lt;-<span class="st"> </span><span class="kw">erdos.renyi.game</span>(<span class="dt">n =</span> <span class="kw">vcount</span>(fauxNetwork), <span class="dt">p.or.m =</span> <span class="kw">graph.density</span>(fauxNetwork), <span class="dt">directed =</span> <span class="ot">TRUE</span>) <span class="co"># where n is the number of nodes, p.or.m is the probability of drawing an edge, directed is whether the network is directed or not</span>
+
+<span class="kw">plot</span>(random_graph,
+     <span class="dt">vertex.size =</span> <span class="dv">3</span>,
+     <span class="dt">vertex.label =</span> <span class="ot">NA</span>,
+     <span class="dt">edge.curved =</span> .<span class="dv">1</span>,
+     <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>,
+     <span class="dt">edge.arrow.size =</span> .<span class="dv">1</span>,
+     <span class="dt">edge.width =</span> .<span class="dv">5</span>,
+     <span class="dt">edge.color =</span> <span class="st">&quot;grey30&quot;</span>)</code></pre></div>
+<p><img src="Images/unnamed-chunk-59-1.png" width="672" /></p>
+<p>We will look more closely at the properties of random graphs when we focus on simulation in later weeks. For now let’s look at the triad census of this random graph.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">triad.census</span>(random_graph)</code></pre></div>
+<pre><code>##  [1] 1377074   37508       0      90      76     162       0       0
+##  [9]       0       0       0       0       0       0       0       0</code></pre>
+<p>Most triads are null. This is because edges only have a 5% chance of being drawn. It follows that 95% of the total possible edges are missing.</p>
+<p>There are not many cases of transitive triads, or even in which all three dyads have a relationship. Thus, the majority of triads are concentrated in the left side of the triad distribution</p>
+<p>Let’s compare it Faux Mesa High.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">triad.census</span>(fauxNetwork)</code></pre></div>
+<pre><code>##  [1] 1374298   40077       0     215     105     153       0       0
+##  [9]      62       0       0       0       0       0       0       0</code></pre>
+<p>Which triads are common in Faux Mesa High, but not in the random graph? What might this tell us?</p>
+</div>
+<div id="random-graphs-galore" class="section level2">
+<h2><span class="header-section-number">8.3</span> Random graphs galore!</h2>
+<p>The problem is that we are basing our analysis on a single random graph. But since drawing edges is random, there is a lot of variation in the structure of random graphs, especially when the number of nodes in the graph is small (less than one thousand).</p>
+<p>So let’s generate one hundred random graphs, and create a distribution of random graph triad censuses and see where our graph lies on that distribution</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trial &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="dv">100</span>) <span class="co"># this creates a list with 100 spaces to store things.  We will store each result here. </span>
+
+for ( i in <span class="dv">1</span>:<span class="dv">100</span> ){ <span class="co"># We repeat our exercise 100 times</span>
+  random_graph &lt;-<span class="st"> </span><span class="kw">erdos.renyi.game</span>(<span class="dt">n =</span> <span class="kw">vcount</span>(fauxNetwork), <span class="dt">p.or.m =</span> <span class="kw">graph.density</span>(fauxNetwork), <span class="dt">directed =</span> <span class="ot">TRUE</span>)
+  trial[[i]] &lt;-<span class="st"> </span><span class="kw">triad.census</span>(random_graph) <span class="co"># We assign to the ith space the result. So for the first iteration, it will assign the result to the first space in the list</span>
+}
+
+<span class="kw">Reduce</span>(<span class="st">&quot;+&quot;</span>,trial)/<span class="dv">100</span> <span class="co"># The Reduce function will sum each element of the vectors in the list. We divide these values by 100 (the number of iterations) to get the average value for each type of triad for the 100 random graphs we generated</span></code></pre></div>
+<pre><code>##  [1] 1374022.64   40392.62      93.33     100.09      98.77     199.06
+##  [7]       0.95       1.10       1.07       0.35       0.01       0.00
+## [13]       0.00       0.01       0.00       0.00</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Now we can compare this result to the observed network</span>
+<span class="kw">triad.census</span>(fauxNetwork)</code></pre></div>
+<pre><code>##  [1] 1374298   40077       0     215     105     153       0       0
+##  [9]      62       0       0       0       0       0       0       0</code></pre>
+<p>Beautiful! What do you see? Which triads are more common in our graph than in a random graph? What might this tell us about the macro-structure?</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="network-visualization-and-aesthetics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

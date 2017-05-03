@@ -4,7 +4,7 @@ author: "Mark Hoffman"
 output: html_document
 ---
 
-# Structural Balance in Networks
+# Measuring transitivity and structural balance
 
 The main goal of this tutorial is to explain the triad census, how to calculate it in igraph and how to use simulation to estimate the expected triad census result under a null model to use as a basis of comparison in evaluating an observed network. 
 
@@ -49,7 +49,22 @@ faux_attributes <- read.csv('faux_attributes.csv', stringsAsFactors = F)
 fauxNetwork <- graph.data.frame(faux_edgelist, directed = T, vertices = faux_attributes)
 ```
 
-Now we can run the triad.census() function from igraph.
+Let's plot it to see how it looks!
+```{r}
+plot(fauxNetwork,  
+     vertex.size = 3, 
+     vertex.label = NA, 
+     edge.curved = .1, 
+     vertex.color = "tomato", 
+     edge.arrow.size = .1, 
+     edge.width = .5, 
+     edge.color = "grey30")
+```
+
+
+It appears to be pretty clustered, with a few distinct groups. 
+
+Now we can run the triad.census() function from igraph in order to calculate the triad census.
 ```{r}
 triad.census(fauxNetwork)
 ```
@@ -60,11 +75,13 @@ Mutual means that ego and alter (say A and B) have a mutual relation with each o
 
 The image below visualizes the different types of triads possible in a directed graph. 
 
-<img src="Images/triad_census.png"/>
+<img src="Images/triad_census.jpg"/>
 
 ?triad.census also describes these possible types, telling you the order that the triad types are presented in the triad.census() output.
 
 003 for example means there are 0 mutual relation, 0 asymmetric relations and 3 null relations. This triad contains no relations. 201 would mean there are two mutual relations, zero asymmetric relations, and 1 null relation. Of three dyads in the triad, two dyads are in a relation, and one dyad is not.
+
+## Generating a random graph for comparison
 
 However, we are generally not interested in pure counts. Like in any statistical analysis, we want to know what distribution we would expect by chance, so that we can see if our distribution is meaningfully different. We can approach this question from two different angles: simulation or mathematical derivation.
 
@@ -77,7 +94,7 @@ igraph has a fast and easy function for generating random graphs.
 ?erdos.renyi.game
 ```
 
-In an erdos.renyi.graph, each edge has the same probability of being created.  We determine the probability and it returns a random graph with a density that equals this probability.
+In an erdos.renyi.graph, each edge has the same probability of being created.  We determine the probability and it returns a random graph with a density that equals (in expectation) this probability.
 
 ```{r}
 random_graph <- erdos.renyi.game(n = vcount(fauxNetwork), p.or.m = graph.density(fauxNetwork), directed = TRUE) # where n is the number of nodes, p.or.m is the probability of drawing an edge, directed is whether the network is directed or not
@@ -90,8 +107,6 @@ plot(random_graph,
      edge.arrow.size = .1, 
      edge.width = .5, 
      edge.color = "grey30")
-
-graph.density(random_graph)
 ```
 
 We will look more closely at the properties of random graphs when we focus on simulation in later weeks. For now let's look at the triad census of this random graph.
@@ -109,6 +124,8 @@ triad.census(fauxNetwork)
 ```
 
 Which triads are common in Faux Mesa High, but not in the random graph? What might this tell us?
+
+## Random graphs galore!
 
 The problem is that we are basing our analysis on a single random graph.  But since drawing edges is random, there is a lot of variation in the structure of random graphs, especially when the number of nodes in the graph is small (less than one thousand).
 

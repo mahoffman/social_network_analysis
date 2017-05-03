@@ -1,0 +1,67 @@
+---
+title: "Readings for the course"
+author: "Mark Hoffman"
+output: html_document
+---
+# Readings for the course
+## Day 1:  Introduction to types of networks and strategies for analysis (Articles we discussed)
+
+Bearman, Peter, James Moody and Katherine Stovel. 2003. “Chains of Affection.” _American Journal of Sociology_. 110:44-91. 
+
+Erikson, Emily and Peter Bearman. “Malfeasance and the Foundations for Global Trade: The Structure of English Trade in the East Indies, 1601-1833.” _American Journal of Sociology_. 112(1): 195-230.
+Bearman, Peter and Katherine Stovel. 2000. “Becoming a Nazi.” _Poetics_ 27:69-90.
+
+Bearman, Peter, Robert Faris, and James Moody. “Blocking the Future: New Solutions for Old Problems in Historical Social Science.” _Social Science History_. 23(4): 501-533
+
+Hoffman, Mark, JP Cointet, Phiipp Brandt, Newton E. Key, and Peter Bearman. "The (Protestant) Bible, the (Printed) Sermon, and the Word(s): The Semantic Structure of the Conformist and Dissenting Bible, 1660-1780." _Poetics_. (Forthcoming). 
+
+## Day 2: Part 1 – Ego-Networks
+
+McPherson, Miller, Lynn Smith-Lovin, and Matthew E. Brashears. 2006. “Social isolation in America: Changes in Core Discussion Networks over Two Decades.” _American Sociological Review_. 71:353-375. 
+
+Fischer, Claude S. 2009. “Comment: The 2004 GSS Finding of Shrunken Social Networks: An Artifact?.” _American Sociological Review_. 74:657-669.
+
+McPherson, Miller, Lynn Smith-Lovin, and Matthew E. Brashears. 2009. “Reply: Models and Marginals: Using Survey Evidence to Study Social Networks.” _American Sociological Review_. 74:670-681.  
+
+Bearman, Peter and Paolo Parigi. 2004. “Cloning Headless Frogs and Other Important Matters: Conversation Topics and Network Structure.” _Social Forces_. 83:535-557. 
+
+Lee, BK and Peter Bearman. "Important Matters in Political Context". _Sociological Science_.
+
+## Day 2 – Part 2 Balance and Transitivity
+
+Chase, Ivan. 1980. “Social Process and hierarchy formation in small groups: comparative perspective.” _American Sociological Review_. 45:905-924.
+
+Johnson, Eugene. 1985. “Network Macrostructure Models for the Davis-Leinhardt set of   empirical sociomatricies.” _Social Networks_. 7.
+
+Balian, Hrag and Peter Bearman. "Pathways to Violence: Dynamics for the Continuation of Large-Scale Conflict". _Sociological Theory_. (Forthcoming)
+
+## Day 3: Part 1 Centrality
+
+Bonacich, Phillip. 1987 "Power and Centrality: A Family of Measures". _American Journal of Sociology_. 92:1170-118.
+
+Granovetter, Mark S. 1973. “The Strength of Weak Ties.” _American Journal of Sociology_. 78:1360-1380.
+
+## Day 3: Part 2.  Modularity, Community Structure and Small Worlds
+
+Shwed, Uri and Peter S. Bearman. “The Temporal Structure of Scientific Consensus Formation.” _American Sociological Review_. 75(6): 817-840.
+
+Travers, Jeffrey and Stanley Milgram. 1969. “An experimental study of the small world Problem.” _Sociometry_. 32:425-443 
+
+Watts, Duncan J. 1999. “Networks, Dynamics, and the Small-World Phenomenon.” _American Journal of Sociology_. 105:493-527.
+
+## Day 4:  Part 1, Rectangular Matrices
+
+Bearman, Peter. 1991. "The social structure of suicide". _Sociological Forum_. 6:501-524.
+
+Rytina, Steve and David L. Morgan.1982. "The arithmetic of social relations:  The interplay of category and network." _American Journal of Sociology_. 88:88-113.
+
+Bearman, Peter S and Kevin D. Everett. “The Structure of Social Protest, 1961-1983.” _Social Networks_. 15(2): 171-200.
+
+## Day 4: Part 2 Blockmodeling Multiple Relations
+
+White, Harrison, Scott Boorman, and Ronald Breiger. 1976. “Social Structure from
+multiple networks. I. Blockmodels of roles and positions.” _American Journal of Sociology_. 81:730-779.
+
+Bearman, Peter. 1997. “Generalized Exchange.” _American Journal of Sociology_. 102:1383-1415.
+
+

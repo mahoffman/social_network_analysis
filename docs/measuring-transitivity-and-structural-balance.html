@@ -33,7 +33,7 @@
 
 
 <link rel="prev" href="network-visualization-and-aesthetics.html">
-
+<link rel="next" href="centrality.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -142,6 +142,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="measuring-transitivity-and-structural-balance.html"><a href="measuring-transitivity-and-structural-balance.html#generating-a-random-graph-for-comparison"><i class="fa fa-check"></i><b>8.2</b> Generating a random graph for comparison</a></li>
 <li class="chapter" data-level="8.3" data-path="measuring-transitivity-and-structural-balance.html"><a href="measuring-transitivity-and-structural-balance.html#random-graphs-galore"><i class="fa fa-check"></i><b>8.3</b> Random graphs galore!</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="centrality.html"><a href="centrality.html"><i class="fa fa-check"></i><b>9</b> Centrality</a><ul>
+<li class="chapter" data-level="9.0.1" data-path="centrality.html"><a href="centrality.html#loading-the-example-network"><i class="fa fa-check"></i><b>9.0.1</b> Loading the example network</a></li>
+<li class="chapter" data-level="9.0.2" data-path="centrality.html"><a href="centrality.html#degree-centrality"><i class="fa fa-check"></i><b>9.0.2</b> Degree Centrality</a></li>
+<li class="chapter" data-level="9.0.3" data-path="centrality.html"><a href="centrality.html#betweenness-centrality"><i class="fa fa-check"></i><b>9.0.3</b> Betweenness Centrality</a></li>
+<li class="chapter" data-level="9.0.4" data-path="centrality.html"><a href="centrality.html#closeness-centrality"><i class="fa fa-check"></i><b>9.0.4</b> Closeness Centrality</a></li>
+<li class="chapter" data-level="9.1" data-path="centrality.html"><a href="centrality.html#eigenvector-centrality"><i class="fa fa-check"></i><b>9.1</b> Eigenvector Centrality</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="centrality.html"><a href="centrality.html#measure-correlations"><i class="fa fa-check"></i><b>9.1.1</b> Measure Correlations</a></li>
+<li class="chapter" data-level="9.1.2" data-path="centrality.html"><a href="centrality.html#centralization-and-degree-distributions"><i class="fa fa-check"></i><b>9.1.2</b> Centralization and Degree Distributions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="the-small-world-problem-and-the-art-science-of-simulation.html"><a href="the-small-world-problem-and-the-art-science-of-simulation.html"><i class="fa fa-check"></i><b>10</b> The Small World Problem and the Art-Science of Simulation</a><ul>
+<li class="chapter" data-level="10.0.1" data-path="the-small-world-problem-and-the-art-science-of-simulation.html"><a href="the-small-world-problem-and-the-art-science-of-simulation.html#other-simulations"><i class="fa fa-check"></i><b>10.0.1</b> Other simulations</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -226,7 +239,7 @@ fauxNetwork &lt;-<span class="st"> </span><span class="kw">graph.data.frame</spa
 <p><img src="Images/unnamed-chunk-59-1.png" width="672" /></p>
 <p>We will look more closely at the properties of random graphs when we focus on simulation in later weeks. For now let’s look at the triad census of this random graph.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">triad.census</span>(random_graph)</code></pre></div>
-<pre><code>##  [1] 1377074   37508       0      90      76     162       0       0
+<pre><code>##  [1] 1376271   38302       0      91      74     172       0       0
 ##  [9]       0       0       0       0       0       0       0       0</code></pre>
 <p>Most triads are null. This is because edges only have a 5% chance of being drawn. It follows that 95% of the total possible edges are missing.</p>
 <p>There are not many cases of transitive triads, or even in which all three dyads have a relationship. Thus, the majority of triads are concentrated in the left side of the triad distribution</p>
@@ -248,8 +261,8 @@ for ( i in <span class="dv">1</span>:<span class="dv">100</span> ){ <span class=
 }
 
 <span class="kw">Reduce</span>(<span class="st">&quot;+&quot;</span>,trial)/<span class="dv">100</span> <span class="co"># The Reduce function will sum each element of the vectors in the list. We divide these values by 100 (the number of iterations) to get the average value for each type of triad for the 100 random graphs we generated</span></code></pre></div>
-<pre><code>##  [1] 1374022.64   40392.62      93.33     100.09      98.77     199.06
-##  [7]       0.95       1.10       1.07       0.35       0.01       0.00
+<pre><code>##  [1] 1374447.25   39983.46      83.49      96.84      98.82     197.09
+##  [7]       0.85       0.91       0.98       0.30       0.00       0.00
 ## [13]       0.00       0.01       0.00       0.00</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Now we can compare this result to the observed network</span>
 <span class="kw">triad.census</span>(fauxNetwork)</code></pre></div>
@@ -264,8 +277,8 @@ for ( i in <span class="dv">1</span>:<span class="dv">100</span> ){ <span class=
           </div>
         </div>
       </div>
-<a href="network-visualization-and-aesthetics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="network-visualization-and-aesthetics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="centrality.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>

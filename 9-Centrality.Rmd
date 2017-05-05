@@ -29,7 +29,7 @@ Ron Breiger has argued these edges should be directed, tracing where daughters w
 
 As always, we first load and prepare the dataset. This time however we will load in the .csv files directly from the internet. We can put any direct web link to a .csv file in the read.csv function, and it will load the file.
 ```{r}
-florentine_edgelist <- read.csv("http://www.markanthonyhoffman.com/downloads/florentine_edgelist.csv", stringsAsFactors = FALSE, row.names = 1)
+florentine_edgelist <- read.csv("http://www.markanthonyhoffman.com/downloads/florentine_marriage_edgelist.csv", stringsAsFactors = FALSE, row.names = 1)
 
 florentine_attributes <- read.csv("http://www.markanthonyhoffman.com/downloads/florentine_attributes.csv", stringsAsFactors = FALSE)
 
@@ -64,7 +64,7 @@ We can assign the output to a variable in the network and size the nodes accordi
 ```{r}
 V(marriageNet)$degree <- degree(marriageNet) # assignment
 
-plot(marriageNet, vertex.label.cex = .6, vertex.label.color = "black", vertex.size = V(marriageNet)$degree) # sized by degree
+plot(marriageNet, vertex.label.cex = .6, vertex.label.color = "black", vertex.size = V(marriageNet)$degree, vertex.label.cex = .2) # sized by degree
 ```
 
 The problem is that the degree values are a little small to plot well. We can use a scalar to increase the value of the degree but maintain the ratio.
@@ -91,7 +91,7 @@ betweenness(marriageNet, directed = FALSE)
 We can again assign the output of betweenness() to a variable in the network and size the nodes according to it.
 
 ```{r}
-V(marriageNet)$betweenness <- betweenness(marriageNet) # assignment
+V(marriageNet)$betweenness <- betweenness(marriageNet, directed = F) # assignment
 
 plot(marriageNet, 
      vertex.label.cex = .6, 
@@ -163,6 +163,10 @@ cor.test(V(marriageNet)$degree, V(marriageNet)$eigenvector)
 cor.test(V(marriageNet)$degree, V(marriageNet)$closeness)
 cor.test(V(marriageNet)$betweenness, V(marriageNet)$eigenvector)
 cor.test(V(marriageNet)$betweenness, V(marriageNet)$closeness)
+
+cor.test(V(marriageNet)$betweenness, V(marriageNet)$date)
+
+
 ```
 
 What do we learn?
@@ -170,13 +174,30 @@ What do we learn?
 ### Centralization and Degree Distributions
 
 To understand the measures further, we can look at their distributions. This will tell us roughly how many nodes have centralities of a given value.
-
 ```{r}
-hist(V(marriageNet)$betweenness, xlab = "Betweenness", main = "Degree distribution of betweenness")
+# fitting a degree distribution on the log-log scale
+alter_hist = table(degree(marriageNet))
+vals = as.numeric(names(alter_hist))
+vals = vals[2:length(vals)]
+alter_hist = alter_hist[2:length(alter_hist)]
+df = data.frame(Vals = log(vals), Hist = log(as.numeric(alter_hist)), stringsAsFactors = F)
+
+# plot log-log degree distribution
+plot(Hist ~ Vals, data = df)
+
+# regression line
+abline(lm(Hist ~ Vals, data = df))
 ```
+Why do your friends have more friends than you do? (TK)
+```{r}
+# degrees of your friends
+neighbor_degrees = knn(marriageNet)$knn
+df = data.frame(Degrees = degree(marriageNet), Neighbor_degrees = neighbor_degrees)
 
-
-
+# plot neighbor degrees vs. ego degress
+plot(Neighbor_degrees ~ Degrees, data = df)
+abline(lm(Neighbor_degrees ~ Degrees, data = df))
+```
 
 
 We can see that most nodes in the marriage network have low betweenness centrality, and only one node has more than 40 betweenness. Degree distributions tend to be right-skewed; that is, only a few nodes in most networks have most of the ties. Evenly distributed degree is much rarer.
@@ -190,3 +211,49 @@ centralization.evcent(marriageNet)
 centralization.closeness(marriageNet)
 ```
 
+
+## Reach
+
+```{r}
+reach_n =function(x, n = 2){
+  r=vector(length=vcount(x))
+  for (i in 1:vcount(x)){
+    neighb =neighborhood(x, n, nodes=i)
+    ni=unlist(neighb)
+    l=length(ni)
+    r[i]=(l)/vcount(x)
+  }
+  return(r)
+}
+
+two_reach = reach_n(marriageNet, 2)
+
+plot(marriageNet, vertex.size = two_reach * 10, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato")
+
+three_reach = reach_n(marriageNet, 3)
+
+plot(marriageNet, vertex.size = three_reach * 10, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato")
+
+four_reach = reach_n(marriageNet, 4)
+
+plot(marriageNet, vertex.size = four_reach * 10, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato")
+
+five_reach = reach_n(marriageNet, 5)
+
+plot(marriageNet, vertex.size = five_reach * 10, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato")
+
+
+
+distance_weighted_reach=function(x){
+  distances=shortest.paths(x) #create matrix of geodesic distances
+  diag(distances)=1 # replace the diagonal with 1s
+  weights=1/distances # take the reciprocal of distances
+  return(apply(weights,1,sum)) # sum for each node (row)
+}
+
+dw_reach = distance_weighted_reach(marriageNet) 
+dw_reach = dw_reach/max(dw_reach)
+
+plot(marriageNet, vertex.size = dw_reach * 10, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato")
+
+```

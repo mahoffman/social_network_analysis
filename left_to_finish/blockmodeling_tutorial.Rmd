@@ -18,7 +18,7 @@ library(igraph)
 Next load in the bank_wiring.rda data included in the Data folder, which comes from Breiger et. al's 1975 paper on blockmodeling. .rda is a type of R-specific data which can be loaded with the load function. The only thing you need to change is the file path. 
 
 ```{r}
-load("/Users/markhoffman/gh_repos/sna_teaching/Data/bank_wiring.rda")
+load("bank_wiring.rda")
 ```
 
 We can look at the data.  It is a list of matrices. 

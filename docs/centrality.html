@@ -12,16 +12,16 @@
 
   <meta property="og:title" content="Social Network Analysis" />
   <meta property="og:type" content="book" />
-
-
-
+  
+  
+  
   <meta name="github-repo" content="markahoffman/social_network_analysis" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Social Network Analysis" />
   <meta name="twitter:site" content="@mark_a_hoffman" />
-
-
+  
+  
 
 <meta name="author" content="Peter Bearman and Mark Hoffman">
 
@@ -30,8 +30,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-
+  
+  
 <link rel="prev" href="measuring-transitivity-and-structural-balance.html">
 <link rel="next" href="the-small-world-problem-and-the-art-science-of-simulation.html">
 
@@ -151,10 +151,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.1.1" data-path="centrality.html"><a href="centrality.html#measure-correlations"><i class="fa fa-check"></i><b>9.1.1</b> Measure Correlations</a></li>
 <li class="chapter" data-level="9.1.2" data-path="centrality.html"><a href="centrality.html#centralization-and-degree-distributions"><i class="fa fa-check"></i><b>9.1.2</b> Centralization and Degree Distributions</a></li>
 </ul></li>
+<li class="chapter" data-level="9.2" data-path="centrality.html"><a href="centrality.html#reach"><i class="fa fa-check"></i><b>9.2</b> Reach</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="the-small-world-problem-and-the-art-science-of-simulation.html"><a href="the-small-world-problem-and-the-art-science-of-simulation.html"><i class="fa fa-check"></i><b>10</b> The Small World Problem and the Art-Science of Simulation</a><ul>
 <li class="chapter" data-level="10.0.1" data-path="the-small-world-problem-and-the-art-science-of-simulation.html"><a href="the-small-world-problem-and-the-art-science-of-simulation.html#other-simulations"><i class="fa fa-check"></i><b>10.0.1</b> Other simulations</a></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="group-detection.html"><a href="group-detection.html"><i class="fa fa-check"></i><b>11</b> Group detection</a><ul>
+<li class="chapter" data-level="11.1" data-path="group-detection.html"><a href="group-detection.html#modularity"><i class="fa fa-check"></i><b>11.1</b> Modularity</a></li>
+<li class="chapter" data-level="11.2" data-path="group-detection.html"><a href="group-detection.html#affiliation-data"><i class="fa fa-check"></i><b>11.2</b> Affiliation Data</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="group-detection.html"><a href="group-detection.html#unipartite-projection"><i class="fa fa-check"></i><b>11.2.1</b> Unipartite Projection</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="blockmodeling.html"><a href="blockmodeling.html"><i class="fa fa-check"></i><b>12</b> Blockmodeling</a></li>
 </ul>
 
       </nav>
@@ -186,7 +194,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>He looked at many relations, but we only have the marriage here. Marriage was a tool in diplomacy, central to political alliances. A tie is drawn between families if the daughter of one family was sent to marry the son of another.</p>
 <p>Ron Breiger has argued these edges should be directed, tracing where daughters were sent, but we will analyze with the symmetrized (undirected) version. That is, we don’t differentiate between whether a son or daughter being sent from each family.</p>
 <p>As always, we first load and prepare the dataset. This time however we will load in the .csv files directly from the internet. We can put any direct web link to a .csv file in the read.csv function, and it will load the file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">florentine_edgelist &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;http://www.markanthonyhoffman.com/downloads/florentine_edgelist.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">florentine_edgelist &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;http://www.markanthonyhoffman.com/downloads/florentine_marriage_edgelist.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)
 
 florentine_attributes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;http://www.markanthonyhoffman.com/downloads/florentine_attributes.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
 
@@ -194,7 +202,7 @@ marriageNet &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame
 marriageNet =<span class="st"> </span><span class="kw">simplify</span>(marriageNet)</code></pre></div>
 <p>Let’s see how it looks.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(marriageNet, <span class="dt">vertex.size =</span> <span class="dv">2</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">4</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>)</code></pre></div>
-<p><img src="Images/unnamed-chunk-65-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 <p>Based on this plot, which family do you expect is most central?</p>
 </div>
 <div id="degree-centrality" class="section level3">
@@ -205,66 +213,66 @@ marriageNet =<span class="st"> </span><span class="kw">simplify</span>(marriageN
 </blockquote>
 <p>Degree centrality is calculated using the degree function in R. It returns how many edges each node has.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">degree</span>(marriageNet) </code></pre></div>
-<pre><code>##    Acciaiuoli       Adimari       Alberti       Albizzi  Aldobrandini
-##             2             3             0            14             2
-##    Alessandri      Altoviti  Dall&#39;Antella   Ardinghelli       Arnolfi
-##             1             6             3             5             0
-##       Arrighi     Arrigucci  Baldovinetti     Barbadori         Bardi
-##             1             1             4             7             7
-##    Baroncelli       Baronci       Bartoli     Bartolini   Belfradelli
-##             1             1             1             1             1
-##         Benci    Bencivenni    Del_Benino       Benizzi  Berlinghieri
-##             0             1             1             1             0
-##      Bischeri     Brancacci       Bucelli   Del_Buletta        Busini
-##             4             2             2             0             0
-##       Capponi      Carducci  Carnessecchi    Della_Casa    Castellani
-##             4             2             0             2             7
-##    Cavalcanti     Cerretani          Ciai     Ciampegli    Corbinelli
-##             3             0             1             1             1
-##         Corsi     Davanzati    Dietisalvi         Doffi        Donati
-##             1             3             1             1             2
-##         Fagni     Federighi         Fenci    Fioravanti    Del_Forese
-##             0             1             0             2             0
-##       Fortini    Franceschi   Frescobaldi Gianfigliazzi        Ginori
-##             0             0             6            10             4
-##        Giugni      Giuntini      Guadagni      Guasconi  Guicciardini
-##             3             0            10            12             7
-##      Guiducci  Lamberteschi          Lapi      Macinghi       Mancini
-##             0             1             1             1             1
-##       Manelli     Manovelli      Martelli          Masi        Medici
-##             2             2             2             1            20
-##    Minerbetti       Nasi(?)         Nerli     Orlandini   Del_Palagio
-##             1             1             1             2             2
-##   Panciatichi    Pandolfini    Da_Panzano       Parenti         Pazzi
-##             7             2             2             1             2
-##        Pecori          Pepi       Peruzzi         Pitti    Popoleschi
-##             1             1            15             2             2
-##     Portinari         Pucci         Raugi      Ricasoli         Ricci
-##             1             1             1            10             0
-##       Ridolfi    Rondinelli         Rossi      Rucellai     Sacchetti
-##             4             5             2             1             3
-##      Salviati    Scambrilla  Dello_Scarfa       Scolari  Di_Ser_Segna
-##             3             1             1             3             1
-##      Serragli    Serristori      Soderini      Solosmei         Spini
-##             2             1             1             1             4
-##       Strozzi   Della_Stufa       Tanagli       Tinucci    Tornabuoni
-##            25             0             2             0             4
-##     Da_Uzzano        Valori    Vecchietti       Velluti Da_Verrazzano
-##             2             4             1             0             0
-##       Vettori
+<pre><code>##    Acciaiuoli       Adimari       Alberti       Albizzi  Aldobrandini 
+##             2             3             0            14             2 
+##    Alessandri      Altoviti  Dall&#39;Antella   Ardinghelli       Arnolfi 
+##             1             6             3             5             0 
+##       Arrighi     Arrigucci  Baldovinetti     Barbadori         Bardi 
+##             1             1             4             7             7 
+##    Baroncelli       Baronci       Bartoli     Bartolini   Belfradelli 
+##             1             1             1             1             1 
+##         Benci    Bencivenni    Del_Benino       Benizzi  Berlinghieri 
+##             0             1             1             1             0 
+##      Bischeri     Brancacci       Bucelli   Del_Buletta        Busini 
+##             4             2             2             0             0 
+##       Capponi      Carducci  Carnessecchi    Della_Casa    Castellani 
+##             4             2             0             2             7 
+##    Cavalcanti     Cerretani          Ciai     Ciampegli    Corbinelli 
+##             3             0             1             1             1 
+##         Corsi     Davanzati    Dietisalvi         Doffi        Donati 
+##             1             3             1             1             2 
+##         Fagni     Federighi         Fenci    Fioravanti    Del_Forese 
+##             0             1             0             2             0 
+##       Fortini    Franceschi   Frescobaldi Gianfigliazzi        Ginori 
+##             0             0             6            10             4 
+##        Giugni      Giuntini      Guadagni      Guasconi  Guicciardini 
+##             3             0            10            12             7 
+##      Guiducci  Lamberteschi          Lapi      Macinghi       Mancini 
+##             0             1             1             1             1 
+##       Manelli     Manovelli      Martelli          Masi        Medici 
+##             2             2             2             1            20 
+##    Minerbetti       Nasi(?)         Nerli     Orlandini   Del_Palagio 
+##             1             1             1             2             2 
+##   Panciatichi    Pandolfini    Da_Panzano       Parenti         Pazzi 
+##             7             2             2             1             2 
+##        Pecori          Pepi       Peruzzi         Pitti    Popoleschi 
+##             1             1            15             2             2 
+##     Portinari         Pucci         Raugi      Ricasoli         Ricci 
+##             1             1             1            10             0 
+##       Ridolfi    Rondinelli         Rossi      Rucellai     Sacchetti 
+##             4             5             2             1             3 
+##      Salviati    Scambrilla  Dello_Scarfa       Scolari  Di_Ser_Segna 
+##             3             1             1             3             1 
+##      Serragli    Serristori      Soderini      Solosmei         Spini 
+##             2             1             1             1             4 
+##       Strozzi   Della_Stufa       Tanagli       Tinucci    Tornabuoni 
+##            25             0             2             0             4 
+##     Da_Uzzano        Valori    Vecchietti       Velluti Da_Verrazzano 
+##             2             4             1             0             0 
+##       Vettori 
 ##             1</code></pre>
 <p>Who is the most degree central?</p>
 <p>We can assign the output to a variable in the network and size the nodes according to degree.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(marriageNet)$degree &lt;-<span class="st"> </span><span class="kw">degree</span>(marriageNet) <span class="co"># assignment</span>
 
-<span class="kw">plot</span>(marriageNet, <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">vertex.size =</span> <span class="kw">V</span>(marriageNet)$degree) <span class="co"># sized by degree</span></code></pre></div>
-<p><img src="Images/unnamed-chunk-67-1.png" width="672" /></p>
+<span class="kw">plot</span>(marriageNet, <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">vertex.size =</span> <span class="kw">V</span>(marriageNet)$degree, <span class="dt">vertex.label.cex =</span> .<span class="dv">2</span>) <span class="co"># sized by degree</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 <p>The problem is that the degree values are a little small to plot well. We can use a scalar to increase the value of the degree but maintain the ratio.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(marriageNet,
-     <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>,
-     <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(marriageNet, 
+     <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, 
+     <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, 
      <span class="dt">vertex.size =</span> <span class="kw">V</span>(marriageNet)$degree*<span class="dv">3</span>)</code></pre></div>
-<p><img src="Images/unnamed-chunk-68-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
 </div>
 <div id="betweenness-centrality" class="section level3">
 <h3><span class="header-section-number">9.0.3</span> Betweenness Centrality</h3>
@@ -272,128 +280,128 @@ marriageNet =<span class="st"> </span><span class="kw">simplify</span>(marriageN
 <p>Thus, betweenness effectively counts how many shortest paths each node is on. The higher a node’s betweenness, the more important they are for the efficient flow of goods in a network.</p>
 <p>In igraph, betweenness() computes betweenness in the network</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">betweenness</span>(marriageNet, <span class="dt">directed =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>##    Acciaiuoli       Adimari       Alberti       Albizzi  Aldobrandini
-##      0.000000     93.009524      0.000000    856.436111     23.351190
-##    Alessandri      Altoviti  Dall&#39;Antella   Ardinghelli       Arnolfi
-##      0.000000    125.620147    174.000000     58.278211      0.000000
-##       Arrighi     Arrigucci  Baldovinetti     Barbadori         Bardi
-##      0.000000      0.000000     95.613889    162.697344    280.248232
-##    Baroncelli       Baronci       Bartoli     Bartolini   Belfradelli
-##      0.000000      0.000000      0.000000      0.000000      0.000000
-##         Benci    Bencivenni    Del_Benino       Benizzi  Berlinghieri
-##      0.000000      0.000000      0.000000      0.000000      0.000000
-##      Bischeri     Brancacci       Bucelli   Del_Buletta        Busini
-##     63.995238      0.000000      1.066667      0.000000      0.000000
-##       Capponi      Carducci  Carnessecchi    Della_Casa    Castellani
-##    177.000000      5.009524      0.000000     11.577398    194.199423
-##    Cavalcanti     Cerretani          Ciai     Ciampegli    Corbinelli
-##    125.467749      0.000000      0.000000      0.000000      0.000000
-##         Corsi     Davanzati    Dietisalvi         Doffi        Donati
-##      0.000000    260.000000      0.000000      0.000000     88.000000
-##         Fagni     Federighi         Fenci    Fioravanti    Del_Forese
-##      0.000000      0.000000      0.000000      5.951190      0.000000
-##       Fortini    Franceschi   Frescobaldi Gianfigliazzi        Ginori
-##      0.000000      0.000000    145.532681    187.915043    180.571429
-##        Giugni      Giuntini      Guadagni      Guasconi  Guicciardini
-##     96.664141      0.000000    277.059921    583.679251    327.850305
-##      Guiducci  Lamberteschi          Lapi      Macinghi       Mancini
-##      0.000000      0.000000      0.000000      0.000000      0.000000
-##       Manelli     Manovelli      Martelli          Masi        Medici
-##      0.000000     88.000000     88.000000      0.000000   1029.609288
-##    Minerbetti       Nasi(?)         Nerli     Orlandini   Del_Palagio
-##      0.000000      0.000000      0.000000     88.000000      0.000000
-##   Panciatichi    Pandolfini    Da_Panzano       Parenti         Pazzi
-##    167.994891      0.000000     16.961111      0.000000      4.361111
-##        Pecori          Pepi       Peruzzi         Pitti    Popoleschi
-##      0.000000      0.000000    604.369691     19.610606      0.000000
-##     Portinari         Pucci         Raugi      Ricasoli         Ricci
-##      0.000000      0.000000      0.000000    205.097092      0.000000
-##       Ridolfi    Rondinelli         Rossi      Rucellai     Sacchetti
-##    213.727670     43.186597      0.000000      0.000000    197.651515
-##      Salviati    Scambrilla  Dello_Scarfa       Scolari  Di_Ser_Segna
-##     35.571429      0.000000      0.000000     19.801010      0.000000
-##      Serragli    Serristori      Soderini      Solosmei         Spini
-##     81.000000      0.000000      0.000000      0.000000     89.500000
-##       Strozzi   Della_Stufa       Tanagli       Tinucci    Tornabuoni
-##   1369.979110      0.000000     88.000000      0.000000     23.831746
-##     Da_Uzzano        Valori    Vecchietti       Velluti Da_Verrazzano
-##      3.666667    202.285859      0.000000      0.000000      0.000000
-##       Vettori
+<pre><code>##    Acciaiuoli       Adimari       Alberti       Albizzi  Aldobrandini 
+##      0.000000     93.009524      0.000000    856.436111     23.351190 
+##    Alessandri      Altoviti  Dall&#39;Antella   Ardinghelli       Arnolfi 
+##      0.000000    125.620147    174.000000     58.278211      0.000000 
+##       Arrighi     Arrigucci  Baldovinetti     Barbadori         Bardi 
+##      0.000000      0.000000     95.613889    162.697344    280.248232 
+##    Baroncelli       Baronci       Bartoli     Bartolini   Belfradelli 
+##      0.000000      0.000000      0.000000      0.000000      0.000000 
+##         Benci    Bencivenni    Del_Benino       Benizzi  Berlinghieri 
+##      0.000000      0.000000      0.000000      0.000000      0.000000 
+##      Bischeri     Brancacci       Bucelli   Del_Buletta        Busini 
+##     63.995238      0.000000      1.066667      0.000000      0.000000 
+##       Capponi      Carducci  Carnessecchi    Della_Casa    Castellani 
+##    177.000000      5.009524      0.000000     11.577398    194.199423 
+##    Cavalcanti     Cerretani          Ciai     Ciampegli    Corbinelli 
+##    125.467749      0.000000      0.000000      0.000000      0.000000 
+##         Corsi     Davanzati    Dietisalvi         Doffi        Donati 
+##      0.000000    260.000000      0.000000      0.000000     88.000000 
+##         Fagni     Federighi         Fenci    Fioravanti    Del_Forese 
+##      0.000000      0.000000      0.000000      5.951190      0.000000 
+##       Fortini    Franceschi   Frescobaldi Gianfigliazzi        Ginori 
+##      0.000000      0.000000    145.532681    187.915043    180.571429 
+##        Giugni      Giuntini      Guadagni      Guasconi  Guicciardini 
+##     96.664141      0.000000    277.059921    583.679251    327.850305 
+##      Guiducci  Lamberteschi          Lapi      Macinghi       Mancini 
+##      0.000000      0.000000      0.000000      0.000000      0.000000 
+##       Manelli     Manovelli      Martelli          Masi        Medici 
+##      0.000000     88.000000     88.000000      0.000000   1029.609288 
+##    Minerbetti       Nasi(?)         Nerli     Orlandini   Del_Palagio 
+##      0.000000      0.000000      0.000000     88.000000      0.000000 
+##   Panciatichi    Pandolfini    Da_Panzano       Parenti         Pazzi 
+##    167.994891      0.000000     16.961111      0.000000      4.361111 
+##        Pecori          Pepi       Peruzzi         Pitti    Popoleschi 
+##      0.000000      0.000000    604.369691     19.610606      0.000000 
+##     Portinari         Pucci         Raugi      Ricasoli         Ricci 
+##      0.000000      0.000000      0.000000    205.097092      0.000000 
+##       Ridolfi    Rondinelli         Rossi      Rucellai     Sacchetti 
+##    213.727670     43.186597      0.000000      0.000000    197.651515 
+##      Salviati    Scambrilla  Dello_Scarfa       Scolari  Di_Ser_Segna 
+##     35.571429      0.000000      0.000000     19.801010      0.000000 
+##      Serragli    Serristori      Soderini      Solosmei         Spini 
+##     81.000000      0.000000      0.000000      0.000000     89.500000 
+##       Strozzi   Della_Stufa       Tanagli       Tinucci    Tornabuoni 
+##   1369.979110      0.000000     88.000000      0.000000     23.831746 
+##     Da_Uzzano        Valori    Vecchietti       Velluti Da_Verrazzano 
+##      3.666667    202.285859      0.000000      0.000000      0.000000 
+##       Vettori 
 ##      0.000000</code></pre>
 <p>We can again assign the output of betweenness() to a variable in the network and size the nodes according to it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(marriageNet)$betweenness &lt;-<span class="st"> </span><span class="kw">betweenness</span>(marriageNet) <span class="co"># assignment</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(marriageNet)$betweenness &lt;-<span class="st"> </span><span class="kw">betweenness</span>(marriageNet, <span class="dt">directed =</span> F) <span class="co"># assignment</span>
 
-<span class="kw">plot</span>(marriageNet,
-     <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>,
-     <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>,
+<span class="kw">plot</span>(marriageNet, 
+     <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, 
+     <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, 
      <span class="dt">vertex.size =</span> <span class="kw">V</span>(marriageNet)$betweenness) <span class="co"># sized by betweenness</span></code></pre></div>
-<p><img src="Images/unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
 <p>Betweenness centrality can be very large. It is often helpful to normalize it by dividing by the maximum and multiplying by some scalar when plotting.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(marriageNet,
-     <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>,
-     <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>,
+     <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, 
+     <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, 
      <span class="dt">vertex.size =</span> <span class="kw">V</span>(marriageNet)$betweenness/<span class="kw">max</span>(<span class="kw">V</span>(marriageNet)$betweenness) *<span class="st"> </span><span class="dv">20</span>)</code></pre></div>
-<p><img src="Images/unnamed-chunk-71-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
 </div>
 <div id="closeness-centrality" class="section level3">
 <h3><span class="header-section-number">9.0.4</span> Closeness Centrality</h3>
 <p>With closeness centrality we again make use of the shortest paths between nodes. We measure the distance between two nodes as the length of the shortest path between them. Farness, for a given node, is the average distance from that node to all other nodes. Closeness is then the reciprocal of farness (1/farness).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">closeness</span>(marriageNet)</code></pre></div>
-<pre><code>##    Acciaiuoli       Adimari       Alberti       Albizzi  Aldobrandini
-##  3.036745e-04  3.052503e-04  7.496252e-05  3.095975e-04  3.044140e-04
-##    Alessandri      Altoviti  Dall&#39;Antella   Ardinghelli       Arnolfi
-##  2.918856e-04  3.065604e-04  3.035823e-04  3.075977e-04  7.496252e-05
-##       Arrighi     Arrigucci  Baldovinetti     Barbadori         Bardi
-##  2.990431e-04  2.972652e-04  3.060912e-04  3.068426e-04  3.088326e-04
-##    Baroncelli       Baronci       Bartoli     Bartolini   Belfradelli
-##  7.561437e-05  2.941176e-04  7.561437e-05  2.883506e-04  2.985966e-04
-##         Benci    Bencivenni    Del_Benino       Benizzi  Berlinghieri
-##  7.496252e-05  2.985075e-04  2.860412e-04  3.017502e-04  7.496252e-05
-##      Bischeri     Brancacci       Bucelli   Del_Buletta        Busini
-##  3.077870e-04  3.058104e-04  3.030303e-04  7.496252e-05  7.496252e-05
-##       Capponi      Carducci  Carnessecchi    Della_Casa    Castellani
-##  2.984184e-04  3.050641e-04  7.496252e-05  3.041363e-04  3.071253e-04
-##    Cavalcanti     Cerretani          Ciai     Ciampegli    Corbinelli
-##  3.073141e-04  7.496252e-05  2.958580e-04  2.980626e-04  3.023889e-04
-##         Corsi     Davanzati    Dietisalvi         Doffi        Donati
-##  3.013864e-04  3.019324e-04  2.958580e-04  2.990431e-04  2.934272e-04
-##         Fagni     Federighi         Fenci    Fioravanti    Del_Forese
-##  7.496252e-05  7.561437e-05  7.496252e-05  3.033981e-04  7.496252e-05
-##       Fortini    Franceschi   Frescobaldi Gianfigliazzi        Ginori
-##  7.496252e-05  7.496252e-05  3.066544e-04  3.097893e-04  3.037667e-04
-##        Giugni      Giuntini      Guadagni      Guasconi  Guicciardini
-##  3.031222e-04  7.496252e-05  3.071253e-04  3.110420e-04  3.084516e-04
-##      Guiducci  Lamberteschi          Lapi      Macinghi       Mancini
-##  7.496252e-05  2.990431e-04  2.941176e-04  3.031222e-04  3.027551e-04
-##       Manelli     Manovelli      Martelli          Masi        Medici
-##  3.033060e-04  3.019324e-04  2.958580e-04  3.017502e-04  3.106555e-04
-##    Minerbetti       Nasi(?)         Nerli     Orlandini   Del_Palagio
-##  3.031222e-04  2.907822e-04  3.013864e-04  2.942908e-04  3.044140e-04
-##   Panciatichi    Pandolfini    Da_Panzano       Parenti         Pazzi
-##  3.090235e-04  2.964720e-04  3.013864e-04  3.031222e-04  3.010235e-04
-##        Pecori          Pepi       Peruzzi         Pitti    Popoleschi
-##  3.023889e-04  2.990431e-04  3.099814e-04  3.067485e-04  3.027551e-04
-##     Portinari         Pucci         Raugi      Ricasoli         Ricci
-##  3.023889e-04  2.868617e-04  7.561437e-05  3.072197e-04  7.496252e-05
-##       Ridolfi    Rondinelli         Rossi      Rucellai     Sacchetti
-##  3.075031e-04  3.067485e-04  3.023889e-04  3.031222e-04  3.042288e-04
-##      Salviati    Scambrilla  Dello_Scarfa       Scolari  Di_Ser_Segna
-##  3.036745e-04  2.962085e-04  7.561437e-05  3.044140e-04  3.027551e-04
-##      Serragli    Serristori      Soderini      Solosmei         Spini
-##  3.013864e-04  3.023889e-04  3.031222e-04  7.561437e-05  3.041363e-04
-##       Strozzi   Della_Stufa       Tanagli       Tinucci    Tornabuoni
-##  3.114295e-04  7.496252e-05  2.995806e-04  7.496252e-05  3.047851e-04
-##     Da_Uzzano        Valori    Vecchietti       Velluti Da_Verrazzano
-##  3.037667e-04  3.010235e-04  3.023889e-04  7.496252e-05  7.496252e-05
-##       Vettori
+<pre><code>##    Acciaiuoli       Adimari       Alberti       Albizzi  Aldobrandini 
+##  3.036745e-04  3.052503e-04  7.496252e-05  3.095975e-04  3.044140e-04 
+##    Alessandri      Altoviti  Dall&#39;Antella   Ardinghelli       Arnolfi 
+##  2.918856e-04  3.065604e-04  3.035823e-04  3.075977e-04  7.496252e-05 
+##       Arrighi     Arrigucci  Baldovinetti     Barbadori         Bardi 
+##  2.990431e-04  2.972652e-04  3.060912e-04  3.068426e-04  3.088326e-04 
+##    Baroncelli       Baronci       Bartoli     Bartolini   Belfradelli 
+##  7.561437e-05  2.941176e-04  7.561437e-05  2.883506e-04  2.985966e-04 
+##         Benci    Bencivenni    Del_Benino       Benizzi  Berlinghieri 
+##  7.496252e-05  2.985075e-04  2.860412e-04  3.017502e-04  7.496252e-05 
+##      Bischeri     Brancacci       Bucelli   Del_Buletta        Busini 
+##  3.077870e-04  3.058104e-04  3.030303e-04  7.496252e-05  7.496252e-05 
+##       Capponi      Carducci  Carnessecchi    Della_Casa    Castellani 
+##  2.984184e-04  3.050641e-04  7.496252e-05  3.041363e-04  3.071253e-04 
+##    Cavalcanti     Cerretani          Ciai     Ciampegli    Corbinelli 
+##  3.073141e-04  7.496252e-05  2.958580e-04  2.980626e-04  3.023889e-04 
+##         Corsi     Davanzati    Dietisalvi         Doffi        Donati 
+##  3.013864e-04  3.019324e-04  2.958580e-04  2.990431e-04  2.934272e-04 
+##         Fagni     Federighi         Fenci    Fioravanti    Del_Forese 
+##  7.496252e-05  7.561437e-05  7.496252e-05  3.033981e-04  7.496252e-05 
+##       Fortini    Franceschi   Frescobaldi Gianfigliazzi        Ginori 
+##  7.496252e-05  7.496252e-05  3.066544e-04  3.097893e-04  3.037667e-04 
+##        Giugni      Giuntini      Guadagni      Guasconi  Guicciardini 
+##  3.031222e-04  7.496252e-05  3.071253e-04  3.110420e-04  3.084516e-04 
+##      Guiducci  Lamberteschi          Lapi      Macinghi       Mancini 
+##  7.496252e-05  2.990431e-04  2.941176e-04  3.031222e-04  3.027551e-04 
+##       Manelli     Manovelli      Martelli          Masi        Medici 
+##  3.033060e-04  3.019324e-04  2.958580e-04  3.017502e-04  3.106555e-04 
+##    Minerbetti       Nasi(?)         Nerli     Orlandini   Del_Palagio 
+##  3.031222e-04  2.907822e-04  3.013864e-04  2.942908e-04  3.044140e-04 
+##   Panciatichi    Pandolfini    Da_Panzano       Parenti         Pazzi 
+##  3.090235e-04  2.964720e-04  3.013864e-04  3.031222e-04  3.010235e-04 
+##        Pecori          Pepi       Peruzzi         Pitti    Popoleschi 
+##  3.023889e-04  2.990431e-04  3.099814e-04  3.067485e-04  3.027551e-04 
+##     Portinari         Pucci         Raugi      Ricasoli         Ricci 
+##  3.023889e-04  2.868617e-04  7.561437e-05  3.072197e-04  7.496252e-05 
+##       Ridolfi    Rondinelli         Rossi      Rucellai     Sacchetti 
+##  3.075031e-04  3.067485e-04  3.023889e-04  3.031222e-04  3.042288e-04 
+##      Salviati    Scambrilla  Dello_Scarfa       Scolari  Di_Ser_Segna 
+##  3.036745e-04  2.962085e-04  7.561437e-05  3.044140e-04  3.027551e-04 
+##      Serragli    Serristori      Soderini      Solosmei         Spini 
+##  3.013864e-04  3.023889e-04  3.031222e-04  7.561437e-05  3.041363e-04 
+##       Strozzi   Della_Stufa       Tanagli       Tinucci    Tornabuoni 
+##  3.114295e-04  7.496252e-05  2.995806e-04  7.496252e-05  3.047851e-04 
+##     Da_Uzzano        Valori    Vecchietti       Velluti Da_Verrazzano 
+##  3.037667e-04  3.010235e-04  3.023889e-04  7.496252e-05  7.496252e-05 
+##       Vettori 
 ##  2.907822e-04</code></pre>
 <p>We assign it to a node variable and plot the network, adjusting node size by closeness.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(marriageNet)$closeness &lt;-<span class="st"> </span><span class="kw">closeness</span>(marriageNet)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(marriageNet,
-     <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>,
-     <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>,
+     <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, 
+     <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, 
      <span class="dt">vertex.size =</span> <span class="kw">V</span>(marriageNet)$closeness/<span class="kw">max</span>(<span class="kw">V</span>(marriageNet)$closeness) *<span class="st"> </span><span class="dv">20</span>)</code></pre></div>
-<p><img src="Images/unnamed-chunk-74-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
 </div>
 <div id="eigenvector-centrality" class="section level2">
 <h2><span class="header-section-number">9.1</span> Eigenvector Centrality</h2>
@@ -401,132 +409,163 @@ marriageNet =<span class="st"> </span><span class="kw">simplify</span>(marriageN
 <p>However, we might think that power comes from being tied to powerful people. If A and B have the same degree centrality, but A is tied to all high degree people and B is tied to all low degree people, then intuitively we want to see A with a higher score than B.</p>
 <p>Eigenvector centrality takes into account alters’ power. It is calculated a little bit differently in igraph. It produces a list object and we need to extract only the vector of centrality values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">evcent</span>(marriageNet)$vector</code></pre></div>
-<pre><code>##    Acciaiuoli       Adimari       Alberti       Albizzi  Aldobrandini
-##  1.399699e-01  1.831812e-01  1.960911e-17  5.323660e-01  1.509870e-01
-##    Alessandri      Altoviti  Dall&#39;Antella   Ardinghelli       Arnolfi
-##  4.503879e-03  3.372469e-01  1.893404e-01  4.000982e-01  1.960911e-17
-##       Arrighi     Arrigucci  Baldovinetti     Barbadori         Bardi
-##  4.596917e-02  2.433106e-02  2.497482e-01  3.547849e-01  4.080706e-01
-##    Baroncelli       Baronci       Bartoli     Bartolini   Belfradelli
-##  7.001133e-18  1.421582e-02  9.930986e-18  3.400431e-03  4.564759e-02
-##         Benci    Bencivenni    Del_Benino       Benizzi  Berlinghieri
-##  1.960911e-17  4.479485e-02  1.231075e-03  1.051384e-01  1.960911e-17
-##      Bischeri     Brancacci       Bucelli   Del_Buletta        Busini
-##  3.348147e-01  2.232934e-01  1.218222e-01  1.960911e-17  1.960911e-17
-##       Capponi      Carducci  Carnessecchi    Della_Casa    Castellani
-##  2.844521e-02  1.799494e-01  1.960911e-17  1.414314e-01  4.238792e-01
-##    Cavalcanti     Cerretani          Ciai     Ciampegli    Corbinelli
-##  2.359640e-01  1.960911e-17  1.405106e-02  3.317283e-02  8.908790e-02
-##         Corsi     Davanzati    Dietisalvi         Doffi        Donati
-##  7.071156e-02  7.332195e-02  1.405106e-02  5.630179e-02  9.268390e-03
-##         Fagni     Federighi         Fenci    Fioravanti    Del_Forese
-##  1.960911e-17  1.693450e-17  1.960911e-17  1.350571e-01  1.960911e-17
-##       Fortini    Franceschi   Frescobaldi Gianfigliazzi        Ginori
-##  1.960911e-17  1.960911e-17  3.436670e-01  7.162939e-01  1.057862e-01
-##        Giugni      Giuntini      Guadagni      Guasconi  Guicciardini
-##  1.011873e-01  1.960911e-17  3.460880e-01  6.811084e-01  3.830752e-01
-##      Guiducci  Lamberteschi          Lapi      Macinghi       Mancini
-##  1.960911e-17  4.596917e-02  9.738994e-03  1.328251e-01  9.046827e-02
-##       Manelli     Manovelli      Martelli          Masi        Medici
-##  1.659979e-01  1.070266e-01  2.560082e-02  1.051384e-01  6.707160e-01
-##    Minerbetti       Nasi(?)         Nerli     Orlandini   Del_Palagio
-##  1.328251e-01  3.778238e-03  7.071156e-02  9.913900e-03  1.383317e-01
-##   Panciatichi    Pandolfini    Da_Panzano       Parenti         Pazzi
-##  5.090917e-01  2.254509e-02  9.046017e-02  1.328251e-01  9.020762e-02
-##        Pecori          Pepi       Peruzzi         Pitti    Popoleschi
-##  8.908790e-02  5.630179e-02  7.915554e-01  2.219130e-01  1.134529e-01
-##     Portinari         Pucci         Raugi      Ricasoli         Ricci
-##  8.908790e-02  1.316815e-03  5.286142e-18  5.324287e-01  1.960911e-17
-##       Ridolfi    Rondinelli         Rossi      Rucellai     Sacchetti
-##  2.507818e-01  3.998861e-01  1.582815e-01  1.328251e-01  1.486187e-01
-##      Salviati    Scambrilla  Dello_Scarfa       Scolari  Di_Ser_Segna
-##  1.467173e-01  2.785107e-02  1.268825e-17  1.367356e-01  9.046827e-02
-##      Serragli    Serristori      Soderini      Solosmei         Spini
-##  5.798025e-02  8.908790e-02  1.328251e-01  4.065448e-18  2.096823e-01
-##       Strozzi   Della_Stufa       Tanagli       Tinucci    Tornabuoni
-##  1.000000e+00  1.960911e-17  3.390835e-02  1.960911e-17  1.834366e-01
-##     Da_Uzzano        Valori    Vecchietti       Velluti Da_Verrazzano
-##  1.593404e-01  6.854784e-02  8.908790e-02  1.960911e-17  1.960911e-17
-##       Vettori
+<pre><code>##    Acciaiuoli       Adimari       Alberti       Albizzi  Aldobrandini 
+##  1.399699e-01  1.831812e-01  1.096222e-17  5.323660e-01  1.509870e-01 
+##    Alessandri      Altoviti  Dall&#39;Antella   Ardinghelli       Arnolfi 
+##  4.503879e-03  3.372469e-01  1.893404e-01  4.000982e-01  1.096222e-17 
+##       Arrighi     Arrigucci  Baldovinetti     Barbadori         Bardi 
+##  4.596917e-02  2.433106e-02  2.497482e-01  3.547849e-01  4.080706e-01 
+##    Baroncelli       Baronci       Bartoli     Bartolini   Belfradelli 
+##  1.014944e-17  1.421582e-02  1.294541e-17  3.400431e-03  4.564759e-02 
+##         Benci    Bencivenni    Del_Benino       Benizzi  Berlinghieri 
+##  1.096222e-17  4.479485e-02  1.231075e-03  1.051384e-01  1.096222e-17 
+##      Bischeri     Brancacci       Bucelli   Del_Buletta        Busini 
+##  3.348147e-01  2.232934e-01  1.218222e-01  1.096222e-17  1.096222e-17 
+##       Capponi      Carducci  Carnessecchi    Della_Casa    Castellani 
+##  2.844521e-02  1.799494e-01  1.096222e-17  1.414314e-01  4.238792e-01 
+##    Cavalcanti     Cerretani          Ciai     Ciampegli    Corbinelli 
+##  2.359640e-01  1.096222e-17  1.405106e-02  3.317283e-02  8.908790e-02 
+##         Corsi     Davanzati    Dietisalvi         Doffi        Donati 
+##  7.071156e-02  7.332195e-02  1.405106e-02  5.630179e-02  9.268390e-03 
+##         Fagni     Federighi         Fenci    Fioravanti    Del_Forese 
+##  1.096222e-17  9.497930e-18  1.096222e-17  1.350571e-01  1.096222e-17 
+##       Fortini    Franceschi   Frescobaldi Gianfigliazzi        Ginori 
+##  1.096222e-17  1.096222e-17  3.436670e-01  7.162939e-01  1.057862e-01 
+##        Giugni      Giuntini      Guadagni      Guasconi  Guicciardini 
+##  1.011873e-01  1.096222e-17  3.460880e-01  6.811084e-01  3.830752e-01 
+##      Guiducci  Lamberteschi          Lapi      Macinghi       Mancini 
+##  1.096222e-17  4.596917e-02  9.738994e-03  1.328251e-01  9.046827e-02 
+##       Manelli     Manovelli      Martelli          Masi        Medici 
+##  1.659979e-01  1.070266e-01  2.560082e-02  1.051384e-01  6.707160e-01 
+##    Minerbetti       Nasi(?)         Nerli     Orlandini   Del_Palagio 
+##  1.328251e-01  3.778238e-03  7.071156e-02  9.913900e-03  1.383317e-01 
+##   Panciatichi    Pandolfini    Da_Panzano       Parenti         Pazzi 
+##  5.090917e-01  2.254509e-02  9.046017e-02  1.328251e-01  9.020762e-02 
+##        Pecori          Pepi       Peruzzi         Pitti    Popoleschi 
+##  8.908790e-02  5.630179e-02  7.915554e-01  2.219130e-01  1.134529e-01 
+##     Portinari         Pucci         Raugi      Ricasoli         Ricci 
+##  8.908790e-02  1.316815e-03  9.736396e-18  5.324287e-01  1.096222e-17 
+##       Ridolfi    Rondinelli         Rossi      Rucellai     Sacchetti 
+##  2.507818e-01  3.998861e-01  1.582815e-01  1.328251e-01  1.486187e-01 
+##      Salviati    Scambrilla  Dello_Scarfa       Scolari  Di_Ser_Segna 
+##  1.467173e-01  2.785107e-02  1.282545e-17  1.367356e-01  9.046827e-02 
+##      Serragli    Serristori      Soderini      Solosmei         Spini 
+##  5.798025e-02  8.908790e-02  1.328251e-01  1.091719e-17  2.096823e-01 
+##       Strozzi   Della_Stufa       Tanagli       Tinucci    Tornabuoni 
+##  1.000000e+00  1.096222e-17  3.390835e-02  1.096222e-17  1.834366e-01 
+##     Da_Uzzano        Valori    Vecchietti       Velluti Da_Verrazzano 
+##  1.593404e-01  6.854784e-02  8.908790e-02  1.096222e-17  1.096222e-17 
+##       Vettori 
 ##  3.778238e-03</code></pre>
 <p>Then we can assign that vector to our network and plot it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(marriageNet)$eigenvector &lt;-<span class="st"> </span><span class="kw">evcent</span>(marriageNet)$vector
 
 <span class="kw">plot</span>(marriageNet,
-     <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>,
-     <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>,
+     <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, 
+     <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, 
      <span class="dt">vertex.size =</span> <span class="kw">V</span>(marriageNet)$eigenvector/<span class="kw">max</span>(<span class="kw">V</span>(marriageNet)$eigenvector) *<span class="st"> </span><span class="dv">20</span>)</code></pre></div>
-<p><img src="Images/unnamed-chunk-76-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
 <div id="measure-correlations" class="section level3">
 <h3><span class="header-section-number">9.1.1</span> Measure Correlations</h3>
 <p>Most of these measures are highly correlated, meaning they don’t necessarily capture unique aspects of pwoer. However, the amount of correlation depends on the network structure. Let’s see how the correlations between centrality measures looks in the Florentine Family network. cor.test(x,y) performs a simple correlation test between two vectors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor.test</span>(<span class="kw">V</span>(marriageNet)$degree, <span class="kw">V</span>(marriageNet)$betweenness)</code></pre></div>
-<pre><code>##
+<pre><code>## 
 ##  Pearson&#39;s product-moment correlation
-##
+## 
 ## data:  V(marriageNet)$degree and V(marriageNet)$betweenness
 ## t = 29.055, df = 114, p-value &lt; 2.2e-16
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.9124632 0.9571526
 ## sample estimates:
-##       cor
+##       cor 
 ## 0.9386317</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor.test</span>(<span class="kw">V</span>(marriageNet)$degree, <span class="kw">V</span>(marriageNet)$eigenvector) </code></pre></div>
-<pre><code>##
+<pre><code>## 
 ##  Pearson&#39;s product-moment correlation
-##
+## 
 ## data:  V(marriageNet)$degree and V(marriageNet)$eigenvector
 ## t = 25.9, df = 114, p-value &lt; 2.2e-16
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.8926691 0.9471847
 ## sample estimates:
-##       cor
+##       cor 
 ## 0.9245214</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor.test</span>(<span class="kw">V</span>(marriageNet)$degree, <span class="kw">V</span>(marriageNet)$closeness)</code></pre></div>
-<pre><code>##
+<pre><code>## 
 ##  Pearson&#39;s product-moment correlation
-##
+## 
 ## data:  V(marriageNet)$degree and V(marriageNet)$closeness
 ## t = 4.2754, df = 114, p-value = 3.981e-05
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.2031884 0.5188843
 ## sample estimates:
-##       cor
+##       cor 
 ## 0.3717342</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor.test</span>(<span class="kw">V</span>(marriageNet)$betweenness, <span class="kw">V</span>(marriageNet)$eigenvector)</code></pre></div>
-<pre><code>##
+<pre><code>## 
 ##  Pearson&#39;s product-moment correlation
-##
+## 
 ## data:  V(marriageNet)$betweenness and V(marriageNet)$eigenvector
 ## t = 13.93, df = 114, p-value &lt; 2.2e-16
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.7147869 0.8526169
 ## sample estimates:
-##       cor
+##       cor 
 ## 0.7936739</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor.test</span>(<span class="kw">V</span>(marriageNet)$betweenness, <span class="kw">V</span>(marriageNet)$closeness)</code></pre></div>
-<pre><code>##
+<pre><code>## 
 ##  Pearson&#39;s product-moment correlation
-##
+## 
 ## data:  V(marriageNet)$betweenness and V(marriageNet)$closeness
 ## t = 2.6627, df = 114, p-value = 0.008872
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.06241416 0.40636643
 ## sample estimates:
-##       cor
+##       cor 
 ## 0.2419773</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor.test</span>(<span class="kw">V</span>(marriageNet)$betweenness, <span class="kw">V</span>(marriageNet)$date)</code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  V(marriageNet)$betweenness and V(marriageNet)$date
+## t = -0.32853, df = 97, p-value = 0.7432
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.2292421  0.1651598
+## sample estimates:
+##       cor 
+## -0.033339</code></pre>
 <p>What do we learn?</p>
 </div>
 <div id="centralization-and-degree-distributions" class="section level3">
 <h3><span class="header-section-number">9.1.2</span> Centralization and Degree Distributions</h3>
 <p>To understand the measures further, we can look at their distributions. This will tell us roughly how many nodes have centralities of a given value.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(<span class="kw">V</span>(marriageNet)$betweenness, <span class="dt">xlab =</span> <span class="st">&quot;Betweenness&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Degree distribution of betweenness&quot;</span>)</code></pre></div>
-<p><img src="Images/unnamed-chunk-78-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fitting a degree distribution on the log-log scale</span>
+alter_hist =<span class="st"> </span><span class="kw">table</span>(<span class="kw">degree</span>(marriageNet))
+vals =<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">names</span>(alter_hist))
+vals =<span class="st"> </span>vals[<span class="dv">2</span>:<span class="kw">length</span>(vals)]
+alter_hist =<span class="st"> </span>alter_hist[<span class="dv">2</span>:<span class="kw">length</span>(alter_hist)]
+df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Vals =</span> <span class="kw">log</span>(vals), <span class="dt">Hist =</span> <span class="kw">log</span>(<span class="kw">as.numeric</span>(alter_hist)), <span class="dt">stringsAsFactors =</span> F)
+
+<span class="co"># plot log-log degree distribution</span>
+<span class="kw">plot</span>(Hist ~<span class="st"> </span>Vals, <span class="dt">data =</span> df)
+
+<span class="co"># regression line</span>
+<span class="kw">abline</span>(<span class="kw">lm</span>(Hist ~<span class="st"> </span>Vals, <span class="dt">data =</span> df))</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-78-1.png" width="672" /> Why do your friends have more friends than you do? (TK)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># degrees of your friends</span>
+neighbor_degrees =<span class="st"> </span><span class="kw">knn</span>(marriageNet)$knn
+df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Degrees =</span> <span class="kw">degree</span>(marriageNet), <span class="dt">Neighbor_degrees =</span> neighbor_degrees)
+
+<span class="co"># plot neighbor degrees vs. ego degress</span>
+<span class="kw">plot</span>(Neighbor_degrees ~<span class="st"> </span>Degrees, <span class="dt">data =</span> df)
+<span class="kw">abline</span>(<span class="kw">lm</span>(Neighbor_degrees ~<span class="st"> </span>Degrees, <span class="dt">data =</span> df))</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 <p>We can see that most nodes in the marriage network have low betweenness centrality, and only one node has more than 40 betweenness. Degree distributions tend to be right-skewed; that is, only a few nodes in most networks have most of the ties. Evenly distributed degree is much rarer.</p>
 <p>Finally centralization measures the extent to which a network is centered around a single node. The closer a network gets to looking like a star, the more centralization will be.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">centralization.degree</span>(marriageNet)</code></pre></div>
@@ -537,10 +576,10 @@ marriageNet =<span class="st"> </span><span class="kw">simplify</span>(marriageN
 ##  [70] 20  1  1  1  2  2  7  2  2  1  2  1  1 15  2  2  1  1  1 10  0  4  5
 ##  [93]  2  1  3  3  1  1  3  1  2  1  1  1  4 25  0  2  0  4  2  4  1  0  0
 ## [116]  1
-##
+## 
 ## $centralization
 ## [1] 0.1938531
-##
+## 
 ## $theoretical_max
 ## [1] 13340</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">centralization.betweenness</span>(marriageNet)</code></pre></div>
@@ -569,107 +608,107 @@ marriageNet =<span class="st"> </span><span class="kw">simplify</span>(marriageN
 ## [106] 1369.979110    0.000000   88.000000    0.000000   23.831746
 ## [111]    3.666667  202.285859    0.000000    0.000000    0.000000
 ## [116]    0.000000
-##
+## 
 ## $centralization
 ## [1] 0.1985031
-##
+## 
 ## $theoretical_max
 ## [1] 753825</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">centralization.evcent</span>(marriageNet)</code></pre></div>
 <pre><code>## $vector
-##   [1] 0.139969900 0.183181185 0.000000000 0.532365989 0.150986997
-##   [6] 0.004503879 0.337246899 0.189340415 0.400098205 0.000000000
-##  [11] 0.045969167 0.024331056 0.249748224 0.354784865 0.408070618
-##  [16] 0.000000000 0.014215821 0.000000000 0.003400431 0.045647594
-##  [21] 0.000000000 0.044794847 0.001231075 0.105138414 0.000000000
-##  [26] 0.334814659 0.223293355 0.121822157 0.000000000 0.000000000
-##  [31] 0.028445212 0.179949410 0.000000000 0.141431437 0.423879187
-##  [36] 0.235964042 0.000000000 0.014051056 0.033172828 0.089087904
-##  [41] 0.070711556 0.073321953 0.014051056 0.056301788 0.009268390
-##  [46] 0.000000000 0.000000000 0.000000000 0.135057071 0.000000000
-##  [51] 0.000000000 0.000000000 0.343666976 0.716293858 0.105786164
-##  [56] 0.101187330 0.000000000 0.346088004 0.681108355 0.383075212
-##  [61] 0.000000000 0.045969167 0.009738994 0.132825082 0.090468273
-##  [66] 0.165997910 0.107026632 0.025600819 0.105138414 0.670715974
-##  [71] 0.132825082 0.003778238 0.070711556 0.009913900 0.138331700
-##  [76] 0.509091680 0.022545088 0.090460172 0.132825082 0.090207623
-##  [81] 0.089087904 0.056301788 0.791555424 0.221912986 0.113452883
-##  [86] 0.089087904 0.001316815 0.000000000 0.532428666 0.000000000
-##  [91] 0.250781843 0.399886089 0.158281491 0.132825082 0.148618699
-##  [96] 0.146717333 0.027851072 0.000000000 0.136735584 0.090468273
-## [101] 0.057980251 0.089087904 0.132825082 0.000000000 0.209682322
-## [106] 1.000000000 0.000000000 0.033908347 0.000000000 0.183436579
-## [111] 0.159340427 0.068547839 0.089087904 0.000000000 0.000000000
-## [116] 0.003778238
-##
+##   [1] 1.399699e-01 1.831812e-01 3.023137e-17 5.323660e-01 1.509870e-01
+##   [6] 4.503879e-03 3.372469e-01 1.893404e-01 4.000982e-01 3.023137e-17
+##  [11] 4.596917e-02 2.433106e-02 2.497482e-01 3.547849e-01 4.080706e-01
+##  [16] 2.563631e-17 1.421582e-02 2.767765e-17 3.400431e-03 4.564759e-02
+##  [21] 3.023137e-17 4.479485e-02 1.231075e-03 1.051384e-01 3.023137e-17
+##  [26] 3.348147e-01 2.232934e-01 1.218222e-01 3.023137e-17 3.023137e-17
+##  [31] 2.844521e-02 1.799494e-01 3.023137e-17 1.414314e-01 4.238792e-01
+##  [36] 2.359640e-01 3.023137e-17 1.405106e-02 3.317283e-02 8.908790e-02
+##  [41] 7.071156e-02 7.332195e-02 1.405106e-02 5.630179e-02 9.268390e-03
+##  [46] 3.023137e-17 3.059531e-17 3.023137e-17 1.350571e-01 3.023137e-17
+##  [51] 3.023137e-17 3.023137e-17 3.436670e-01 7.162939e-01 1.057862e-01
+##  [56] 1.011873e-01 3.023137e-17 3.460880e-01 6.811084e-01 3.830752e-01
+##  [61] 3.023137e-17 4.596917e-02 9.738994e-03 1.328251e-01 9.046827e-02
+##  [66] 1.659979e-01 1.070266e-01 2.560082e-02 1.051384e-01 6.707160e-01
+##  [71] 1.328251e-01 3.778238e-03 7.071156e-02 9.913900e-03 1.383317e-01
+##  [76] 5.090917e-01 2.254509e-02 9.046017e-02 1.328251e-01 9.020762e-02
+##  [81] 8.908790e-02 5.630179e-02 7.915554e-01 2.219130e-01 1.134529e-01
+##  [86] 8.908790e-02 1.316815e-03 1.614634e-17 5.324287e-01 3.023137e-17
+##  [91] 2.507818e-01 3.998861e-01 1.582815e-01 1.328251e-01 1.486187e-01
+##  [96] 1.467173e-01 2.785107e-02 2.118500e-17 1.367356e-01 9.046827e-02
+## [101] 5.798025e-02 8.908790e-02 1.328251e-01 1.941844e-17 2.096823e-01
+## [106] 1.000000e+00 3.023137e-17 3.390835e-02 3.023137e-17 1.834366e-01
+## [111] 1.593404e-01 6.854784e-02 8.908790e-02 3.023137e-17 3.023137e-17
+## [116] 3.778238e-03
+## 
 ## $value
 ## [1] 7.528699
-##
+## 
 ## $options
 ## $options$bmat
 ## [1] &quot;I&quot;
-##
+## 
 ## $options$n
 ## [1] 116
-##
+## 
 ## $options$which
 ## [1] &quot;LA&quot;
-##
+## 
 ## $options$nev
 ## [1] 1
-##
+## 
 ## $options$tol
 ## [1] 0
-##
+## 
 ## $options$ncv
 ## [1] 0
-##
+## 
 ## $options$ldv
 ## [1] 0
-##
+## 
 ## $options$ishift
 ## [1] 1
-##
+## 
 ## $options$maxiter
 ## [1] 1000
-##
+## 
 ## $options$nb
 ## [1] 1
-##
+## 
 ## $options$mode
 ## [1] 1
-##
+## 
 ## $options$start
 ## [1] 1
-##
+## 
 ## $options$sigma
 ## [1] 0
-##
+## 
 ## $options$sigmai
 ## [1] 0
-##
+## 
 ## $options$info
 ## [1] 0
-##
+## 
 ## $options$iter
 ## [1] 2
-##
+## 
 ## $options$nconv
 ## [1] 1
-##
+## 
 ## $options$numop
 ## [1] 30
-##
+## 
 ## $options$numopb
 ## [1] 0
-##
+## 
 ## $options$numreo
 ## [1] 21
-##
-##
+## 
+## 
 ## $centralization
 ## [1] 0.8766139
-##
+## 
 ## $theoretical_max
 ## [1] 114</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">centralization.closeness</span>(marriageNet)</code></pre></div>
@@ -698,14 +737,56 @@ marriageNet =<span class="st"> </span><span class="kw">simplify</span>(marriageN
 ## [106] 0.035814388 0.008620690 0.034451768 0.008620690 0.035050290
 ## [111] 0.034933171 0.034617700 0.034774720 0.008620690 0.008620690
 ## [116] 0.033439953
-##
+## 
 ## $centralization
 ## [1] 0.01402947
-##
+## 
 ## $theoretical_max
 ## [1] 57.24891</code></pre>
-
 </div>
+</div>
+<div id="reach" class="section level2">
+<h2><span class="header-section-number">9.2</span> Reach</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reach_n =function(x, <span class="dt">n =</span> <span class="dv">2</span>){
+  r=<span class="kw">vector</span>(<span class="dt">length=</span><span class="kw">vcount</span>(x))
+  for (i in <span class="dv">1</span>:<span class="kw">vcount</span>(x)){
+    neighb =<span class="kw">neighborhood</span>(x, n, <span class="dt">nodes=</span>i)
+    ni=<span class="kw">unlist</span>(neighb)
+    l=<span class="kw">length</span>(ni)
+    r[i]=(l)/<span class="kw">vcount</span>(x)
+  }
+  <span class="kw">return</span>(r)
+}
+
+two_reach =<span class="st"> </span><span class="kw">reach_n</span>(marriageNet, <span class="dv">2</span>)
+
+<span class="kw">plot</span>(marriageNet, <span class="dt">vertex.size =</span> two_reach *<span class="st"> </span><span class="dv">10</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">4</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">three_reach =<span class="st"> </span><span class="kw">reach_n</span>(marriageNet, <span class="dv">3</span>)
+
+<span class="kw">plot</span>(marriageNet, <span class="dt">vertex.size =</span> three_reach *<span class="st"> </span><span class="dv">10</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">4</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-81-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">four_reach =<span class="st"> </span><span class="kw">reach_n</span>(marriageNet, <span class="dv">4</span>)
+
+<span class="kw">plot</span>(marriageNet, <span class="dt">vertex.size =</span> four_reach *<span class="st"> </span><span class="dv">10</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">4</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-81-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">five_reach =<span class="st"> </span><span class="kw">reach_n</span>(marriageNet, <span class="dv">5</span>)
+
+<span class="kw">plot</span>(marriageNet, <span class="dt">vertex.size =</span> five_reach *<span class="st"> </span><span class="dv">10</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">4</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-81-4.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">distance_weighted_reach=function(x){
+  distances=<span class="kw">shortest.paths</span>(x) <span class="co">#create matrix of geodesic distances</span>
+  <span class="kw">diag</span>(distances)=<span class="dv">1</span> <span class="co"># replace the diagonal with 1s</span>
+  weights=<span class="dv">1</span>/distances <span class="co"># take the reciprocal of distances</span>
+  <span class="kw">return</span>(<span class="kw">apply</span>(weights,<span class="dv">1</span>,sum)) <span class="co"># sum for each node (row)</span>
+}
+
+dw_reach =<span class="st"> </span><span class="kw">distance_weighted_reach</span>(marriageNet) 
+dw_reach =<span class="st"> </span>dw_reach/<span class="kw">max</span>(dw_reach)
+
+<span class="kw">plot</span>(marriageNet, <span class="dt">vertex.size =</span> dw_reach *<span class="st"> </span><span class="dv">10</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">4</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-81-5.png" width="672" /></p>
+
 </div>
 </div>
             </section>

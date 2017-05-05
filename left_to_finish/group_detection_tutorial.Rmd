@@ -7,66 +7,6 @@ output: html_document
 
 # Group detection
 
-Groups are one of the many tools we have for analyzing network structure. Group detection focuses on the presence of ties - in attempt to identify densly connected groups of actors. There are many different tools for doing this - we will cover four: component analysis, k-cliques, modularity, and cohesive blocking.  Each method has its own uses and theoretical underpinnings, so I put citations of famous papers that use each method at the bottom of the script. 
-
-## Component analysis
-
-The most basic form of network group is a component.  In a connected component, every node is reachable via some path by every other node. Most network datasets have only a single large connected component with a few isolates - however, some unique datasets might have three or four large, distinct components.
-
-In a directed graph, components can be weakly or strongly connected. If node i can reach j via a directed path and j can reach i via a directed path, for all i and j nodes in the component, then we say the component is strongly connected. If all nodes are only reachable from a single direction, (i.e. i can reach j via a directed path, but j can't reach i), then we say the component is weakly connected.
-
-The ?decompose.graph function in igraph will take a network and decompose it into its connected components. We can then analyze each component separately. 
-
-```{r}
-library(igraph)
-
-g1 <- barabasi.game(100, 1, 5) # Generate a scale-free network
-V(g1)$name <- as.character(1:100)
-
-g2 <- erdos.renyi.game(100, graph.density(g1), directed = TRUE)
-V(g2)$name <- as.character(101:200)
-
-g3 <- graph.union(g1, g2, byname = TRUE) # The ?graph.union function combines two networks. 
-
-plot(g3, vertex.label = NA, vertex.size=2, edge.arrow.size = .1) # Two distinct networks in a single plot
-```
-
-Now let's use decompose to isolate each component.  There will be two.
-
-```{r}
-component_list <- decompose.graph(g3, mode = "weak")
-component_list
-```
-
-It returns a list with two graphs in it - one for each component
-
-```{r}
-plot(component_list[[1]], main = "The Scale-Free Graph", vertex.label = NA, vertex.size = 3)
-plot(component_list[[2]], main = "The Random Graph", vertex.label = NA, vertex.size = 3)
-```
-
-## Cliques
-
-Cliques are fully connected subgraphs within a network structure; they are like the caves in the caveman structure we learned about a few weeks ago. We often want to find all of the cliques in a network of various sizes.  We could have a theory for example that people will dress or behave similarly or affect those in their cliques. That is, we might imagine cliques to be meaningful for the outcomes we are interested in study. We can do this with the clique function in igraph. 
-
-```{r}
-clique_out <- cliques(g1)
-length(clique_out)
-```
-
-Wow... imagine the number of cliques in a large network
-If we want to look for cliques of a certain size we can use the min and max arguments.
-
-```{r}
-clique_four <- cliques(g1, min = 4, max = 4)
-length(clique_four)/length(clique_out)
-```
-
-Cliques of size four make about 25% of total cliques in the network.
-
-
-## Group Detection
-
 We often just want to find distinct groups of people. We might not require that everyone in a group is connected - it is too stringent. Instead, we could define groups as sets of nodes who have a higher proportion of edges going inwards than outwards - that is, solidarity is strongest within the group.
 
 There are a plethora of group detection algorithms in igraph. I will cover some of them. The full list is: edge.betweenness.community, fastgreedy.community, label.propagation.community, leading.eigenvector.community, multilevel.community, optimal.community, spinglass.community, and walktrap.community.
@@ -78,35 +18,38 @@ Each algorithm as its own igraph function. These functions produce lists with in
 
 For undirected graphs, you can use the optimal or multilevel algorithms.
 
+First we load our data
 ```{r}
-communityMulti <- multilevel.community(g4)
+florentine_edgelist <- read.csv("http://www.markanthonyhoffman.com/downloads/florentine_edgelist.csv", stringsAsFactors = FALSE, row.names = 1)
+
+florentine_attributes <- read.csv("http://www.markanthonyhoffman.com/downloads/florentine_attributes.csv", stringsAsFactors = FALSE)
+
+marriageNet <- graph_from_data_frame(d = florentine_edgelist, directed = F, vertices = florentine_attributes)
+marriageNet = simplify(marriageNet)
+```
+
+```{r}
+communityMulti <- multilevel.community(marriageNet)
 ```
 
 For directed graphs, edge betweenness is generally your best bet, though the walktrap algorithm performs well too.
 
-```{r}
-communityWalk <- walktrap.community(g2)
-communityEB <- edge.betweenness.community(g2)
-communityInfo <- infomap.community(g2)
-```
-
 We might wish to visualize the group structure of networks to see how the algorithms divide the network. To do so, we have to first extract the membership vector and put it in a format the plot function understands.
 
 ```{r}
-communityMultiGroup <- by(seq_along(communityMulti$membership), communityMulti$membership, invisible)
-communityMultiGroup
+communityMultiGroup <- communities(communityMulti)
 ```
 
 We can then use the mark.groups argument in plot to see the groups. 
 ```{r}
-plot(g4, vertex.size = 3, vertex.label = NA, mark.groups = communityMultiGroup)
+plot(marriageNet, vertex.size = 3, vertex.label = NA, mark.groups = communityMultiGroup)
 ```
 
 Alternatively, we can just color the nodes by group membership.  In this case, we can just use the membership vector.
 
 ```{r}
-V(g4)$color <- communityMulti$membership
-plot(g4, vertex.size = 3, vertex.label = NA)
+V(marriageNet)$color <- membership(communityMulti)
+plot(marriageNet, vertex.size = 3, vertex.label = NA)
 ```
 
 This becomes less feasible as the number of groups increases!!
@@ -121,7 +64,7 @@ We can think of modularity as both a measure of how effective a given grouping a
 Getting a network's modularity in igraph is easy! 
 
 ```{r}
-communityMulti <- multilevel.community(g4)
+communityMulti <- multilevel.community(marriageNet)
 communityMulti$modularity
 ```
 

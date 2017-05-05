@@ -94,7 +94,7 @@ Watts wants to get from this network structure, to one in which the average path
 We end up with a caveman structure with some number of rewired edges that will have the tendency to cut across the network
 
 ```{r}
-caveman_net_rewired <- caveman_net %>% rewire(keeping_degseq(niter = 1000))
+caveman_net_rewired <-  rewire(caveman_net, keeping_degseq(niter = 1000))
 ```
 
 We can use the rewire function to rewire the network. keeping_degseq() ensures that the degree distribution does not change and niter = 20 is the number of iterations (rewirings).
@@ -122,9 +122,11 @@ Density is unchanged. Clustering coefficient is less than before, but still rela
 We can analyze the change as we perform more rewirings. 
 
 ```{r}
-avgpathlength <- average.path.length(caveman_net) # These are the first observation
-clusteringcoefficient <- transitivity(caveman_net)
-caveman_net_rewired <- caveman_net
+caveman_net_rewired <- simulate_caveman(n = 100, clique_size = 10)
+avgpathlength <- average.path.length(caveman_net_rewired) # These are the first observation
+clusteringcoefficient <- transitivity(caveman_net_rewired)
+
+
 
 iter = 100
 for ( i in 2:iter){
@@ -134,7 +136,10 @@ for ( i in 2:iter){
 }
 
 plot(1:100, avgpathlength, xlab = "Numer of Rewirings", ylab = "Average Path Length", main = "Caveman", type = "l")
-plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l")
+lines(1:100, clusteringcoefficient)
+
+
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l", ylim = c(0,1))
 ```
 
 ### Other simulations

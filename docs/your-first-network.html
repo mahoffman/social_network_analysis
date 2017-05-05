@@ -12,16 +12,16 @@
 
   <meta property="og:title" content="Social Network Analysis" />
   <meta property="og:type" content="book" />
-  
-  
-  
+
+
+
   <meta name="github-repo" content="markahoffman/social_network_analysis" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Social Network Analysis" />
   <meta name="twitter:site" content="@mark_a_hoffman" />
-  
-  
+
+
 
 <meta name="author" content="Peter Bearman and Mark Hoffman">
 
@@ -30,8 +30,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  
-  
+
+
 <link rel="prev" href="understanding-network-data-structures.html">
 <link rel="next" href="network-visualization-and-aesthetics.html">
 
@@ -268,7 +268,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">6.5</span> From data to networks</h2>
 <p>In this class, we will primarily use igraph, a user-maintained package in R, to analyze networks. Installing igraph gives us a bunch of new tools for graphing, analyzing and manipulating networks, that don’t come with base R. The first step then is to install igraph. To install a new package, we use the install.packages() function. It takes a character argument that is the name of the package you wish to install.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;igraph&quot;</span>, <span class="dt">repos=</span><span class="st">&#39;http://cran.us.r-project.org&#39;</span>)</code></pre></div>
-<pre><code>## 
+<pre><code>##
 ## The downloaded binary packages are in
 ##  /var/folders/k0/_v5yt5b901v5vtff0y7zmgmr0000gn/T//Rtmpo3DQxt/downloaded_packages</code></pre>
 <p>If you leave out the “repos” argument, it will cause a window to pop up with a list of CRAN mirrors. Then you can choose the repository nearest to you by double clicking on it.</p>
@@ -291,11 +291,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">6.6</span> Exploring your network</h2>
 <p>We finally have a network in R! So.. what next? Well we can read a summary of it by typing its name into R.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">moneyNetwork</code></pre></div>
-<pre><code>## IGRAPH DN-- 6 11 -- 
+<pre><code>## IGRAPH DN-- 6 11 --
 ## + attr: name (v/c)
 ## + edges (vertex names):
-##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick 
-##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick 
+##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick
+##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick
 ## [11] Lexi -&gt;Nick</code></pre>
 <p>The first line - which begins with IGRAPH DN - tells us moneyNetwork is an igraph object and a directed network (DN), with N nodes and E edges.</p>
 <p>The next line tells us some attributes of the nodes and edges network. At the moment, it only has the attribute “name” for the vertices (v/c). We can look at the values of the “name” attribute with the V()$ function.</p>
@@ -304,7 +304,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Finally, the last part gives us a snapshot of the edges present in the network, most of which are omitted.</p>
 <p>We can visualize the network using the plot() function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-33-1.png" width="672" /></p>
 <p>The default visualization is pretty ugly… In the next section, we will learn how to improve the aesthetics of our network visualizations.</p>
 
 </div>

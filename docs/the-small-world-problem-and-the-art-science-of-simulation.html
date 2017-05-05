@@ -12,16 +12,16 @@
 
   <meta property="og:title" content="Social Network Analysis" />
   <meta property="og:type" content="book" />
-  
-  
-  
+
+
+
   <meta name="github-repo" content="markahoffman/social_network_analysis" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Social Network Analysis" />
   <meta name="twitter:site" content="@mark_a_hoffman" />
-  
-  
+
+
 
 <meta name="author" content="Peter Bearman and Mark Hoffman">
 
@@ -30,8 +30,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  
-  
+
+
 <link rel="prev" href="centrality.html">
 <link rel="next" href="group-detection.html">
 
@@ -191,29 +191,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   if ( ((n%/%clique_size) *<span class="st"> </span>clique_size) !=<span class="st"> </span>n){
     <span class="kw">stop</span>(<span class="st">&quot;n is not evenly divisible by clique_size&quot;</span>)
   }
-  
+
   groups =<span class="st"> </span>n/clique_size <span class="co"># this determines the number of groups</span>
-  
+
   el &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">PersonA =</span> <span class="dv">1</span>:n, <span class="dt">Group =</span> <span class="ot">NA</span>) <span class="co"># I create a dataframe which has people and the groups they are in</span>
   <span class="co"># I treat it like a person to group edgelist</span>
-  
+
   group_vector =<span class="st"> </span><span class="kw">c</span>()
   for (i in <span class="dv">1</span>:groups){
     group_vector &lt;-<span class="st"> </span><span class="kw">c</span>(group_vector, <span class="kw">rep</span>(i, clique_size))
-  }  
+  }
 
   el$Group &lt;-<span class="st"> </span>group_vector
-  
+
   inc &lt;-<span class="st"> </span><span class="kw">table</span>(el) <span class="co"># I use the table function to turn the person to group edgelist into an incidence matrix</span>
   adj &lt;-<span class="st"> </span>inc %*%<span class="st"> </span><span class="kw">t</span>(inc) <span class="co"># And I use matrix multiplication with the transpose to turn the person to group incidence matrix</span>
   <span class="co"># into a person to person adjacency matrix</span>
-  
-  <span class="kw">diag</span>(adj) &lt;-<span class="st"> </span><span class="dv">0</span> 
-  
+
+  <span class="kw">diag</span>(adj) &lt;-<span class="st"> </span><span class="dv">0</span>
+
   g &lt;-<span class="st"> </span><span class="kw">graph.adjacency</span>(adj, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>) <span class="co"># I graph this matrix</span>
 
   group_connect &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> n, <span class="dt">by =</span> clique_size) <span class="co"># I determine the points of connection using a sequence funciton</span>
-  
+
   for( i in <span class="dv">1</span>:(<span class="kw">length</span>(group_connect)-<span class="dv">1</span>)){
     p1 &lt;-<span class="st"> </span>group_connect[i] +<span class="st"> </span><span class="dv">1</span>
     p2 &lt;-<span class="st"> </span>group_connect[i<span class="dv">+1</span>]
@@ -221,14 +221,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   }
     g &lt;-<span class="st"> </span><span class="kw">add.edges</span>(g, <span class="kw">c</span>(group_connect[<span class="dv">1</span>],(group_connect[groups]+<span class="dv">1</span>))) <span class="co"># finally I connect the ends of the structure so that it forms a circle</span>
 
-    <span class="kw">return</span>(g)    
+    <span class="kw">return</span>(g)
 }</code></pre></div>
 <p>You don’t have to understand every part of this function in order to use it. All you need to do is run the function above so that it is in your R environment. You can then use it.</p>
 <p>It has two arguments - number of nodes and the size of the groups. You could change clique_size to 4 or 10.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">caveman_net &lt;-<span class="st"> </span><span class="kw">simulate_caveman</span>(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">clique_size =</span> <span class="dv">5</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">caveman_net &lt;-<span class="st"> </span><span class="kw">simulate_caveman</span>(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">clique_size =</span> <span class="dv">5</span>)
 <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>))
 <span class="kw">plot</span>(caveman_net, <span class="dt">layout =</span> <span class="kw">layout.kamada.kawai</span>(caveman_net), <span class="dt">vertex.size =</span> <span class="dv">2</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;grey80&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-83-1.png" width="672" /></p>
 <p>Now you can clearly see what a caveman structure is. Let’s analyze it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">graph.density</span>(caveman_net)</code></pre></div>
 <pre><code>## [1] 0.04444444</code></pre>
@@ -242,7 +242,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nodes.diameter&lt;-<span class="kw">get.diameter</span>(caveman_net)
 <span class="kw">V</span>(caveman_net)[nodes.diameter]$color&lt;-<span class="st">&quot;darkgreen&quot;</span> <span class="co"># This assigns those nodes the color darkgreen.</span>
 <span class="kw">plot</span>(caveman_net, <span class="dt">layout =</span> <span class="kw">layout.kamada.kawai</span>(caveman_net), <span class="dt">vertex.size =</span> <span class="dv">2</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-85-1.png" width="672" /></p>
 <p>Let’s reset color.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(caveman_net)$color &lt;-<span class="st"> &quot;orange&quot;</span></code></pre></div>
 <p>Watts wants to get from this network structure, to one in which the average path length is much lower. He performs a simple exercise to do so (and one we have already experimented with). He randomly rewires the network so that it begins, slowly to approximate a random graph. Random graphs have low average path length; so this is a good idea.</p>
@@ -250,12 +250,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">caveman_net_rewired &lt;-<span class="st">  </span><span class="kw">rewire</span>(caveman_net, <span class="kw">keeping_degseq</span>(<span class="dt">niter =</span> <span class="dv">1000</span>))</code></pre></div>
 <p>We can use the rewire function to rewire the network. keeping_degseq() ensures that the degree distribution does not change and niter = 20 is the number of iterations (rewirings).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(caveman_net_rewired, <span class="dt">layout =</span> <span class="kw">layout.kamada.kawai</span>(caveman_net), <span class="dt">vertex.size =</span> <span class="dv">2</span>, <span class="dt">vertex.label=</span><span class="ot">NA</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-88-1.png" width="672" /></p>
 <p>Most of the rewirings cut across the network structure!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(caveman_net_rewired, <span class="dt">layout =</span> <span class="kw">layout.kamada.kawai</span>(caveman_net_rewired), <span class="dt">vertex.size =</span> <span class="dv">2</span>, <span class="dt">vertex.label=</span><span class="ot">NA</span>) <span class="co"># Here it is laid out properly</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-89-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(caveman_net_rewired, <span class="dt">layout =</span> <span class="kw">layout.kamada.kawai</span>(caveman_net_rewired), <span class="dt">vertex.size =</span> <span class="dv">2</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;grey80&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-89-2.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-89-2.png" width="672" /></p>
 <p>Let’s compare this to the caveman network.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">graph.density</span>(caveman_net_rewired) </code></pre></div>
 <pre><code>## [1] 0.04444444</code></pre>
@@ -280,16 +280,16 @@ for ( i in <span class="dv">2</span>:iter){
 
 <span class="kw">plot</span>(<span class="dv">1</span>:<span class="dv">100</span>, avgpathlength, <span class="dt">xlab =</span> <span class="st">&quot;Numer of Rewirings&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Average Path Length&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Caveman&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)
 <span class="kw">lines</span>(<span class="dv">1</span>:<span class="dv">100</span>, clusteringcoefficient)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-91-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span>:<span class="dv">100</span>, clusteringcoefficient, <span class="dt">xlab =</span> <span class="st">&quot;Numer of Rewirings&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Clustering Coefficient&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Caveman&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-91-2.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-91-2.png" width="672" /></p>
 <div id="other-simulations" class="section level3">
 <h3><span class="header-section-number">10.0.1</span> Other simulations</h3>
 <p>Simulations are used a lot in networks. We only talk in class about random nets and small-worlds, but there are many ideal-type networks. The third most famous is the “scale-free” network. “scale-free networks” are also known as hub-based networks, because they have a few actors with high degree and many actors with low degree. They are therefore highly centralized, and generally have low clustering.</p>
 <p>igraph has a built in function to generate this class of networks: barabasi.game()</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scalefree &lt;-<span class="st"> </span><span class="kw">barabasi.game</span>(<span class="dt">n=</span><span class="dv">100</span>, <span class="dt">m=</span><span class="dv">5</span>)
 <span class="kw">plot</span>(scalefree, <span class="dt">vertex.size =</span> <span class="dv">3</span>, <span class="dt">layout =</span> <span class="kw">layout.kamada.kawai</span>(scalefree), <span class="dt">edge.arrow.size =</span> .<span class="dv">1</span>, <span class="dt">vertex.label=</span><span class="ot">NA</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-92-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">graph.density</span>(scalefree)</code></pre></div>
 <pre><code>## [1] 0.0489899</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">transitivity</span>(scalefree) </code></pre></div>
@@ -301,24 +301,24 @@ for ( i in <span class="dv">2</span>:iter){
 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A basic function which prevents the formation of specified triads in a random graph simulation</span>
 banning_triads_game =<span class="st"> </span>function(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">porm =</span> .<span class="dv">05</span>, <span class="dt">banned =</span> <span class="kw">c</span>(<span class="dv">2</span>), <span class="dt">sim_max =</span> <span class="dv">1000000</span>, <span class="dt">probrecip =</span> .<span class="dv">5</span>){
-  
+
   <span class="kw">require</span>(igraph) <span class="co"># Ensures igraph is loaded</span>
-  
+
   if(<span class="kw">any</span>(<span class="kw">c</span>(<span class="dv">1</span>) %in%<span class="st"> </span>banned)){
     <span class="kw">stop</span>(<span class="st">&quot;Can&#39;t ban 003s&quot;</span>) <span class="co"># Stops the simulation if the user tried to bad 003 or 012 triads</span>
   }
-  
+
   num_edges =<span class="st"> </span><span class="kw">round</span>(n*(n<span class="dv">-1</span>)*porm, <span class="dv">2</span>) <span class="co"># calculates the desired number of edges according to the N and Porm parameters</span>
-  
+
   net =<span class="st"> </span><span class="kw">make_empty_graph</span>(<span class="dt">n =</span> n, <span class="dt">directed =</span> <span class="ot">TRUE</span>) <span class="co"># initializes an empty network</span>
 
   edge_count =<span class="st"> </span><span class="dv">0</span>
   sim_count =<span class="st"> </span><span class="dv">0</span>
-  
+
   while(edge_count &lt;<span class="st"> </span>num_edges){ <span class="co"># Begins a loop, which ends once the requisite number of edges is reached. </span>
-    
+
     <span class="co"># This part samples two nodes, checks whether the two sampled nodes are the same node, and whether an edge is already present in the network between these nodes</span>
-    
+
     uniq =<span class="st"> </span><span class="ot">TRUE</span>
     edge_present =<span class="st"> </span><span class="ot">TRUE</span>
     while(uniq ==<span class="st"> </span><span class="ot">TRUE</span> |<span class="st"> </span>edge_present ==<span class="st"> </span><span class="ot">TRUE</span>){
@@ -333,7 +333,7 @@ banning_triads_game =<span class="st"> </span>function(<span class="dt">n =</spa
         edge_present =<span class="st"> </span>edge_present_1
       }
     }
-    
+
     <span class="co"># Calculates the traid census for the network before adding an edge</span>
     before =<span class="st"> </span><span class="kw">triad.census</span>(net)
     net_new =<span class="st"> </span>net +<span class="st"> </span><span class="kw">edge</span>(edge_id) <span class="co"># Adds in the edge</span>
@@ -343,11 +343,11 @@ banning_triads_game =<span class="st"> </span>function(<span class="dt">n =</spa
     }
     after =<span class="st"> </span><span class="kw">triad.census</span>(net_new) <span class="co"># Calculates the triad census again</span>
     triad_diff =<span class="st"> </span>after -<span class="st"> </span>before <span class="co"># Checks to see how much the triad census changed</span>
-    
+
     if(<span class="kw">all</span>(triad_diff[banned] ==<span class="st"> </span><span class="dv">0</span>)){
       net =<span class="st"> </span>net_new <span class="co"># If the banned triads still aren&#39;t observed, then the new network is accepted.</span>
     }
-    
+
     edge_count =<span class="st"> </span><span class="kw">ecount</span>(net) <span class="co"># number of edges updated</span>
     sim_count =<span class="st"> </span>sim_count +<span class="st"> </span><span class="dv">1</span> <span class="co"># Simulation count updated</span>
     if(sim_count &gt;<span class="st"> </span>sim_max){
@@ -362,7 +362,7 @@ banning_triads_game =<span class="st"> </span>function(<span class="dt">n =</spa
 <pre><code>##  [1] 136937   4228  18830      0      0     14      0    229      1      0
 ## [11]   1372      0      4      1     10     74</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(no_cycles, <span class="dt">vertex.size =</span> <span class="dv">2</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">2</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-94-1.png" width="672" /></p>
 
 </div>
 </div>

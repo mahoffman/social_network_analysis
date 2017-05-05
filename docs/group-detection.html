@@ -12,16 +12,16 @@
 
   <meta property="og:title" content="Social Network Analysis" />
   <meta property="og:type" content="book" />
-  
-  
-  
+
+
+
   <meta name="github-repo" content="markahoffman/social_network_analysis" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Social Network Analysis" />
   <meta name="twitter:site" content="@mark_a_hoffman" />
-  
-  
+
+
 
 <meta name="author" content="Peter Bearman and Mark Hoffman">
 
@@ -30,8 +30,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  
-  
+
+
 <link rel="prev" href="the-small-world-problem-and-the-art-science-of-simulation.html">
 <link rel="next" href="blockmodeling.html">
 
@@ -202,11 +202,11 @@ marriageNet =<span class="st"> </span><span class="kw">simplify</span>(marriageN
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">communityMultiGroup &lt;-<span class="st"> </span><span class="kw">communities</span>(communityMulti)</code></pre></div>
 <p>We can then use the mark.groups argument in plot to see the groups.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(marriageNet, <span class="dt">vertex.size =</span> <span class="dv">3</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">mark.groups =</span> communityMultiGroup)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-98-1.png" width="672" /></p>
 <p>Alternatively, we can just color the nodes by group membership. In this case, we can just use the membership vector.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(marriageNet)$color &lt;-<span class="st"> </span><span class="kw">membership</span>(communityMulti)
 <span class="kw">plot</span>(marriageNet, <span class="dt">vertex.size =</span> <span class="dv">3</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-99-1.png" width="672" /></p>
 <p>This becomes less feasible as the number of groups increases!!</p>
 <div id="modularity" class="section level2">
 <h2><span class="header-section-number">11.1</span> Modularity</h2>
@@ -253,23 +253,23 @@ classes_data &lt;-<span class="st"> </span><span class="kw">melt</span>(classes_
 <p>Using the get.incidence() function will turn our matrix into a bipartite network.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">classesNet &lt;-<span class="st"> </span><span class="kw">graph.incidence</span>(classesMatrix, <span class="dt">mode =</span> <span class="kw">c</span>(<span class="st">&quot;all&quot;</span>))
 <span class="kw">plot</span>(classesNet, <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-106-1.png" width="672" /></p>
 <p>We can change the shape of nodes to highlight their type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(classesNet)$shape &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(classesNet)$type ==<span class="st"> </span><span class="ot">FALSE</span>, <span class="st">&quot;circle&quot;</span>, <span class="st">&quot;square&quot;</span>)
-<span class="kw">plot</span>(classesNet, 
-<span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, 
+<span class="kw">plot</span>(classesNet,
+<span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>,
 <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-107-1.png" width="672" /></p>
 <div id="unipartite-projection" class="section level3">
 <h3><span class="header-section-number">11.2.1</span> Unipartite Projection</h3>
 <p>Bipartite networks can be represented (or “projected”) as unipartite networks. In this case, either people will be the only nodes, and they will be connected if they share an affiliation (i.e. they are in the same group) OR groups willbe the only nodes and they will be connected if they share an affiliation to a person.</p>
 <p>We can make the projection two ways - using the bipartite.projection() function in igraph, or by multiplying the incidence matrix by its transpose (or vise versa).</p>
 <p>The mathematical operation to make a person-to-person projection is to multiply the initial matrix by its transpose. In R that looks like:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personMatrix =<span class="st"> </span>classesMatrix %*%<span class="st"> </span><span class="kw">t</span>(classesMatrix) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">personMatrix =<span class="st"> </span>classesMatrix %*%<span class="st"> </span><span class="kw">t</span>(classesMatrix)
 <span class="co"># View(personMatrix)</span></code></pre></div>
 <p>where the t() function transposes the matrix that is passed to it and %*% performs matrix multiplication.</p>
 <p>The diagonal of this new matrix tells us the number of groups each person is affiliated with, but we set it to 0 using the ?diag function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diag</span>(personMatrix) &lt;-<span class="st"> </span><span class="dv">0</span> 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diag</span>(personMatrix) &lt;-<span class="st"> </span><span class="dv">0</span>
 <span class="co"># View(personMatrix)</span></code></pre></div>
 <p>To get the group-to-group matrix, we multiply the transpose by the initial matrix (reverse!)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">groupMatrix =<span class="st"> </span><span class="kw">t</span>(classesMatrix) %*%<span class="st"> </span>classesMatrix
@@ -281,9 +281,9 @@ classes_data &lt;-<span class="st"> </span><span class="kw">melt</span>(classes_
 groupNet &lt;-<span class="st"> </span><span class="kw">graph.adjacency</span>(groupMatrix, <span class="dt">mode =</span> <span class="st">&quot;undirected&quot;</span>)
 
 <span class="kw">plot</span>(personNet, <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-111-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(groupNet, <span class="dt">vertex.label.cex =</span> .<span class="dv">6</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-111-2.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-111-2.png" width="672" /></p>
 <p>We can analyze these networks just like we would any other network with a single node type.</p>
 
 </div>

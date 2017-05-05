@@ -12,16 +12,16 @@
 
   <meta property="og:title" content="Social Network Analysis" />
   <meta property="og:type" content="book" />
-  
-  
-  
+
+
+
   <meta name="github-repo" content="markahoffman/social_network_analysis" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Social Network Analysis" />
   <meta name="twitter:site" content="@mark_a_hoffman" />
-  
-  
+
+
 
 <meta name="author" content="Peter Bearman and Mark Hoffman">
 
@@ -30,8 +30,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  
-  
+
+
 <link rel="prev" href="group-detection.html">
 
 
@@ -207,10 +207,10 @@ florentine_attributes &lt;-<span class="st"> </span><span class="kw">read.csv</s
 florentine =<span class="st"> </span><span class="kw">lapply</span>(florentine, <span class="dt">FUN =</span> function(x) <span class="kw">as.data.frame</span>(<span class="kw">as.matrix</span>(<span class="kw">get.adjacency</span>(x))))</code></pre></div>
 <p>Finally, we use do.call(“rbind”, x) to stackk all of the matrices by row.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)</code></pre></div>
-<pre><code>## 
+<pre><code>##
 ## Attaching package: &#39;data.table&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:reshape2&#39;:
-## 
+##
 ##     dcast, melt</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">florentine_stacked =<span class="st"> </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>, florentine)</code></pre></div>
 <p>Next, we measure structural equivalence using correlation (that is, we measure the similarity between people in terms of the pattern of their relations). The cor function measures correlation.</p>
@@ -218,7 +218,7 @@ florentine =<span class="st"> </span><span class="kw">lapply</span>(florentine, 
 <p>We can plot the resulting correlation matrix using the corrplot function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(corrplot)
 <span class="kw">corrplot</span>(florentine_cor, <span class="dt">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="dt">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">tl.cex =</span> .<span class="dv">6</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-118-1.png" width="672" /></p>
 <p>We can convert similarity to dissimilarity by subtracting it from 1. We convert it to a distance matrix with as.dist().</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dissimilarity &lt;-<span class="st"> </span><span class="dv">1</span> -<span class="st"> </span>florentine_cor
 dissimilarity &lt;-<span class="st"> </span><span class="kw">as.dist</span>(dissimilarity)</code></pre></div>
@@ -236,10 +236,10 @@ dissimilarity &lt;-<span class="st"> </span><span class="kw">as.dist</span>(diss
 ##                     Skye Bender-deMoll, University of Washington
 ##  For citation information, type citation(&quot;network&quot;).
 ##  Type help(&quot;network-package&quot;) to get started.</code></pre>
-<pre><code>## 
+<pre><code>##
 ## Attaching package: &#39;network&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:igraph&#39;:
-## 
+##
 ##     %c%, %s%, add.edges, add.vertices, delete.edges,
 ##     delete.vertices, get.edge.attribute, get.edges,
 ##     get.vertex.attribute, is.bipartite, is.directed,
@@ -250,10 +250,10 @@ dissimilarity &lt;-<span class="st"> </span><span class="kw">as.dist</span>(diss
 ## copyright (c) 2005, Carter T. Butts, University of California-Irvine
 ##  For citation information, type citation(&quot;sna&quot;).
 ##  Type help(package=&quot;sna&quot;) to get started.</code></pre>
-<pre><code>## 
+<pre><code>##
 ## Attaching package: &#39;sna&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:igraph&#39;:
-## 
+##
 ##     betweenness, bonpow, closeness, components, degree,
 ##     dyad.census, evcent, hierarchy, is.connected, neighborhood,
 ##     triad.census</code></pre>
@@ -271,7 +271,7 @@ florentine_split =<span class="st"> </span><span class="kw">lapply</span>(floren
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_output =<span class="st"> </span><span class="kw">blockmodel</span>(florentine_split, clusters, <span class="dt">glabels =</span> <span class="kw">names</span>(florentine), <span class="dt">plabels =</span> <span class="kw">colnames</span>(florentine_split[[<span class="dv">1</span>]]))</code></pre></div>
 <p>Finally, we plot the result!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(all_output)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-125-1.png" width="672" /></p>
 
 </div>
             </section>

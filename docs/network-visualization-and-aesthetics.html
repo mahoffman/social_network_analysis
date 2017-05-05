@@ -12,16 +12,16 @@
 
   <meta property="og:title" content="Social Network Analysis" />
   <meta property="og:type" content="book" />
-  
-  
-  
+
+
+
   <meta name="github-repo" content="markahoffman/social_network_analysis" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Social Network Analysis" />
   <meta name="twitter:site" content="@mark_a_hoffman" />
-  
-  
+
+
 
 <meta name="author" content="Peter Bearman and Mark Hoffman">
 
@@ -30,8 +30,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  
-  
+
+
 <link rel="prev" href="your-first-network.html">
 <link rel="next" href="measuring-transitivity-and-structural-balance.html">
 
@@ -192,29 +192,29 @@ money_edgelist &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<s
 moneyNetwork &lt;-<span class="st"> </span><span class="kw">graph.edgelist</span>(<span class="kw">as.matrix</span>(money_edgelist), <span class="dt">directed=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>Visualizing the network is as simple as typing plot(moneyNetwork). But as I mentioned earlier, the default plot is really horrible (and it used to be worse…). We can adjust the settings of the plot so that the resulting visualization is more aesthetically pleasing. There are many settings for the igraph plot() function, and we will go over the bare minimum you need to start making decent visualizations on your own.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-35-1.png" width="672" /></p>
 <p>The most basic things we can change are the sizes and colors of nodes. When your network is large, often the nodes will appear too large and clumped together. The argument vertex.size allows you to adjust node size (vertex is the graph-theory term for node!).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-36-1.png" width="672" /></p>
 <p>This is the basic way you change the settings of the plot function in igraph - you put a comma next to the next to the network object, type the name of the setting you want to change, and set it to a new value. Here we set vertex.size to 10. When you don’t change any settings, R will automatically use the default settings. You can find them in the help section for that function (i.e. by typing ?plot.igraph, for example). All you have to do is remember the names of the various settings, or look them up at: <a href="http://igraph.org/r/" class="uri">http://igraph.org/r/</a></p>
 <p>The nodes have an ugly light orange color… We can use vertex.color to change their color to something nicer. We can also remove the ugly black frames by changing the vertex.frame.color setting to NA.</p>
 <blockquote>
 <p><strong>Useful Link</strong> You can find a list of all the named colors in R at <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf" class="uri">http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf</a></p>
 </blockquote>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-37-1.png" width="672" /></p>
 <p>The labels are too large and blue. We can adjust label size with vertex.label.cex. We can adjust the color with vertex.label.color</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="dt">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-38-1.png" width="672" /></p>
 <p>Alternatively, if we want to get rid of the labels, we can just set vertex.label to NA.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-39-1.png" width="672" /></p>
 <p>Finally we can make the edges smaller and curved to give them a nicer aesthetic</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-40-1.png" width="672" /></p>
 <p>But don’t go too crazy! If you set edge.curved to be greater than .1, it will start to look like spaghetti.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> <span class="fl">1.7</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-41-1.png" width="672" /></p>
 </div>
 <div id="layouts" class="section level2">
 <h2><span class="header-section-number">7.2</span> Layouts</h2>
@@ -226,14 +226,14 @@ kamadaLayout &lt;-<span class="st"> </span><span class="kw">layout.kamada.kawai<
 
 <span class="co"># and then we change the default layout setting to equal the layout we generated above</span>
 <span class="kw">plot</span>(moneyNetwork, <span class="dt">layout =</span> kamadaLayout, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-42-1.png" width="672" /></p>
 <p><strong>Frucherman-Reingold</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first we run the layout function on our graph</span>
 fruchtermanLayout &lt;-<span class="st"> </span><span class="kw">layout.fruchterman.reingold</span>(moneyNetwork)
 
 <span class="co"># and then we change the default layout setting to equal the layout we generated above</span>
 <span class="kw">plot</span>(moneyNetwork, <span class="dt">layout =</span> fruchtermanLayout, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">vertex.frame.color =</span> <span class="ot">NA</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-43-1.png" width="672" /></p>
 <p>You can see ?layout_ for more options and details.</p>
 </div>
 <div id="adding-attributes-to-a-network-object" class="section level2">
@@ -278,11 +278,11 @@ attributes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span 
 moneyNetwork &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>(money_edgelist, <span class="dt">directed =</span> T, <span class="dt">vertices =</span> attributes)</code></pre></div>
 <p>Now, if we look at our network, we will see that there are many more next to attr.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">moneyNetwork</code></pre></div>
-<pre><code>## IGRAPH DN-- 6 11 -- 
+<pre><code>## IGRAPH DN-- 6 11 --
 ## + attr: name (v/c), Age (v/n), Gender (v/c), Role (v/c)
 ## + edges (vertex names):
-##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick 
-##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick 
+##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick
+##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick
 ## [11] Lexi -&gt;Nick</code></pre>
 <p>We can look at each one with the V()$ function. For example, here is gender.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(moneyNetwork)$Gender </code></pre></div>
@@ -297,7 +297,7 @@ moneyNetwork &lt;-<span class="st"> </span><span class="kw">graph_from_data_fram
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(moneyNetwork)$color &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(moneyNetwork)$Gender ==<span class="st"> &quot;Male&quot;</span>, <span class="st">&quot;dodgerblue3&quot;</span>,<span class="st">&quot;seagreen&quot;</span>)</code></pre></div>
 <p>Now we can replot the network. This time a node’s color will be green or blue depending on their gender. Notice that I didn’t set the vertex.colors inside the plot function this time, since doing so would override the colors we just gave the nodes.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.frame.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-51-1.png" width="672" /></p>
 <p>Now let’s try role. First, I reset color. There are four roles (Father, Mother, Son, Daughter), so we need a few more ifelse statements to code for all of them.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(moneyNetwork)$color &lt;-<span class="st"> </span><span class="ot">NA</span>
 <span class="kw">V</span>(moneyNetwork)$color &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(moneyNetwork)$Role ==<span class="st"> &quot;Father&quot;</span>, <span class="st">&quot;burlywood1&quot;</span>,<span class="st">&quot;tomato&quot;</span>)
@@ -305,12 +305,12 @@ moneyNetwork &lt;-<span class="st"> </span><span class="kw">graph_from_data_fram
 <span class="kw">V</span>(moneyNetwork)$color &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">V</span>(moneyNetwork)$Role ==<span class="st"> &quot;Son&quot;</span>, <span class="st">&quot;grey70&quot;</span>, <span class="kw">V</span>(moneyNetwork)$color)
 
 <span class="kw">plot</span>(moneyNetwork,<span class="dt">vertex.size =</span> <span class="dv">10</span>, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">vertex.frame.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>, <span class="dt">edge.color =</span> <span class="st">&quot;grey30&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-52-1.png" width="672" /></p>
 <p>Last but not least, let’s adjust the sizes of the nodes so that they reflect differences in age. We can set node size to be 1/5th of the node’s age with the code below. Simple, but effective. It looks like the oldest nodes give to the most people.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">V</span>(moneyNetwork)$size =<span class="st"> </span><span class="kw">V</span>(moneyNetwork)$Age/<span class="dv">5</span>
 
 <span class="kw">plot</span>(moneyNetwork, <span class="dt">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="dt">vertex.label =</span> <span class="ot">NA</span>, <span class="dt">edge.curved =</span> .<span class="dv">1</span>, <span class="dt">vertex.frame.color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="dt">edge.width =</span> .<span class="dv">7</span>, <span class="dt">edge.color =</span> <span class="st">&quot;grey30&quot;</span>)</code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><img src="Images/unnamed-chunk-53-1.png" width="672" /></p>
 
 </div>
 </div>

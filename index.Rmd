@@ -3,7 +3,7 @@ knit: "bookdown::render_book"
 title: "Methods for Network Analysis"
 author: ["Mark Hoffman"]  
 email: "mark.a.hoffman@stanford.edu"
-date: "Summer 2021"
+date: "Fall 2021"
 site: bookdown::bookdown_site
 documentclass: book
 output:

@@ -327,9 +327,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb145-23"><a href="transitivity-structural-balance-and-hierarchy.html#cb145-23" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net59)<span class="sc">$</span>school <span class="ot">&lt;-</span> attributes<span class="sc">$</span>school[linked_ids]</span>
 <span id="cb145-24"><a href="transitivity-structural-balance-and-hierarchy.html#cb145-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb145-25"><a href="transitivity-structural-balance-and-hierarchy.html#cb145-25" aria-hidden="true" tabindex="-1"></a>net59 <span class="co"># Great!</span></span></code></pre></div>
-<pre><code>## IGRAPH c726991 DN-- 975 4160 -- 
+<pre><code>## IGRAPH d05711b DN-- 975 4160 -- 
 ## + attr: name (v/c), race (v/n), sex (v/n), grade (v/n), school (v/n)
-## + edges from c726991 (vertex names):
+## + edges from d05711b (vertex names):
 ##  [1] 1 -&gt;191 1 -&gt;245 1 -&gt;272 1 -&gt;413 1 -&gt;447 3 -&gt;21  3 -&gt;221 3 -&gt;480 3 -&gt;495
 ## [10] 3 -&gt;574 5 -&gt;96  5 -&gt;258 5 -&gt;335 6 -&gt;271 6 -&gt;374 6 -&gt;400 6 -&gt;489 6 -&gt;491
 ## [19] 6 -&gt;573 6 -&gt;586 7 -&gt;134 7 -&gt;159 7 -&gt;464 7 -&gt;478 8 -&gt;221 8 -&gt;284 8 -&gt;378
@@ -374,7 +374,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="_main_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 <p>It looks like a bowl of spaghetti - that is how you know you indeed have a random graph on your hands. What is its reciprocity?</p>
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="transitivity-structural-balance-and-hierarchy.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reciprocity</span>(random_graph)</span></code></pre></div>
-<pre><code>## [1] 0.005187456</code></pre>
+<pre><code>## [1] 0.003703704</code></pre>
 <p>0.003! So our network exhibits far more reciprocity than we would expect if people were affiliating randomly.</p>
 </div>
 <div id="the-triad" class="section level2" number="11.3">
@@ -401,8 +401,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>003 for example means there are 0 mutual relation, 0 asymmetric relations and 3 null relations. This triad contains no relations. 201 would mean there are two mutual relations, zero asymmetric relations, and 1 null relation. Of three dyads in the triad, two dyads are in a relation, and one dyad is not.</p>
 <p>For now let’s look at the triad census of our random graph.</p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="transitivity-structural-balance-and-hierarchy.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">triad.census</span>(random_graph)</span></code></pre></div>
-<pre><code>##  [1] 149922316   4032304     10523      9164      8976     18013        94
-##  [8]        86        79        20         0         0         0         0
+<pre><code>##  [1] 149843876   4112275      7659      9519      9363     18647        67
+##  [8]        57        86        25         0         0         0         1
 ## [15]         0         0</code></pre>
 <p>Most triads are null. This is because edges only have a 5% chance of being drawn. It follows that 95% of the total possible edges are missing.</p>
 <p>There are not many cases of transitive triads, or even in which all three dyads have a relationship. Thus, the majority of triads are concentrated in the left side of the triad distribution</p>
@@ -448,20 +448,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb164-16"><a href="transitivity-structural-balance-and-hierarchy.html#cb164-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb164-17"><a href="transitivity-structural-balance-and-hierarchy.html#cb164-17" aria-hidden="true" tabindex="-1"></a>summarized_stats</span></code></pre></div>
 <pre><code>##      TriadType        Means     LowerCI      UpperCI  Observed
-## 003        003 0.9948112794 0.994230237 0.9953703278 1.0000000
-## 012        012 0.9693179524 0.949169986 0.9900488583 0.5908888
-## 102        102 0.0103958999 0.004860879 0.0169992576 1.0000000
-## 021D      021D 0.9485477043 0.903033757 0.9921903832 0.3930316
-## 021U      021U 0.9345077055 0.891732663 0.9837596318 0.4628639
-## 021C      021C 0.9424454761 0.905085295 0.9888388037 0.2788275
-## 111D      111D 0.0181429990 0.007696127 0.0285129096 1.0000000
-## 111U      111U 0.0199281569 0.009381044 0.0317905499 1.0000000
-## 030T      030T 0.1721555556 0.135444444 0.2044444444 1.0000000
-## 030C      030C 0.6571794872 0.485897436 0.8987179487 0.5897436
-## 201        201 0.0001570167 0.000000000 0.0009813543 1.0000000
-## 120D      120D 0.0005102041 0.000000000 0.0034013605 1.0000000
-## 120U      120U 0.0002812500 0.000000000 0.0031250000 1.0000000
-## 120C      120C 0.0021167883 0.000000000 0.0072992701 1.0000000
+## 003        003 0.9949328855 0.994278750 0.9955706706 1.0000000
+## 012        012 0.9608529038 0.938119928 0.9853509927 0.5885101
+## 102        102 0.0113484895 0.006088451 0.0170609577 1.0000000
+## 021D      021D 0.9154071799 0.869776554 0.9634861802 0.3834586
+## 021U      021U 0.9270289079 0.880053533 0.9740256959 0.4630621
+## 021C      021C 0.9239931522 0.880662850 0.9680933019 0.2763214
+## 111D      111D 0.0196573982 0.010166336 0.0298659384 1.0000000
+## 111U      111U 0.0212683062 0.008565902 0.0326471401 1.0000000
+## 030T      030T 0.1702000000 0.144333333 0.2090000000 1.0000000
+## 030C      030C 0.6840540541 0.458108108 0.9472972973 0.6216216
+## 201        201 0.0001079490 0.000000000 0.0009813543 1.0000000
+## 120D      120D 0.0005782313 0.000000000 0.0034013605 1.0000000
+## 120U      120U 0.0004062500 0.000000000 0.0031250000 1.0000000
+## 120C      120C 0.0021897810 0.000000000 0.0072992701 1.0000000
 ## 210        210 0.0000000000 0.000000000 0.0000000000 1.0000000
 ## 300        300 0.0000000000 0.000000000 0.0000000000 1.0000000</code></pre>
 <p>Now that we have this dataset, we can use ggplot to plot it.</p>
@@ -547,8 +547,8 @@ For example, below is a weighting scheme for the ranked-clustering weighting sch
 <p>Cool - let’s try it. Here, we ban three triad types.</p>
 <div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="transitivity-structural-balance-and-hierarchy.html#cb170-1" aria-hidden="true" tabindex="-1"></a>no_cycles <span class="ot">=</span> <span class="fu">banning_triads_game</span>(<span class="at">banned =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">7</span>))</span>
 <span id="cb170-2"><a href="transitivity-structural-balance-and-hierarchy.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="fu">triad_census</span>(no_cycles)</span></code></pre></div>
-<pre><code>##  [1] 137110   3721  19259      0      0     17      0    147      0      1
-## [11]   1382      0      2      1      9     51</code></pre>
+<pre><code>##  [1] 137539   2682  20010      0      0      9      0    123      0      0
+## [11]   1291      0      2      3      9     32</code></pre>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="transitivity-structural-balance-and-hierarchy.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(no_cycles, <span class="at">vertex.size =</span> <span class="dv">2</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">2</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
 

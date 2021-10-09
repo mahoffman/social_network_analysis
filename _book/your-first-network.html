@@ -368,7 +368,7 @@ In file(file, “rt”) :
 cannot open file ‘money_edgelist.csv’: No such file or directory</p>
 </blockquote>
 <p>So be sure money_edgelist.csv is in your directory or the following lines of code won’t work! Of course, you can load in any edgelists here and name it anything you like.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="your-first-network.html#cb62-1" aria-hidden="true" tabindex="-1"></a>money_edgelist <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/money_edgelist.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="your-first-network.html#cb62-1" aria-hidden="true" tabindex="-1"></a>money_edgelist <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/money_edgelist.csv&quot;</span>)</span></code></pre></div>
 <p>Now you should see your data fle in your Environment pane under the “Data” heading. That means you successfully loaded the data into R.</p>
 <hr />
 <p><img src="Images/successful_load.png"/></p>
@@ -405,9 +405,9 @@ If your data was in adjacency matrix format, then you would use the graph.adjace
 <h2><span class="header-section-number">6.6</span> Exploring your network</h2>
 <p>We finally have a network in R! So.. what next? Well we can read a summary of it by typing its name into R.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="your-first-network.html#cb67-1" aria-hidden="true" tabindex="-1"></a>moneyNetwork</span></code></pre></div>
-<pre><code>## IGRAPH f5811ef DN-- 6 11 -- 
+<pre><code>## IGRAPH 6c8a02d DN-- 6 11 -- 
 ## + attr: name (v/c)
-## + edges from f5811ef (vertex names):
+## + edges from 6c8a02d (vertex names):
 ##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick 
 ##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick 
 ## [11] Lexi -&gt;Nick</code></pre>

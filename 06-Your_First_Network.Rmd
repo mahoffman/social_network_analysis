@@ -135,7 +135,7 @@ If it can't find the file - either because you typed the wrong name or you never
 So be sure money_edgelist.csv is in your directory or the following lines of code won't work! Of course, you can load in any edgelists here and name it anything you like. 
 
 ```{r}
-money_edgelist = read.csv("data/money_edgelist.csv")
+money_edgelist = read.csv("Data/money_edgelist.csv")
 ```
 
 Now you should see your data fle in your Environment pane under the "Data" heading. That means you successfully loaded the data into R. 

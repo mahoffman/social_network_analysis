@@ -14,7 +14,7 @@ Let's start by adjusting the basic visualization. First, load in the data we cre
 
 ```{r}
 library(igraph)
-money_edgelist <- read.csv("data/money_edgelist.csv", stringsAsFactors = F)
+money_edgelist <- read.csv("Data/money_edgelist.csv", stringsAsFactors = F)
 moneyNetwork <- graph.edgelist(as.matrix(money_edgelist), directed=TRUE)
 ```
 
@@ -113,7 +113,7 @@ Let's return to Excel and build an attribute dataset for our network. This kind 
 I saved this attribute dataset as a .csv file inside of my R directory. I will load it into R, just as I did the edgelist in the previous tutorial (all of this should be practiced and familiar! if not, revisit the previous tutorial).
 
 ```{r}
-attributes <- read.csv("data/attribute_df.csv", stringsAsFactors = F)
+attributes <- read.csv("Data/attribute_df.csv", stringsAsFactors = F)
 head(attributes)
 ```
 
@@ -141,10 +141,10 @@ If we have an edge list, we can use the \graph_from_data_frame() function instea
 
 ```{r}
 # Load in the edge list again
-money_edgelist <- read.csv("data/money_edgelist.csv", stringsAsFactors = F)
+money_edgelist <- read.csv("Data/money_edgelist.csv", stringsAsFactors = F)
 
 # Load in the attributes again
-attributes <- read.csv("data/attribute_df.csv", stringsAsFactors = F)
+attributes <- read.csv("Data/attribute_df.csv", stringsAsFactors = F)
 
 # Put them both in the network.
 moneyNetwork <- graph_from_data_frame(money_edgelist, directed = T, vertices = attributes)

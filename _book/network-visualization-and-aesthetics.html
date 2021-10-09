@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Network Visualization and Aesthetics | Methods for Network Analysis</title>
+  <meta name="description" content="7 Network Visualization and Aesthetics | Methods for Network Analysis" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Network Visualization and Aesthetics | Methods for Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Network Visualization and Aesthetics | Methods for Network Analysis" />
+  
+  
+  
+
+<meta name="author" content="Mark Hoffman" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="your-first-network.html"/>
+<link rel="next" href="ego-networks.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Course</a></li>
+<li class="chapter" data-level="1" data-path="reading-list.html"><a href="reading-list.html"><i class="fa fa-check"></i><b>1</b> Reading List</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="reading-list.html"><a href="reading-list.html#week-1-beg.-september-20th-introductions-and-introduction-to-r"><i class="fa fa-check"></i><b>1.0.1</b> Week 1 (beg. September 20th): Introductions and Introduction to R</a></li>
+<li class="chapter" data-level="1.0.2" data-path="reading-list.html"><a href="reading-list.html#week-2-beg.-september-27th-types-of-networks"><i class="fa fa-check"></i><b>1.0.2</b> Week 2 (beg. September 27th): Types of networks</a></li>
+<li class="chapter" data-level="1.0.3" data-path="reading-list.html"><a href="reading-list.html#week-3-beg.-october-4th-triads-balance-and-hierarchy"><i class="fa fa-check"></i><b>1.0.3</b> Week 3 (beg. October 4th): Triads, Balance and Hierarchy</a></li>
+<li class="chapter" data-level="1.0.4" data-path="reading-list.html"><a href="reading-list.html#week-4-beg.-october-11th-centrality-power-and-inequality"><i class="fa fa-check"></i><b>1.0.4</b> Week 4 (beg. October 11th): Centrality, Power, and Inequality</a></li>
+<li class="chapter" data-level="1.0.5" data-path="reading-list.html"><a href="reading-list.html#week-5-beg.-october-18th-connectivity-and-the-small-world-problem"><i class="fa fa-check"></i><b>1.0.5</b> Week 5 (beg. October 18th): Connectivity and the Small World Problem</a></li>
+<li class="chapter" data-level="1.0.6" data-path="reading-list.html"><a href="reading-list.html#week-6-beg.-october-25th-groups-communities-and-homophily"><i class="fa fa-check"></i><b>1.0.6</b> Week 6 (beg. October 25th): Groups, Communities, and Homophily</a></li>
+<li class="chapter" data-level="1.0.7" data-path="reading-list.html"><a href="reading-list.html#week-7-beg.-november-1st-categories-and-positions"><i class="fa fa-check"></i><b>1.0.7</b> Week 7 (beg. November 1st): Categories and Positions</a></li>
+<li class="chapter" data-level="1.0.8" data-path="reading-list.html"><a href="reading-list.html#week-8-beg.-november-8th-networks-from-culture-and-culture-from-networks"><i class="fa fa-check"></i><b>1.0.8</b> Week 8 (beg. November 8th): Networks from Culture and Culture from Networks</a></li>
+<li class="chapter" data-level="1.0.9" data-path="reading-list.html"><a href="reading-list.html#week-9-beg.-november-15th-dynamics-and-diffusion"><i class="fa fa-check"></i><b>1.0.9</b> Week 9 (beg. November 15th): Dynamics and Diffusion</a></li>
+<li class="chapter" data-level="1.0.10" data-path="reading-list.html"><a href="reading-list.html#week-9-and-34-thanksgiving"><i class="fa fa-check"></i><b>1.0.10</b> Week 9 and 3/4: Thanksgiving!</a></li>
+<li class="chapter" data-level="1.0.11" data-path="reading-list.html"><a href="reading-list.html#week-10-beg.-november-29th-presentations-of-research"><i class="fa fa-check"></i><b>1.0.11</b> Week 10 (beg. November 29th): Presentations of Research</a></li>
+<li class="chapter" data-level="1.0.12" data-path="reading-list.html"><a href="reading-list.html#december-11th-final-papers-are-due."><i class="fa fa-check"></i><b>1.0.12</b> December 11th: Final papers are due.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>2</b> Installing R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-r"><i class="fa fa-check"></i><b>2.1</b> Downloading and Installing R</a></li>
+<li class="chapter" data-level="2.2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-rstudio"><i class="fa fa-check"></i><b>2.2</b> Downloading and Installing RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>3</b> Tour RStudio with Udacity</a></li>
+<li class="chapter" data-level="4" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-data.frames"><i class="fa fa-check"></i><b>4.1</b> Vectors, matrices and data.frames</a></li>
+<li class="chapter" data-level="4.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>4.2</b> Indexing and Subsetting</a></li>
+<li class="chapter" data-level="4.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>4.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html"><i class="fa fa-check"></i><b>5</b> Understanding network data structures</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#edge-lists"><i class="fa fa-check"></i><b>5.1</b> Edge lists</a></li>
+<li class="chapter" data-level="5.2" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#adjacency-matrices"><i class="fa fa-check"></i><b>5.2</b> Adjacency matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="your-first-network.html"><a href="your-first-network.html"><i class="fa fa-check"></i><b>6</b> Your First Network</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="your-first-network.html"><a href="your-first-network.html#creating-a-project"><i class="fa fa-check"></i><b>6.1</b> Creating a project</a></li>
+<li class="chapter" data-level="6.2" data-path="your-first-network.html"><a href="your-first-network.html#creating-data-in-excel"><i class="fa fa-check"></i><b>6.2</b> Creating data in Excel</a></li>
+<li class="chapter" data-level="6.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>6.3</b> Saving Excel data as a .csv file</a></li>
+<li class="chapter" data-level="6.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>6.4</b> Loading data into R</a></li>
+<li class="chapter" data-level="6.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>6.5</b> From data to networks</a></li>
+<li class="chapter" data-level="6.6" data-path="your-first-network.html"><a href="your-first-network.html#exploring-your-network"><i class="fa fa-check"></i><b>6.6</b> Exploring your network</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>7</b> Network Visualization and Aesthetics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#the-basics"><i class="fa fa-check"></i><b>7.1</b> The Basics</a></li>
+<li class="chapter" data-level="7.2" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#layouts"><i class="fa fa-check"></i><b>7.2</b> Layouts</a></li>
+<li class="chapter" data-level="7.3" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>7.3</b> Adding attributes to a network object</a></li>
+<li class="chapter" data-level="7.4" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#plotting-based-on-attributes"><i class="fa fa-check"></i><b>7.4</b> Plotting based on attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ego-networks.html"><a href="ego-networks.html"><i class="fa fa-check"></i><b>8</b> Ego Networks</a></li>
+<li class="chapter" data-level="9" data-path="calculating-network-size-and-density.html"><a href="calculating-network-size-and-density.html"><i class="fa fa-check"></i><b>9</b> Calculating Network Size and Density</a></li>
+<li class="chapter" data-level="10" data-path="affiliation-data.html"><a href="affiliation-data.html"><i class="fa fa-check"></i><b>10</b> Affiliation Data</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="affiliation-data.html"><a href="affiliation-data.html#unipartite-projection"><i class="fa fa-check"></i><b>10.0.1</b> Unipartite Projection</a></li>
+<li class="chapter" data-level="10.1" data-path="affiliation-data.html"><a href="affiliation-data.html#tripartite-network-analysis"><i class="fa fa-check"></i><b>10.1</b> Tripartite network analysis?</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="affiliation-data.html"><a href="affiliation-data.html#lab"><i class="fa fa-check"></i><b>10.1.1</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html"><i class="fa fa-check"></i><b>11</b> Transitivity, structural balance, and hierarchy</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-dyad"><i class="fa fa-check"></i><b>11.1</b> The Dyad</a></li>
+<li class="chapter" data-level="11.2" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#generating-a-random-graph-for-comparison"><i class="fa fa-check"></i><b>11.2</b> Generating a random graph for comparison</a></li>
+<li class="chapter" data-level="11.3" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-triad"><i class="fa fa-check"></i><b>11.3</b> The Triad</a></li>
+<li class="chapter" data-level="11.4" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#calculating-a-triad-census"><i class="fa fa-check"></i><b>11.4</b> Calculating a triad census</a></li>
+<li class="chapter" data-level="11.5" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#random-graphs-galore"><i class="fa fa-check"></i><b>11.5</b> Random graphs galore!</a></li>
+<li class="chapter" data-level="11.6" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#producing-a-tau-statistic"><i class="fa fa-check"></i><b>11.6</b> Producing a tau statistic</a></li>
+<li class="chapter" data-level="11.7" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#banning-triads"><i class="fa fa-check"></i><b>11.7</b> Banning triads</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="centrality.html"><a href="centrality.html"><i class="fa fa-check"></i><b>12</b> Centrality</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="centrality.html"><a href="centrality.html#loading-the-example-network"><i class="fa fa-check"></i><b>12.0.1</b> Loading the example network</a></li>
+<li class="chapter" data-level="12.0.2" data-path="centrality.html"><a href="centrality.html#degree-centrality"><i class="fa fa-check"></i><b>12.0.2</b> Degree Centrality</a></li>
+<li class="chapter" data-level="12.0.3" data-path="centrality.html"><a href="centrality.html#betweenness-centrality"><i class="fa fa-check"></i><b>12.0.3</b> Betweenness Centrality</a></li>
+<li class="chapter" data-level="12.0.4" data-path="centrality.html"><a href="centrality.html#closeness-centrality"><i class="fa fa-check"></i><b>12.0.4</b> Closeness Centrality</a></li>
+<li class="chapter" data-level="12.1" data-path="centrality.html"><a href="centrality.html#eigenvector-centrality"><i class="fa fa-check"></i><b>12.1</b> Eigenvector Centrality</a></li>
+<li class="chapter" data-level="12.2" data-path="centrality.html"><a href="centrality.html#bonacich-centrality"><i class="fa fa-check"></i><b>12.2</b> Bonacich Centrality</a></li>
+<li class="chapter" data-level="12.3" data-path="centrality.html"><a href="centrality.html#page-rank"><i class="fa fa-check"></i><b>12.3</b> Page Rank</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="centrality.html"><a href="centrality.html#measure-correlations"><i class="fa fa-check"></i><b>12.3.1</b> Measure Correlations</a></li>
+<li class="chapter" data-level="12.3.2" data-path="centrality.html"><a href="centrality.html#centralization-and-degree-distributions"><i class="fa fa-check"></i><b>12.3.2</b> Centralization and Degree Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="centrality.html"><a href="centrality.html#distance-weighted-reach"><i class="fa fa-check"></i><b>12.4</b> Distance weighted reach</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html"><i class="fa fa-check"></i><b>13</b> Bridges, Holes, the Small World Problem, and Simulation</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#its-a-small-world-after-all."><i class="fa fa-check"></i><b>13.1</b> It’s a small world after all.</a></li>
+<li class="chapter" data-level="13.2" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#measuring-connectivity-of-networks"><i class="fa fa-check"></i><b>13.2</b> Measuring connectivity of networks</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#one-last-thing"><i class="fa fa-check"></i><b>13.2.1</b> One last thing…</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html"><i class="fa fa-check"></i><b>14</b> Finding Groups in Networks</a>
+<ul>
+<li class="chapter" data-level="14.0.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#component-analysis"><i class="fa fa-check"></i><b>14.0.1</b> Component analysis</a></li>
+<li class="chapter" data-level="14.0.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cliques"><i class="fa fa-check"></i><b>14.0.2</b> Cliques</a></li>
+<li class="chapter" data-level="14.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cohesive-blocking"><i class="fa fa-check"></i><b>14.1</b> Cohesive Blocking</a></li>
+<li class="chapter" data-level="14.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#group-detection"><i class="fa fa-check"></i><b>14.2</b> Group Detection</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#modularity"><i class="fa fa-check"></i><b>14.2.1</b> Modularity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html"><i class="fa fa-check"></i><b>15</b> Homophily and Exponential Random Graphs (ERGM)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#homophily"><i class="fa fa-check"></i><b>15.1</b> Homophily</a></li>
+<li class="chapter" data-level="15.2" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#ergms"><i class="fa fa-check"></i><b>15.2</b> ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html"><i class="fa fa-check"></i><b>16</b> Positional analysis in networks</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#toy-data"><i class="fa fa-check"></i><b>16.1</b> Toy data</a></li>
+<li class="chapter" data-level="16.2" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#structural-equivalence"><i class="fa fa-check"></i><b>16.2</b> Structural equivalence</a></li>
+<li class="chapter" data-level="16.3" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#block-modeling-with-concor"><i class="fa fa-check"></i><b>16.3</b> Block Modeling with CONCOR</a></li>
+<li class="chapter" data-level="16.4" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#isomorphic-local-graphs"><i class="fa fa-check"></i><b>16.4</b> Isomorphic local graphs</a></li>
+<li class="chapter" data-level="16.5" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#stochastic-block-models-sbms"><i class="fa fa-check"></i><b>16.5</b> Stochastic Block Models (SBMs)</a></li>
+<li class="chapter" data-level="16.6" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#feature-based-strategies"><i class="fa fa-check"></i><b>16.6</b> Feature-based strategies</a></li>
+<li class="chapter" data-level="16.7" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#lab-try-these-different-strategies-on-a-real-graph-of-your-choosing-go-with-smaller-networks-and-compare-the-different-results-using-correlation.-which-methods-perform-similarly-do-the-roles-that-they-identify-look-meaningful-plot-the-network-coloring-the-nodes-by-role."><i class="fa fa-check"></i><b>16.7</b> Lab: Try these different strategies on a real graph of your choosing (go with smaller networks) and compare the different results using correlation. Which methods perform similarly? Do the roles that they identify look meaningful? Plot the network coloring the nodes by role.</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="culture-and-networks.html"><a href="culture-and-networks.html"><i class="fa fa-check"></i><b>17</b> Culture and Networks</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#rca"><i class="fa fa-check"></i><b>17.1</b> RCA</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-1"><i class="fa fa-check"></i><b>17.1.1</b> Group 1</a></li>
+<li class="chapter" data-level="17.1.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-4"><i class="fa fa-check"></i><b>17.1.2</b> Group 4:</a></li>
+<li class="chapter" data-level="17.1.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-5"><i class="fa fa-check"></i><b>17.1.3</b> Group 5:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#semantic-network-analysis"><i class="fa fa-check"></i><b>17.2</b> Semantic Network Analysis</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#counting-words"><i class="fa fa-check"></i><b>17.2.1</b> Counting Words</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#from-counts-to-a-document-to-term-matrix"><i class="fa fa-check"></i><b>17.3</b> From counts to a document-to-term matrix</a></li>
+<li class="chapter" data-level="17.4" data-path="culture-and-networks.html"><a href="culture-and-networks.html#producing-a-skip-gram-matrix-for-semantic-network-analysis-and-embedding-models"><i class="fa fa-check"></i><b>17.4</b> Producing a skip-gram matrix for semantic network analysis and embedding models</a></li>
+<li class="chapter" data-level="17.5" data-path="culture-and-networks.html"><a href="culture-and-networks.html#comparing-texts-with-cosine"><i class="fa fa-check"></i><b>17.5</b> Comparing texts with cosine</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="dynamics.html"><a href="dynamics.html"><i class="fa fa-check"></i><b>18</b> Dynamics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="dynamics.html"><a href="dynamics.html#tergms"><i class="fa fa-check"></i><b>18.1</b> TERGMs</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="dynamics.html"><a href="dynamics.html#tergm-terms-and-types"><i class="fa fa-check"></i><b>18.1.1</b> TERGM terms and types</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="dynamics.html"><a href="dynamics.html#tergm-syntax"><i class="fa fa-check"></i><b>18.2</b> <code>tergm</code> syntax</a></li>
+<li class="chapter" data-level="18.3" data-path="dynamics.html"><a href="dynamics.html#rsiena--"><i class="fa fa-check"></i><b>18.3</b> RSiena -</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Methods for Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="network-visualization-and-aesthetics" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Network Visualization and Aesthetics</h1>
+<p>As social scientists, we want to tell convincing stories about the structure and dynamics of the networks we study. Visualization and statistics are the primary tools at our disposable for conveying these stories.</p>
+<p>In this tutorial we will learn how to change the aesthetics of our network visualizations. When visualizing networks, there are a number of different elements we can adjust. First, we can change the color, size, shapes and labels of nodes. Second, we can change the color, width, curviture and appearance of edges. We can highlight the location of different groups in the network. Finally, we can manipulate the overall layout of the network.</p>
+<div id="the-basics" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> The Basics</h2>
+<p>Let’s start by adjusting the basic visualization. First, load in the data we created in the last tutorial and graph it as a network. The code below should look familiar. The only difference is that I converted money_edgelist into a matrix in the same line as graphing it as an edgelist. This is called nesting functions. There is no limit to the amount of functions you can have nested, though often times it is easier to read if you break them up into multiple lines.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="network-visualization-and-aesthetics.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb72-2"><a href="network-visualization-and-aesthetics.html#cb72-2" aria-hidden="true" tabindex="-1"></a>money_edgelist <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/money_edgelist.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb72-3"><a href="network-visualization-and-aesthetics.html#cb72-3" aria-hidden="true" tabindex="-1"></a>moneyNetwork <span class="ot">&lt;-</span> <span class="fu">graph.edgelist</span>(<span class="fu">as.matrix</span>(money_edgelist), <span class="at">directed=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Visualizing the network is as simple as typing plot(moneyNetwork). But as I mentioned earlier, the default plot is really horrible (and it used to be worse…). We can adjust the settings of the plot so that the resulting visualization is more aesthetically pleasing. There are many settings for the igraph plot() function, and we will go over the bare minimum you need to start making decent visualizations on your own.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="network-visualization-and-aesthetics.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p>The most basic things we can change are the sizes and colors of nodes. When your network is large, often the nodes will appear too large and clumped together. The argument vertex.size allows you to adjust node size (vertex is the graph-theory term for node!).</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="network-visualization-and-aesthetics.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork, <span class="at">vertex.size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>This is the basic way you change the settings of the plot function in igraph - you put a comma next to the next to the network object, type the name of the setting you want to change, and set it to a new value. Here we set vertex.size to 10. When you don’t change any settings, R will automatically use the default settings. You can find them in the help section for that function (i.e. by typing ?plot.igraph, for example). All you have to do is remember the names of the various settings, or look them up at: <a href="http://igraph.org/r/" class="uri">http://igraph.org/r/</a></p>
+<p>The nodes have an ugly light orange color… We can use vertex.color to change their color to something nicer. We can also remove the ugly black frames by changing the vertex.frame.color setting to NA.</p>
+<blockquote>
+<p><strong>Useful Link</strong>
+You can find a list of all the named colors in R at <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf" class="uri">http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf</a></p>
+</blockquote>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="network-visualization-and-aesthetics.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork, <span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">vertex.frame.color =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>The labels are too large and blue. We can adjust label size with vertex.label.cex. We can adjust the color with vertex.label.color</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="network-visualization-and-aesthetics.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork, <span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">vertex.frame.color =</span> <span class="cn">NA</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>Alternatively, if we want to get rid of the labels, we can just set vertex.label to NA.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="network-visualization-and-aesthetics.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork, <span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">vertex.frame.color =</span> <span class="cn">NA</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>Finally we can make the edges smaller and curved to give them a nicer aesthetic</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="network-visualization-and-aesthetics.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork, <span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">vertex.frame.color =</span> <span class="cn">NA</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">edge.curved =</span> .<span class="dv">1</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="at">edge.width =</span> .<span class="dv">7</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>But don’t go too crazy! If you set edge.curved to be greater than .1, it will start to look like spaghetti.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="network-visualization-and-aesthetics.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork, <span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">vertex.frame.color =</span> <span class="cn">NA</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">edge.curved =</span> <span class="fl">1.7</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="at">edge.width =</span> .<span class="dv">7</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+</div>
+<div id="layouts" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Layouts</h2>
+<p>An essential part of a network visualization is its layout, which determines the nodes’ positions in the plot. There are a wide range of layouts that have been developed for social network analysis. They all try to minimize the number of edges that cross, but use different algorithms for achieving this goal. Generally, I use either the Kamada Kawai algorithm or the Fruchterman Reingold algorithm.</p>
+<p>igraph has set of layout functions which, when passed a network object, return an array of coordinates that can then used when plotting that network. These coordinates should be saved to a separate R object, which is then called within the plot function. They all have the format: layout DOT algorithm name. For example, layout.kamada.kawai() or layout.fruchterman.reingold()</p>
+<p><strong>Kamada Kawai</strong></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="network-visualization-and-aesthetics.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first we run the layout function on our graph</span></span>
+<span id="cb80-2"><a href="network-visualization-and-aesthetics.html#cb80-2" aria-hidden="true" tabindex="-1"></a>kamadaLayout <span class="ot">&lt;-</span> <span class="fu">layout.kamada.kawai</span>(moneyNetwork)</span>
+<span id="cb80-3"><a href="network-visualization-and-aesthetics.html#cb80-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-4"><a href="network-visualization-and-aesthetics.html#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and then we change the default layout setting to equal the layout we generated above</span></span>
+<span id="cb80-5"><a href="network-visualization-and-aesthetics.html#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork, <span class="at">layout =</span> kamadaLayout, <span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">vertex.frame.color =</span> <span class="cn">NA</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">edge.curved =</span> .<span class="dv">1</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="at">edge.width =</span> .<span class="dv">7</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><strong>Frucherman-Reingold</strong></p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="network-visualization-and-aesthetics.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first we run the layout function on our graph</span></span>
+<span id="cb81-2"><a href="network-visualization-and-aesthetics.html#cb81-2" aria-hidden="true" tabindex="-1"></a>fruchtermanLayout <span class="ot">&lt;-</span> <span class="fu">layout.fruchterman.reingold</span>(moneyNetwork)</span>
+<span id="cb81-3"><a href="network-visualization-and-aesthetics.html#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="network-visualization-and-aesthetics.html#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and then we change the default layout setting to equal the layout we generated above</span></span>
+<span id="cb81-5"><a href="network-visualization-and-aesthetics.html#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork, <span class="at">layout =</span> fruchtermanLayout, <span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">vertex.frame.color =</span> <span class="cn">NA</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">edge.curved =</span> .<span class="dv">1</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="at">edge.width =</span> .<span class="dv">7</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p>You can see ?layout_ for more options and details.</p>
+</div>
+<div id="adding-attributes-to-a-network-object" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Adding attributes to a network object</h2>
+<p>We can affect any of these aesthetics arbitrarily. You might prefer the way networks look when the edges are curved as opposed to straight for example. However, we often make decisions informed by theories we have about our empirical setting. If we think that race is important to the structure of the network, we might color nodes according to race. If we think both race and gender are important, we could color nodes by race and change the shape of nodes by gender. We could also size nodes according to wealth. We are generally limited to visualizing three attributes of nodes at once (using color, shape and size), though I find that anything more than two (color and size) is difficult to interpret.</p>
+<p>It follows that, to visualize how attributes are distributed over the nodes of the network, most network projects need two separate datasets. In addition to creating and loading a dataset of relations, which we covered in the previous tutorial, we need a second dataset that details actors’ attributes and we need to add the data to our network. Deciding wich attributes are relevant will depend on the domain and your research question; if you are studying gangs in the southside Chicago, you might record actors’ gang affiliations and residence; if you are interested in the business relationships between Saudi elites, you might record their age and lineage.</p>
+<p>Let’s return to Excel and build an attribute dataset for our network. This kind of dataset is much more traditional: each row is a person (otherwise known as an observation) and each column accords with some attribute you measured for that person. Here is a picture of an example attribute dataset I made for my family’s money provision network.</p>
+<p><strong>Hoffman family attributes</strong></p>
+<hr />
+<p><img src="Images/attribute_df.png"/></p>
+<hr />
+<p>I saved this attribute dataset as a .csv file inside of my R directory. I will load it into R, just as I did the edgelist in the previous tutorial (all of this should be practiced and familiar! if not, revisit the previous tutorial).</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="network-visualization-and-aesthetics.html#cb82-1" aria-hidden="true" tabindex="-1"></a>attributes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/attribute_df.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb82-2"><a href="network-visualization-and-aesthetics.html#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(attributes)</span></code></pre></div>
+<pre><code>##    Name Age Gender     Role
+## 1  Greg  53   Male   Father
+## 2 Maria  52 Female   Mother
+## 3  Mark  25   Male      Son
+## 4  Lexi  23 Female Daughter
+## 5 Grace  19 Female Daughter
+## 6  Nick  14   Male      Son</code></pre>
+<p>This gives us a data.frame, where each row corresponds to a person and each column corresponds to one attribute of the people in our network, but to use these attributes in igraph, we have to assign them to the nodes in the igraph object (moneyNetwork, that is).</p>
+<p>Attributes in igraph are assigned to nodes and edges separately. As mentioned in the previous tutorial, vertices are accessed using the V() function while edges are accessed with the E() function. Attributes are then accessed with the dollar sign operator followed by the attribute name. For example, as we showed earlier, V(countrysideNetwork)$name will tell us the names of all of the nodes in the network. To change an attribute, we can just use the equals sign to set them equal to something else. So for example, here I change the names of the nodes in my network</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="network-visualization-and-aesthetics.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the names</span></span>
+<span id="cb84-2"><a href="network-visualization-and-aesthetics.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>name <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Linda&quot;</span>, <span class="st">&quot;Elias&quot;</span>, <span class="st">&quot;Catherine&quot;</span>, <span class="st">&quot;Eloise&quot;</span>, <span class="st">&quot;Pumpkin&quot;</span>)</span>
+<span id="cb84-3"><a href="network-visualization-and-aesthetics.html#cb84-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-4"><a href="network-visualization-and-aesthetics.html#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the node names to see that it worked!</span></span>
+<span id="cb84-5"><a href="network-visualization-and-aesthetics.html#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>name)</span></code></pre></div>
+<pre><code>## [1] &quot;Bob&quot;       &quot;Linda&quot;     &quot;Elias&quot;     &quot;Catherine&quot; &quot;Eloise&quot;    &quot;Pumpkin&quot;</code></pre>
+<p>At the moment, our network doesn’t have any attributes other than name. If we try to look at the sex of our nodes, we will get NULL as a result.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="network-visualization-and-aesthetics.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>gender[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span></code></pre></div>
+<pre><code>## NULL</code></pre>
+<p>We therefore need to attach the attributes from our attribute file to our network. The method for doing can be a bit complicated.</p>
+<p>If we have an edge list, we can use the _from_data_frame() function instead of graph.edgelist(), and include the attributes file as the vertices argument. For whatever reason, in this case, the edge list needs to be a data.frame, so no need to convert it to a matrix. Also, it is important to note that igraph <em>assumes</em> that the first column is the name column, so make sure that is the case!</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="network-visualization-and-aesthetics.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in the edge list again</span></span>
+<span id="cb88-2"><a href="network-visualization-and-aesthetics.html#cb88-2" aria-hidden="true" tabindex="-1"></a>money_edgelist <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/money_edgelist.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb88-3"><a href="network-visualization-and-aesthetics.html#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-4"><a href="network-visualization-and-aesthetics.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in the attributes again</span></span>
+<span id="cb88-5"><a href="network-visualization-and-aesthetics.html#cb88-5" aria-hidden="true" tabindex="-1"></a>attributes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/attribute_df.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb88-6"><a href="network-visualization-and-aesthetics.html#cb88-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-7"><a href="network-visualization-and-aesthetics.html#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Put them both in the network.</span></span>
+<span id="cb88-8"><a href="network-visualization-and-aesthetics.html#cb88-8" aria-hidden="true" tabindex="-1"></a>moneyNetwork <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(money_edgelist, <span class="at">directed =</span> T, <span class="at">vertices =</span> attributes)</span></code></pre></div>
+<p>Now, if we look at our network, we will see that there are many more next to attr.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="network-visualization-and-aesthetics.html#cb89-1" aria-hidden="true" tabindex="-1"></a>moneyNetwork</span></code></pre></div>
+<pre><code>## IGRAPH 5a66b2e DN-- 6 11 -- 
+## + attr: name (v/c), Age (v/n), Gender (v/c), Role (v/c)
+## + edges from 5a66b2e (vertex names):
+##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick 
+##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick 
+## [11] Lexi -&gt;Nick</code></pre>
+<p>We can look at each one with the V()$ function. For example, here is gender.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="network-visualization-and-aesthetics.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>Gender </span></code></pre></div>
+<pre><code>## [1] &quot;Male&quot;   &quot;Female&quot; &quot;Male&quot;   &quot;Female&quot; &quot;Female&quot; &quot;Male&quot;</code></pre>
+<p>Awesome! Now the attributes are in the network.</p>
+</div>
+<div id="plotting-based-on-attributes" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Plotting based on attributes</h2>
+<p>In the last section, we imported attributal data into our network object, which will allow us to manipulate our network according to nodal attributes. Let’s start by manipulating color according to gender</p>
+<p>To do this we have to assign colors to people according to their sex. We use the ifelse function. The ifelse() function takes three arguments. The first is a test (something that evaluates to TRUE or FALSE), the second is what to return if the test is TRUE and third is what to return if the test is FALSE.</p>
+<p>We therefore set up an ifelse function, which tests whether a node’s gender is male, assigning it the color “blue” if TRUE (i.e. if they are a male) and “green” if FALSE (i.e. otherwise/they are a female). Remember that R is case sensitive, so if your gender variable contains “Males” and “Females”, then make sure you put Male or Female (capitalized) in the ifelse statement.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="network-visualization-and-aesthetics.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>Gender <span class="sc">==</span> <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;dodgerblue3&quot;</span>,<span class="st">&quot;seagreen&quot;</span>)</span></code></pre></div>
+<p>Now we can replot the network. This time a node’s color will be green or blue depending on their gender. Notice that I didn’t set the vertex.colors inside the plot function this time, since doing so would override the colors we just gave the nodes.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="network-visualization-and-aesthetics.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork, <span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.frame.color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">edge.curved =</span> .<span class="dv">1</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p>Now let’s try role. First, I reset color. There are four roles (Father, Mother, Son, Daughter), so we need a few more ifelse statements to code for all of them.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="network-visualization-and-aesthetics.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb95-2"><a href="network-visualization-and-aesthetics.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>Role <span class="sc">==</span> <span class="st">&quot;Father&quot;</span>, <span class="st">&quot;burlywood1&quot;</span>,<span class="st">&quot;tomato&quot;</span>)</span>
+<span id="cb95-3"><a href="network-visualization-and-aesthetics.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>Role <span class="sc">==</span> <span class="st">&quot;Mother&quot;</span>, <span class="st">&quot;seagreen&quot;</span>, <span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>color)</span>
+<span id="cb95-4"><a href="network-visualization-and-aesthetics.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>Role <span class="sc">==</span> <span class="st">&quot;Son&quot;</span>, <span class="st">&quot;grey70&quot;</span>, <span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>color)</span>
+<span id="cb95-5"><a href="network-visualization-and-aesthetics.html#cb95-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-6"><a href="network-visualization-and-aesthetics.html#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork,<span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">edge.curved =</span> .<span class="dv">1</span>, <span class="at">vertex.frame.color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="at">edge.width =</span> .<span class="dv">7</span>, <span class="at">edge.color =</span> <span class="st">&quot;grey30&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p>Last but not least, let’s adjust the sizes of the nodes so that they reflect differences in age. We can set node size to be 1/5th of the node’s age with the code below. Simple, but effective. It looks like the oldest nodes give to the most people.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="network-visualization-and-aesthetics.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>size <span class="ot">=</span> <span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>Age<span class="sc">/</span><span class="dv">5</span></span>
+<span id="cb96-2"><a href="network-visualization-and-aesthetics.html#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="network-visualization-and-aesthetics.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">edge.curved =</span> .<span class="dv">1</span>, <span class="at">vertex.frame.color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="at">edge.width =</span> .<span class="dv">7</span>, <span class="at">edge.color =</span> <span class="st">&quot;grey30&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="your-first-network.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ego-networks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

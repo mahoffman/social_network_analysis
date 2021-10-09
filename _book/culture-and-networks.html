@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>17 Culture and Networks | Methods for Network Analysis</title>
+  <meta name="description" content="17 Culture and Networks | Methods for Network Analysis" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="17 Culture and Networks | Methods for Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="17 Culture and Networks | Methods for Network Analysis" />
+  
+  
+  
+
+<meta name="author" content="Mark Hoffman" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="positional-analysis-in-networks.html"/>
+<link rel="next" href="dynamics.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Course</a></li>
+<li class="chapter" data-level="1" data-path="reading-list.html"><a href="reading-list.html"><i class="fa fa-check"></i><b>1</b> Reading List</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="reading-list.html"><a href="reading-list.html#week-1-beg.-september-20th-introductions-and-introduction-to-r"><i class="fa fa-check"></i><b>1.0.1</b> Week 1 (beg. September 20th): Introductions and Introduction to R</a></li>
+<li class="chapter" data-level="1.0.2" data-path="reading-list.html"><a href="reading-list.html#week-2-beg.-september-27th-types-of-networks"><i class="fa fa-check"></i><b>1.0.2</b> Week 2 (beg. September 27th): Types of networks</a></li>
+<li class="chapter" data-level="1.0.3" data-path="reading-list.html"><a href="reading-list.html#week-3-beg.-october-4th-triads-balance-and-hierarchy"><i class="fa fa-check"></i><b>1.0.3</b> Week 3 (beg. October 4th): Triads, Balance and Hierarchy</a></li>
+<li class="chapter" data-level="1.0.4" data-path="reading-list.html"><a href="reading-list.html#week-4-beg.-october-11th-centrality-power-and-inequality"><i class="fa fa-check"></i><b>1.0.4</b> Week 4 (beg. October 11th): Centrality, Power, and Inequality</a></li>
+<li class="chapter" data-level="1.0.5" data-path="reading-list.html"><a href="reading-list.html#week-5-beg.-october-18th-connectivity-and-the-small-world-problem"><i class="fa fa-check"></i><b>1.0.5</b> Week 5 (beg. October 18th): Connectivity and the Small World Problem</a></li>
+<li class="chapter" data-level="1.0.6" data-path="reading-list.html"><a href="reading-list.html#week-6-beg.-october-25th-groups-communities-and-homophily"><i class="fa fa-check"></i><b>1.0.6</b> Week 6 (beg. October 25th): Groups, Communities, and Homophily</a></li>
+<li class="chapter" data-level="1.0.7" data-path="reading-list.html"><a href="reading-list.html#week-7-beg.-november-1st-categories-and-positions"><i class="fa fa-check"></i><b>1.0.7</b> Week 7 (beg. November 1st): Categories and Positions</a></li>
+<li class="chapter" data-level="1.0.8" data-path="reading-list.html"><a href="reading-list.html#week-8-beg.-november-8th-networks-from-culture-and-culture-from-networks"><i class="fa fa-check"></i><b>1.0.8</b> Week 8 (beg. November 8th): Networks from Culture and Culture from Networks</a></li>
+<li class="chapter" data-level="1.0.9" data-path="reading-list.html"><a href="reading-list.html#week-9-beg.-november-15th-dynamics-and-diffusion"><i class="fa fa-check"></i><b>1.0.9</b> Week 9 (beg. November 15th): Dynamics and Diffusion</a></li>
+<li class="chapter" data-level="1.0.10" data-path="reading-list.html"><a href="reading-list.html#week-9-and-34-thanksgiving"><i class="fa fa-check"></i><b>1.0.10</b> Week 9 and 3/4: Thanksgiving!</a></li>
+<li class="chapter" data-level="1.0.11" data-path="reading-list.html"><a href="reading-list.html#week-10-beg.-november-29th-presentations-of-research"><i class="fa fa-check"></i><b>1.0.11</b> Week 10 (beg. November 29th): Presentations of Research</a></li>
+<li class="chapter" data-level="1.0.12" data-path="reading-list.html"><a href="reading-list.html#december-11th-final-papers-are-due."><i class="fa fa-check"></i><b>1.0.12</b> December 11th: Final papers are due.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>2</b> Installing R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-r"><i class="fa fa-check"></i><b>2.1</b> Downloading and Installing R</a></li>
+<li class="chapter" data-level="2.2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-rstudio"><i class="fa fa-check"></i><b>2.2</b> Downloading and Installing RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>3</b> Tour RStudio with Udacity</a></li>
+<li class="chapter" data-level="4" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-data.frames"><i class="fa fa-check"></i><b>4.1</b> Vectors, matrices and data.frames</a></li>
+<li class="chapter" data-level="4.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>4.2</b> Indexing and Subsetting</a></li>
+<li class="chapter" data-level="4.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>4.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html"><i class="fa fa-check"></i><b>5</b> Understanding network data structures</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#edge-lists"><i class="fa fa-check"></i><b>5.1</b> Edge lists</a></li>
+<li class="chapter" data-level="5.2" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#adjacency-matrices"><i class="fa fa-check"></i><b>5.2</b> Adjacency matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="your-first-network.html"><a href="your-first-network.html"><i class="fa fa-check"></i><b>6</b> Your First Network</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="your-first-network.html"><a href="your-first-network.html#creating-a-project"><i class="fa fa-check"></i><b>6.1</b> Creating a project</a></li>
+<li class="chapter" data-level="6.2" data-path="your-first-network.html"><a href="your-first-network.html#creating-data-in-excel"><i class="fa fa-check"></i><b>6.2</b> Creating data in Excel</a></li>
+<li class="chapter" data-level="6.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>6.3</b> Saving Excel data as a .csv file</a></li>
+<li class="chapter" data-level="6.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>6.4</b> Loading data into R</a></li>
+<li class="chapter" data-level="6.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>6.5</b> From data to networks</a></li>
+<li class="chapter" data-level="6.6" data-path="your-first-network.html"><a href="your-first-network.html#exploring-your-network"><i class="fa fa-check"></i><b>6.6</b> Exploring your network</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>7</b> Network Visualization and Aesthetics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#the-basics"><i class="fa fa-check"></i><b>7.1</b> The Basics</a></li>
+<li class="chapter" data-level="7.2" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#layouts"><i class="fa fa-check"></i><b>7.2</b> Layouts</a></li>
+<li class="chapter" data-level="7.3" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>7.3</b> Adding attributes to a network object</a></li>
+<li class="chapter" data-level="7.4" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#plotting-based-on-attributes"><i class="fa fa-check"></i><b>7.4</b> Plotting based on attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ego-networks.html"><a href="ego-networks.html"><i class="fa fa-check"></i><b>8</b> Ego Networks</a></li>
+<li class="chapter" data-level="9" data-path="calculating-network-size-and-density.html"><a href="calculating-network-size-and-density.html"><i class="fa fa-check"></i><b>9</b> Calculating Network Size and Density</a></li>
+<li class="chapter" data-level="10" data-path="affiliation-data.html"><a href="affiliation-data.html"><i class="fa fa-check"></i><b>10</b> Affiliation Data</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="affiliation-data.html"><a href="affiliation-data.html#unipartite-projection"><i class="fa fa-check"></i><b>10.0.1</b> Unipartite Projection</a></li>
+<li class="chapter" data-level="10.1" data-path="affiliation-data.html"><a href="affiliation-data.html#tripartite-network-analysis"><i class="fa fa-check"></i><b>10.1</b> Tripartite network analysis?</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="affiliation-data.html"><a href="affiliation-data.html#lab"><i class="fa fa-check"></i><b>10.1.1</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html"><i class="fa fa-check"></i><b>11</b> Transitivity, structural balance, and hierarchy</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-dyad"><i class="fa fa-check"></i><b>11.1</b> The Dyad</a></li>
+<li class="chapter" data-level="11.2" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#generating-a-random-graph-for-comparison"><i class="fa fa-check"></i><b>11.2</b> Generating a random graph for comparison</a></li>
+<li class="chapter" data-level="11.3" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-triad"><i class="fa fa-check"></i><b>11.3</b> The Triad</a></li>
+<li class="chapter" data-level="11.4" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#calculating-a-triad-census"><i class="fa fa-check"></i><b>11.4</b> Calculating a triad census</a></li>
+<li class="chapter" data-level="11.5" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#random-graphs-galore"><i class="fa fa-check"></i><b>11.5</b> Random graphs galore!</a></li>
+<li class="chapter" data-level="11.6" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#producing-a-tau-statistic"><i class="fa fa-check"></i><b>11.6</b> Producing a tau statistic</a></li>
+<li class="chapter" data-level="11.7" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#banning-triads"><i class="fa fa-check"></i><b>11.7</b> Banning triads</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="centrality.html"><a href="centrality.html"><i class="fa fa-check"></i><b>12</b> Centrality</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="centrality.html"><a href="centrality.html#loading-the-example-network"><i class="fa fa-check"></i><b>12.0.1</b> Loading the example network</a></li>
+<li class="chapter" data-level="12.0.2" data-path="centrality.html"><a href="centrality.html#degree-centrality"><i class="fa fa-check"></i><b>12.0.2</b> Degree Centrality</a></li>
+<li class="chapter" data-level="12.0.3" data-path="centrality.html"><a href="centrality.html#betweenness-centrality"><i class="fa fa-check"></i><b>12.0.3</b> Betweenness Centrality</a></li>
+<li class="chapter" data-level="12.0.4" data-path="centrality.html"><a href="centrality.html#closeness-centrality"><i class="fa fa-check"></i><b>12.0.4</b> Closeness Centrality</a></li>
+<li class="chapter" data-level="12.1" data-path="centrality.html"><a href="centrality.html#eigenvector-centrality"><i class="fa fa-check"></i><b>12.1</b> Eigenvector Centrality</a></li>
+<li class="chapter" data-level="12.2" data-path="centrality.html"><a href="centrality.html#bonacich-centrality"><i class="fa fa-check"></i><b>12.2</b> Bonacich Centrality</a></li>
+<li class="chapter" data-level="12.3" data-path="centrality.html"><a href="centrality.html#page-rank"><i class="fa fa-check"></i><b>12.3</b> Page Rank</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="centrality.html"><a href="centrality.html#measure-correlations"><i class="fa fa-check"></i><b>12.3.1</b> Measure Correlations</a></li>
+<li class="chapter" data-level="12.3.2" data-path="centrality.html"><a href="centrality.html#centralization-and-degree-distributions"><i class="fa fa-check"></i><b>12.3.2</b> Centralization and Degree Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="centrality.html"><a href="centrality.html#distance-weighted-reach"><i class="fa fa-check"></i><b>12.4</b> Distance weighted reach</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html"><i class="fa fa-check"></i><b>13</b> Bridges, Holes, the Small World Problem, and Simulation</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#its-a-small-world-after-all."><i class="fa fa-check"></i><b>13.1</b> It’s a small world after all.</a></li>
+<li class="chapter" data-level="13.2" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#measuring-connectivity-of-networks"><i class="fa fa-check"></i><b>13.2</b> Measuring connectivity of networks</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#one-last-thing"><i class="fa fa-check"></i><b>13.2.1</b> One last thing…</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html"><i class="fa fa-check"></i><b>14</b> Finding Groups in Networks</a>
+<ul>
+<li class="chapter" data-level="14.0.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#component-analysis"><i class="fa fa-check"></i><b>14.0.1</b> Component analysis</a></li>
+<li class="chapter" data-level="14.0.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cliques"><i class="fa fa-check"></i><b>14.0.2</b> Cliques</a></li>
+<li class="chapter" data-level="14.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cohesive-blocking"><i class="fa fa-check"></i><b>14.1</b> Cohesive Blocking</a></li>
+<li class="chapter" data-level="14.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#group-detection"><i class="fa fa-check"></i><b>14.2</b> Group Detection</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#modularity"><i class="fa fa-check"></i><b>14.2.1</b> Modularity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html"><i class="fa fa-check"></i><b>15</b> Homophily and Exponential Random Graphs (ERGM)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#homophily"><i class="fa fa-check"></i><b>15.1</b> Homophily</a></li>
+<li class="chapter" data-level="15.2" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#ergms"><i class="fa fa-check"></i><b>15.2</b> ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html"><i class="fa fa-check"></i><b>16</b> Positional analysis in networks</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#toy-data"><i class="fa fa-check"></i><b>16.1</b> Toy data</a></li>
+<li class="chapter" data-level="16.2" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#structural-equivalence"><i class="fa fa-check"></i><b>16.2</b> Structural equivalence</a></li>
+<li class="chapter" data-level="16.3" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#block-modeling-with-concor"><i class="fa fa-check"></i><b>16.3</b> Block Modeling with CONCOR</a></li>
+<li class="chapter" data-level="16.4" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#isomorphic-local-graphs"><i class="fa fa-check"></i><b>16.4</b> Isomorphic local graphs</a></li>
+<li class="chapter" data-level="16.5" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#stochastic-block-models-sbms"><i class="fa fa-check"></i><b>16.5</b> Stochastic Block Models (SBMs)</a></li>
+<li class="chapter" data-level="16.6" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#feature-based-strategies"><i class="fa fa-check"></i><b>16.6</b> Feature-based strategies</a></li>
+<li class="chapter" data-level="16.7" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#lab-try-these-different-strategies-on-a-real-graph-of-your-choosing-go-with-smaller-networks-and-compare-the-different-results-using-correlation.-which-methods-perform-similarly-do-the-roles-that-they-identify-look-meaningful-plot-the-network-coloring-the-nodes-by-role."><i class="fa fa-check"></i><b>16.7</b> Lab: Try these different strategies on a real graph of your choosing (go with smaller networks) and compare the different results using correlation. Which methods perform similarly? Do the roles that they identify look meaningful? Plot the network coloring the nodes by role.</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="culture-and-networks.html"><a href="culture-and-networks.html"><i class="fa fa-check"></i><b>17</b> Culture and Networks</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#rca"><i class="fa fa-check"></i><b>17.1</b> RCA</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-1"><i class="fa fa-check"></i><b>17.1.1</b> Group 1</a></li>
+<li class="chapter" data-level="17.1.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-4"><i class="fa fa-check"></i><b>17.1.2</b> Group 4:</a></li>
+<li class="chapter" data-level="17.1.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-5"><i class="fa fa-check"></i><b>17.1.3</b> Group 5:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#semantic-network-analysis"><i class="fa fa-check"></i><b>17.2</b> Semantic Network Analysis</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#counting-words"><i class="fa fa-check"></i><b>17.2.1</b> Counting Words</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#from-counts-to-a-document-to-term-matrix"><i class="fa fa-check"></i><b>17.3</b> From counts to a document-to-term matrix</a></li>
+<li class="chapter" data-level="17.4" data-path="culture-and-networks.html"><a href="culture-and-networks.html#producing-a-skip-gram-matrix-for-semantic-network-analysis-and-embedding-models"><i class="fa fa-check"></i><b>17.4</b> Producing a skip-gram matrix for semantic network analysis and embedding models</a></li>
+<li class="chapter" data-level="17.5" data-path="culture-and-networks.html"><a href="culture-and-networks.html#comparing-texts-with-cosine"><i class="fa fa-check"></i><b>17.5</b> Comparing texts with cosine</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="dynamics.html"><a href="dynamics.html"><i class="fa fa-check"></i><b>18</b> Dynamics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="dynamics.html"><a href="dynamics.html#tergms"><i class="fa fa-check"></i><b>18.1</b> TERGMs</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="dynamics.html"><a href="dynamics.html#tergm-terms-and-types"><i class="fa fa-check"></i><b>18.1.1</b> TERGM terms and types</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="dynamics.html"><a href="dynamics.html#tergm-syntax"><i class="fa fa-check"></i><b>18.2</b> <code>tergm</code> syntax</a></li>
+<li class="chapter" data-level="18.3" data-path="dynamics.html"><a href="dynamics.html#rsiena--"><i class="fa fa-check"></i><b>18.3</b> RSiena -</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Methods for Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="culture-and-networks" class="section level1" number="17">
+<h1><span class="header-section-number">17</span> Culture and Networks</h1>
+<p>This week we discussed a number of studies which employ network analysis for the study of culture. Most, if not all, build off Breiger’s seminal 1972 paper on duality. Duality has been a central concept in Western philosophy since at least Spinoza; Breiger provides a network theoretic use for it. This use, as we saw in Fararo and Doreian (1984), can be extended beyond its original bipartite formulation to multipartite cultural structures, thereby capturing the inherent complexity in socio-cultural relations. At the core of these strategies then are matrices which link people to things - whether words or survey items - which can in turn be connected via tertiary relations to other things. Latour shows that by tracing the linkages, between people to things to other things perhaps back to people, we can begin to understand the possibilities for and constraints on social action.</p>
+<p>In this tutorial, we cover some of the methods which have been used to study culture with networks. We begin with relational class analysis using the RCA package developed by Amir Goldberg and Sarah K. Stein. It implements the algorithm from Goldberg’s 2011 paper introducing RCA and links natively with igraph for visualization and downstream analyses. We will then move to semantic networks (Rule et al. 2015; Hoffman 2019) comparing and contrasting two different strategies for graphing texts as networks. The first focuses on a single text (or a related body of texts) and uses words as the unit of analysis to reveal the text’s internal structure. The second operates more akin to topic modeling with texts as the unit of analysis and ties representing semantic similarity. These representations, as we will see, are dual to each other.</p>
+<div id="rca" class="section level2" number="17.1">
+<h2><span class="header-section-number">17.1</span> RCA</h2>
+<p>Goldberg and Stein have implemented RCA in R and provided the package on R CRAN. I have put a subset of the GSS data on music taste that he and others have used for validating these methods.</p>
+<p>The data link people to musical genres, identifying classes of respondents who construe musical genres in similar ways. So for example, I might think of music in a classed manner - such that highbrow musical genres like classical and jazz are opposed to lowbrow musical genres like hard rock and country. Alternatively, I might focus more on the progressiveness of genres - opposing traditional forms like folk and classical against newer genres like hip hop and rock.</p>
+<p>Depending on which construal I subscribe to, classical music might be associated with very different sets of genres, independent of whether a person likes or dislikes classical music. We might also infer that a person’s like or dislike of classical music in the first case has very different underlying reasoning than in the second (for example, they are elitist vs. they have conservative tastes).</p>
+<p>Let’s test these ideas by first loading in the GSS data</p>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="culture-and-networks.html#cb364-1" aria-hidden="true" tabindex="-1"></a>gss_music_taste <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;Data/gss_music_taste.RDS&quot;</span>)</span></code></pre></div>
+<p>Let’s take a quick peak at the data.</p>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="culture-and-networks.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(gss_music_taste)</span></code></pre></div>
+<p>The columns correspond to musical genres, the rows correspond to people, and the values in the data correspond to how much a respondent rerpoted liking the genere on a scale of 1 to 5. We could imagine just treating this as a sort of weighted bipartite network and analyzing it as such, just like we learned in the affiliation data tutorial. Instead, we will load in the RCA package and use that to identify clusters of genres.</p>
+<p>Let’s install and load in the RCA package.</p>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="culture-and-networks.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;RCA&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="culture-and-networks.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RCA)</span></code></pre></div>
+<pre><code>## Loading required package: igraph</code></pre>
+<pre><code>## 
+## Attaching package: &#39;igraph&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:sna&#39;:
+## 
+##     betweenness, bonpow, closeness, components, degree, dyad.census,
+##     evcent, hierarchy, is.connected, neighborhood, triad.census</code></pre>
+<pre><code>## The following objects are masked from &#39;package:network&#39;:
+## 
+##     %c%, %s%, add.edges, add.vertices, delete.edges, delete.vertices,
+##     get.edge.attribute, get.edges, get.vertex.attribute, is.bipartite,
+##     is.directed, list.edge.attributes, list.vertex.attributes,
+##     set.edge.attribute, set.vertex.attribute</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     as_data_frame, groups, union</code></pre>
+<pre><code>## The following objects are masked from &#39;package:purrr&#39;:
+## 
+##     compose, simplify</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     crossing</code></pre>
+<pre><code>## The following object is masked from &#39;package:tibble&#39;:
+## 
+##     as_data_frame</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     decompose, spectrum</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     union</code></pre>
+<pre><code>## Loading required package: gplots</code></pre>
+<pre><code>## 
+## Attaching package: &#39;gplots&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     lowess</code></pre>
+<p>It’s probably worth taking a look at the documentation before we dive too deeply into the analyses.</p>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="culture-and-networks.html#cb381-1" aria-hidden="true" tabindex="-1"></a>?RCA</span></code></pre></div>
+<p>The main function is RCA() and it takes a matrix. The parameters max and min allow you to tell the function what the maximum and minimum valeus can be in the matrix, otherwise the algorithm will just use max() and min() to find them. This would be useful for example if you provided a survey with a 1-100 scale but no one rated any of the items 100. The last parameters govern the bootstrap strategy used to identify significant relationality values in the RCA algorithm.</p>
+<p>Cool! Let’s run it on our music data. If we use the full data set, it will take a really long time (RCA is pretty slow). So we will first randomly sample 500 respondents.</p>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="culture-and-networks.html#cb382-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb382-2"><a href="culture-and-networks.html#cb382-2" aria-hidden="true" tabindex="-1"></a>rows_to_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(gss_music_taste), <span class="dv">200</span>)</span>
+<span id="cb382-3"><a href="culture-and-networks.html#cb382-3" aria-hidden="true" tabindex="-1"></a>gss_music_taste_500 <span class="ot">&lt;-</span> gss_music_taste[rows_to_sample,]</span></code></pre></div>
+<p>Now let’s use RCA to analyze this smaller data set. Even with the smaller data, this will probably take a couple of minutes.</p>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="culture-and-networks.html#cb383-1" aria-hidden="true" tabindex="-1"></a>rca_music_taste <span class="ot">&lt;-</span> <span class="fu">RCA</span>(gss_music_taste_500)</span></code></pre></div>
+<p>Did it run? We can take a look at the resulting RCA object.</p>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="culture-and-networks.html#cb384-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rca_music_taste)</span></code></pre></div>
+<pre><code>##            Length Class  Mode   
+## membership   200  -none- numeric
+## modules       17  -none- list   
+## R          40000  -none- numeric</code></pre>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="culture-and-networks.html#cb386-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rca_music_taste)</span></code></pre></div>
+<pre><code>## RCA found 17 relational classes. Sizes: 1 39 1 1 1 1 1 1 1 1 1 1 1 1 61 36 51</code></pre>
+<p>How many groups are there? It looks like it found 5 classes, but only three are sizeable: classes 1, 4, and 5. We will focus on those in our analyses.</p>
+<p>We could plot the results as a network to see how the different groups organize the cultural space of genres. The network plotting option however isn’t very good. It is better to use the heatmap option, which plots the correlation matrix of variables within each group.</p>
+<div id="group-1" class="section level3" number="17.1.1">
+<h3><span class="header-section-number">17.1.1</span> Group 1</h3>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="culture-and-networks.html#cb388-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rca_music_taste, <span class="at">module =</span> <span class="dv">1</span>, <span class="at">heatmap =</span> T)</span></code></pre></div>
+</div>
+<div id="group-4" class="section level3" number="17.1.2">
+<h3><span class="header-section-number">17.1.2</span> Group 4:</h3>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="culture-and-networks.html#cb389-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rca_music_taste, <span class="at">module =</span> <span class="dv">4</span>, <span class="at">heatmap =</span> T)</span></code></pre></div>
+</div>
+<div id="group-5" class="section level3" number="17.1.3">
+<h3><span class="header-section-number">17.1.3</span> Group 5:</h3>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="culture-and-networks.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rca_music_taste, <span class="at">module =</span> <span class="dv">5</span>, <span class="at">heatmap =</span> T)</span></code></pre></div>
+<p>What do the results show?</p>
+<p>The membership vector will tell us which group each person belongs to. We can use this information in later analyses to analyze predictors of class membership etc. For example, we might want to know if members of one class or another are more likely to adhere to a particular way of viewing music.</p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="culture-and-networks.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rca_music_taste<span class="sc">$</span>membership)</span></code></pre></div>
+<pre><code>## [1]  1  2 15  2 15 15</code></pre>
+</div>
+</div>
+<div id="semantic-network-analysis" class="section level2" number="17.2">
+<h2><span class="header-section-number">17.2</span> Semantic Network Analysis</h2>
+<p>In this section, we will analyze books from Project Gutenberg, an online library of more than 60,000 public domain books, using semantic network analysis.Let’s take a look at the API for Project Gutenberg. R has a package, gutenbergr for Project Gutenberg, which we can use to download and analyze many famous books.</p>
+<p>First, we use install.packages() to install the gutenbergr package.</p>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="culture-and-networks.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;gutenbergr&quot;</span>)</span></code></pre></div>
+<p>Once it is installed, we can use library() to load it in.</p>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="culture-and-networks.html#cb394-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span></code></pre></div>
+<p>The package comes with the metadata of each of the texts in the Project Gutenberg library preloaded in. You can use the View() function to look at all of the data.</p>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="culture-and-networks.html#cb395-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(gutenberg_metadata)</span></code></pre></div>
+<p>In many analyses, you may want to filter just for English works, avoid duplicates, and include only books that have text that can be downloaded. The gutenberg_works() function does this pre-filtering for you and you can even use it to select a specific author.</p>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="culture-and-networks.html#cb396-1" aria-hidden="true" tabindex="-1"></a>dickens_books <span class="ot">&lt;-</span> <span class="fu">gutenberg_works</span>(author <span class="sc">==</span> <span class="st">&quot;Dickens, Charles&quot;</span>)</span>
+<span id="cb396-2"><a href="culture-and-networks.html#cb396-2" aria-hidden="true" tabindex="-1"></a>austen_books <span class="ot">&lt;-</span> <span class="fu">gutenberg_works</span>(author <span class="sc">==</span> <span class="st">&quot;Austen, Jane&quot;</span>)</span>
+<span id="cb396-3"><a href="culture-and-networks.html#cb396-3" aria-hidden="true" tabindex="-1"></a>conrad_books <span class="ot">&lt;-</span> <span class="fu">gutenberg_works</span>(author <span class="sc">==</span> <span class="st">&quot;Conrad, Joseph&quot;</span>)</span></code></pre></div>
+<p>We can use the gutenberg_download() function to download a text of interest. We have to pass to it the id of the book we want to download. Let’s download one of my favorites - Dumas’ Count of Monte Cristo!</p>
+<p>First we search for the title inside of the metadata using grepl. grepl returns TRUE where it can find a given string inside of a vector, and FALSE otherwise.</p>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="culture-and-networks.html#cb397-1" aria-hidden="true" tabindex="-1"></a>monte_cristo <span class="ot">&lt;-</span> <span class="fu">gutenberg_works</span>(<span class="fu">grepl</span>(<span class="st">&quot;The Count of Monte Cristo&quot;</span>, title))</span></code></pre></div>
+<p>Now let’s grab its id and use the gutenberg_download() function to download it. This might take a little while…</p>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="culture-and-networks.html#cb398-1" aria-hidden="true" tabindex="-1"></a>monte_cristo_text <span class="ot">&lt;-</span> <span class="fu">gutenberg_download</span>(monte_cristo<span class="sc">$</span>gutenberg_id, <span class="at">mirror =</span> <span class="st">&quot;http://gutenberg.readingroo.ms/&quot;</span>)</span></code></pre></div>
+<p>Now use View() to read the text. It is in the form of a data.frame, where the text column holds the lines of the book.</p>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="culture-and-networks.html#cb399-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(monte_cristo_text)</span></code></pre></div>
+<p>We could have passed the gutenberg_download() function two ids, or more, to get more texts. Let’s download 2 random texts.</p>
+<p>First, we randomly sample two book ids from the metadata. To make sure we all randomly sample the same texts, we can set a seed, which makes random samples reproducible.</p>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="culture-and-networks.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb400-2"><a href="culture-and-networks.html#cb400-2" aria-hidden="true" tabindex="-1"></a>books_w_text <span class="ot">&lt;-</span> gutenberg_metadata<span class="sc">$</span>gutenberg_id[gutenberg_metadata<span class="sc">$</span>has_text]</span>
+<span id="cb400-3"><a href="culture-and-networks.html#cb400-3" aria-hidden="true" tabindex="-1"></a>sampled_texts <span class="ot">&lt;-</span> <span class="fu">sample</span>(books_w_text, <span class="dv">2</span>)</span>
+<span id="cb400-4"><a href="culture-and-networks.html#cb400-4" aria-hidden="true" tabindex="-1"></a>random_texts <span class="ot">&lt;-</span> <span class="fu">gutenberg_download</span>(sampled_texts, <span class="at">meta_fields =</span> <span class="st">&quot;title&quot;</span>, <span class="at">mirror =</span> <span class="st">&quot;http://gutenberg.readingroo.ms/&quot;</span>)</span></code></pre></div>
+<p>What books did we get?</p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="culture-and-networks.html#cb401-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(random_texts<span class="sc">$</span>title)</span></code></pre></div>
+<pre><code>## [1] &quot;The Secret Power&quot;                    
+## [2] &quot;The Apology of the Church of England&quot;</code></pre>
+<p>Marie Corelli’s <em>The Secret Power</em> and <em>The Apology of the Church of England</em>. Why did we do this again?</p>
+<div id="counting-words" class="section level3" number="17.2.1">
+<h3><span class="header-section-number">17.2.1</span> Counting Words</h3>
+<p>Now that we know how to download texts, we can analyze them! First it is worth installing tidytext, a package specifically useful for analyzing text data of this sort.</p>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="culture-and-networks.html#cb403-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidytext&quot;</span>)</span></code></pre></div>
+<p>Load it into R. We’ll need the rest of the tidyverse too (specifically dplyr and stringr).</p>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="culture-and-networks.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb404-2"><a href="culture-and-networks.html#cb404-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p>Let’s analyze two texts we are actually familiar with - how about the Constitution and Pride and Prejudice? I located their id in the metadata, 5 and 1342 respectively.</p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="culture-and-networks.html#cb405-1" aria-hidden="true" tabindex="-1"></a>familiar_texts <span class="ot">&lt;-</span> <span class="fu">gutenberg_download</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1342</span>), <span class="at">meta_fields =</span> <span class="st">&quot;title&quot;</span>, <span class="at">mirror =</span> <span class="st">&quot;http://gutenberg.readingroo.ms/&quot;</span>)</span></code></pre></div>
+<p>One strategy for comparing texts is to compare the counts of the words used in them. The first step for counting words is tokenizing the texts - which means breaking sentences and paragraphs down into their respective words. We will then count how frequently each word occurs.</p>
+<p>Tidy text has a useful function called unnest_tokens() which does just that.</p>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="culture-and-networks.html#cb406-1" aria-hidden="true" tabindex="-1"></a>tokenized_words <span class="ot">&lt;-</span> <span class="fu">unnest_tokens</span>(familiar_texts, word, text)</span>
+<span id="cb406-2"><a href="culture-and-networks.html#cb406-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb406-3"><a href="culture-and-networks.html#cb406-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tokenized_words)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   gutenberg_id title                          word     
+##          &lt;int&gt; &lt;chr&gt;                          &lt;chr&gt;    
+## 1            5 The United States Constitution these    
+## 2            5 The United States Constitution original 
+## 3            5 The United States Constitution project  
+## 4            5 The United States Constitution gutenberg
+## 5            5 The United States Constitution etexts   
+## 6            5 The United States Constitution will</code></pre>
+<p>Next, we need to remove common and therefore uninformative words in the texts - like but, and, about, he, she, etc. These are called stopwords and tidy already has some predefined stopwords for us to use. We can use the data() function to read them into our R.</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="culture-and-networks.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(stop_words)</span>
+<span id="cb408-2"><a href="culture-and-networks.html#cb408-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stop_words)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 2
+##   word      lexicon
+##   &lt;chr&gt;     &lt;chr&gt;  
+## 1 a         SMART  
+## 2 a&#39;s       SMART  
+## 3 able      SMART  
+## 4 about     SMART  
+## 5 above     SMART  
+## 6 according SMART</code></pre>
+<p>Let’s remove the stop words using the anti_join() function, remove numbers and punctuation from them with str_extract and mutate, and then count up how often each word appears in each of the books using count().</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="culture-and-networks.html#cb410-1" aria-hidden="true" tabindex="-1"></a>word_counts <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(tokenized_words, stop_words, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span>
+<span id="cb410-2"><a href="culture-and-networks.html#cb410-2" aria-hidden="true" tabindex="-1"></a>word_counts <span class="ot">&lt;-</span> <span class="fu">mutate</span>(word_counts, <span class="at">word =</span> <span class="fu">str_extract</span>(word, <span class="st">&quot;[a-z&#39;]+&quot;</span>))</span>
+<span id="cb410-3"><a href="culture-and-networks.html#cb410-3" aria-hidden="true" tabindex="-1"></a>word_counts <span class="ot">&lt;-</span> <span class="fu">count</span>(word_counts, title, word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb410-4"><a href="culture-and-networks.html#cb410-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb410-5"><a href="culture-and-networks.html#cb410-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(word_counts)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   title               word          n
+##   &lt;chr&gt;               &lt;chr&gt;     &lt;int&gt;
+## 1 Pride and Prejudice elizabeth   597
+## 2 Pride and Prejudice darcy       374
+## 3 Pride and Prejudice bennet      294
+## 4 Pride and Prejudice miss        283
+## 5 Pride and Prejudice jane        264
+## 6 Pride and Prejudice bingley     257</code></pre>
+<p>Counts are useful when we look at just one book, but when our goal is to compare many texts, they may be biased if one of our texts is much longer than another, and therefore has higher counts across every word. A common solution to this problem is to normalize counts by the total number of words in each text. Here we group the data by title, divide each count by the sum of the counts of all the words in each title and save the result as the variable proportion, remove the count variable keeping the proportions instead, and finally dropping any row in the data which has a missing value with drop_na().</p>
+<p>Have we used piping from dplyr before? It is a useful way to string together a bunch of function calls, in a clear and informative manner, without having to reassign them to a new object each time.</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="culture-and-networks.html#cb412-1" aria-hidden="true" tabindex="-1"></a>word_proportions <span class="ot">&lt;-</span> word_counts <span class="sc">%&gt;%</span>  </span>
+<span id="cb412-2"><a href="culture-and-networks.html#cb412-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(title) <span class="sc">%&gt;%</span></span>
+<span id="cb412-3"><a href="culture-and-networks.html#cb412-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-4"><a href="culture-and-networks.html#cb412-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-5"><a href="culture-and-networks.html#cb412-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(title, proportion) <span class="sc">%&gt;%</span></span>
+<span id="cb412-6"><a href="culture-and-networks.html#cb412-6" aria-hidden="true" tabindex="-1"></a>  drop_na</span></code></pre></div>
+<p>Cool, now that we have the frequency with which each word occurs in each text, let’s visualize their differences.</p>
+<p>Let’s focus on <em>Pride and Prejudice</em> first. We use the top_n() function to select only the top 20 texts with respect to proportion. We reorder the dataset according to proportion. We then plot the results as a bar plot using geom_col(). To make the result go horizontally we also use coord_flip(), which flips the coordinates of the plot.</p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="culture-and-networks.html#cb413-1" aria-hidden="true" tabindex="-1"></a>top_words_pandp <span class="ot">&lt;-</span> word_proportions <span class="sc">%&gt;%</span> </span>
+<span id="cb413-2"><a href="culture-and-networks.html#cb413-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">20</span>, <span class="st">`</span><span class="at">Pride and Prejudice</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb413-3"><a href="culture-and-networks.html#cb413-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">reorder</span>(word, <span class="st">`</span><span class="at">Pride and Prejudice</span><span class="st">`</span>))</span>
+<span id="cb413-4"><a href="culture-and-networks.html#cb413-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb413-5"><a href="culture-and-networks.html#cb413-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_words_pandp, <span class="fu">aes</span>(word, <span class="st">`</span><span class="at">Pride and Prejudice</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb413-6"><a href="culture-and-networks.html#cb413-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb413-7"><a href="culture-and-networks.html#cb413-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb413-8"><a href="culture-and-networks.html#cb413-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-257-1.png" width="672" /></p>
+<p>We do the same for <em>The United States Constitution</em>.</p>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="culture-and-networks.html#cb414-1" aria-hidden="true" tabindex="-1"></a>top_words_const <span class="ot">&lt;-</span> word_proportions <span class="sc">%&gt;%</span> </span>
+<span id="cb414-2"><a href="culture-and-networks.html#cb414-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">20</span>, <span class="st">`</span><span class="at">The United States Constitution</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb414-3"><a href="culture-and-networks.html#cb414-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">reorder</span>(word, <span class="st">`</span><span class="at">The United States Constitution</span><span class="st">`</span>))</span>
+<span id="cb414-4"><a href="culture-and-networks.html#cb414-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb414-5"><a href="culture-and-networks.html#cb414-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_words_const, <span class="fu">aes</span>(word, <span class="st">`</span><span class="at">The United States Constitution</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb414-6"><a href="culture-and-networks.html#cb414-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb414-7"><a href="culture-and-networks.html#cb414-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb414-8"><a href="culture-and-networks.html#cb414-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-258-1.png" width="672" /></p>
+<p>Awesome!</p>
+</div>
+</div>
+<div id="from-counts-to-a-document-to-term-matrix" class="section level2" number="17.3">
+<h2><span class="header-section-number">17.3</span> From counts to a document-to-term matrix</h2>
+<p>What if we had hundreds of books and wanted to not just evaluate their individual word counts, but wanted to compare with respect to their compositions? We can build up from the individual document counts to a matrix - what we will call a document-to-term matrix - to build our semantic networks.</p>
+<p>We can compare all of Charles’ Dickens works to see how similar they are and to identify novels with similar compositions. First, download Dickens’ texts with gutenberg_download(), just like before.</p>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="culture-and-networks.html#cb415-1" aria-hidden="true" tabindex="-1"></a>dickens_texts <span class="ot">&lt;-</span> <span class="fu">gutenberg_download</span>(dickens_books<span class="sc">$</span>gutenberg_id, <span class="at">meta_fields =</span> <span class="st">&quot;title&quot;</span>, <span class="at">mirror =</span> <span class="st">&quot;http://gutenberg.readingroo.ms/&quot;</span>)</span></code></pre></div>
+<p>Next we tokenize them and count how often each word occurs in each text.</p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="culture-and-networks.html#cb416-1" aria-hidden="true" tabindex="-1"></a>dickens_words <span class="ot">&lt;-</span> dickens_texts <span class="sc">%&gt;%</span></span>
+<span id="cb416-2"><a href="culture-and-networks.html#cb416-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">%&gt;%</span></span>
+<span id="cb416-3"><a href="culture-and-networks.html#cb416-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(title, word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Let’s evaluate the number of words in each text, add the result to the original data with left_join(), and finally, take a look at the resulting data.frame.</p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="culture-and-networks.html#cb417-1" aria-hidden="true" tabindex="-1"></a>total_words <span class="ot">&lt;-</span> dickens_words <span class="sc">%&gt;%</span> </span>
+<span id="cb417-2"><a href="culture-and-networks.html#cb417-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(title) <span class="sc">%&gt;%</span> </span>
+<span id="cb417-3"><a href="culture-and-networks.html#cb417-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(n))</span>
+<span id="cb417-4"><a href="culture-and-networks.html#cb417-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb417-5"><a href="culture-and-networks.html#cb417-5" aria-hidden="true" tabindex="-1"></a>dickens_words <span class="ot">&lt;-</span> <span class="fu">left_join</span>(dickens_words, total_words)</span></code></pre></div>
+<pre><code>## Joining, by = &quot;title&quot;</code></pre>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="culture-and-networks.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dickens_words)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   title                                                       word      n  total
+##   &lt;chr&gt;                                                       &lt;chr&gt; &lt;int&gt;  &lt;int&gt;
+## 1 The Pickwick Papers                                         the   18347 305070
+## 2 Sketches by Boz, Illustrative of Every-Day Life and Every-… the   17582 258897
+## 3 Dombey and Son                                              the   17065 359055
+## 4 Little Dorrit                                               the   15731 341737
+## 5 Martin Chuzzlewit                                           the   15290 340421
+## 6 Nicholas Nickleby                                           the   15003 326369</code></pre>
+<p>Before running cosine on the data, it is common to convert the raw counts into tf-idfs. The idea with tf-idf is that we want to weight words in each text depending on how special or specific they are to a given text, emphasizing those words that are important to each text. Then, when we run cosine, we won’t accidentally treat two texts as similar if they just both use a bunch of common words. Instead, they will be seen as similar only if they share important words.</p>
+<p>Tf-idf stands for term frequency - inverse document frequency values. It is calculated by multiplying how frequently a word occurs in each text (term frequency) by the inverse of how many of the documents in the sample it can be found (i.e. idf = 1/document frequency).</p>
+<p>Tidy text has a convenient function, bind_tf_idf, for calculating it. We just have to tell it - the name of our word column, the column which identifies which texts we are referring to, and the word counts column.</p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="culture-and-networks.html#cb421-1" aria-hidden="true" tabindex="-1"></a>dickens_words <span class="ot">&lt;-</span> dickens_words <span class="sc">%&gt;%</span></span>
+<span id="cb421-2"><a href="culture-and-networks.html#cb421-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(word, title, n)</span></code></pre></div>
+<p>What do the results look like?</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="culture-and-networks.html#cb422-1" aria-hidden="true" tabindex="-1"></a>dickens_words <span class="sc">%&gt;%</span></span>
+<span id="cb422-2"><a href="culture-and-networks.html#cb422-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>total) <span class="sc">%&gt;%</span></span>
+<span id="cb422-3"><a href="culture-and-networks.html#cb422-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf)) <span class="sc">%&gt;%</span> </span>
+<span id="cb422-4"><a href="culture-and-networks.html#cb422-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   title                                      word         n      tf   idf tf_idf
+##   &lt;chr&gt;                                      &lt;chr&gt;    &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 &quot;Captain Boldheart &amp; the Latin-Grammar Ma… boldhea…    51 0.0126  3.21  0.0405
+## 2 &quot;The Magic Fishbone\nA Holiday Romance fr… alicia      33 0.00838 3.21  0.0268
+## 3 &quot;Scenes and Characters from the Works of … chap       773 0.0384  0.666 0.0256
+## 4 &quot;Scenes and Characters from the Works of … illustr…   868 0.0431  0.566 0.0244
+## 5 &quot;A Christmas Carol&quot;                        scrooge    327 0.0110  2.00  0.0221
+## 6 &quot;A Christmas Carol in Prose; Being a Ghos… scrooge    314 0.0109  2.00  0.0218</code></pre>
+<p>Let’s plot the top fiften words, by tf-idf, for four Dickens classics</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="culture-and-networks.html#cb424-1" aria-hidden="true" tabindex="-1"></a>dickens_words <span class="sc">%&gt;%</span></span>
+<span id="cb424-2"><a href="culture-and-networks.html#cb424-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(title <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;A Christmas Carol&quot;</span>, </span>
+<span id="cb424-3"><a href="culture-and-networks.html#cb424-3" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;Oliver Twist&quot;</span>, </span>
+<span id="cb424-4"><a href="culture-and-networks.html#cb424-4" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;A Tale of Two Cities&quot;</span>,</span>
+<span id="cb424-5"><a href="culture-and-networks.html#cb424-5" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;David Copperfield&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb424-6"><a href="culture-and-networks.html#cb424-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tf_idf)) <span class="sc">%&gt;%</span></span>
+<span id="cb424-7"><a href="culture-and-networks.html#cb424-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">factor</span>(word, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">unique</span>(word)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb424-8"><a href="culture-and-networks.html#cb424-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(title) <span class="sc">%&gt;%</span> </span>
+<span id="cb424-9"><a href="culture-and-networks.html#cb424-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">15</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb424-10"><a href="culture-and-networks.html#cb424-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb424-11"><a href="culture-and-networks.html#cb424-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(word, tf_idf, <span class="at">fill =</span> title)) <span class="sc">+</span></span>
+<span id="cb424-12"><a href="culture-and-networks.html#cb424-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb424-13"><a href="culture-and-networks.html#cb424-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;tf-idf&quot;</span>) <span class="sc">+</span></span>
+<span id="cb424-14"><a href="culture-and-networks.html#cb424-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>title, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb424-15"><a href="culture-and-networks.html#cb424-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<pre><code>## Selecting by tf_idf</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-264-1.png" width="672" /></p>
+<p>Now to turn it into a matrix all we have to do is use the cast_sparse function, specify which variables should be on the rows and columns, and how we want to fill the matrix.</p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="culture-and-networks.html#cb426-1" aria-hidden="true" tabindex="-1"></a>dickens_dtm <span class="ot">&lt;-</span> <span class="fu">cast_sparse</span>(dickens_words, <span class="at">row =</span> title, <span class="at">col =</span> word, <span class="at">value =</span> tf_idf)</span></code></pre></div>
+</div>
+<div id="producing-a-skip-gram-matrix-for-semantic-network-analysis-and-embedding-models" class="section level2" number="17.4">
+<h2><span class="header-section-number">17.4</span> Producing a skip-gram matrix for semantic network analysis and embedding models</h2>
+<p>As is the case with embedding models, you may also want to model not just the set of words that each text has, but rather, the precise sequences of words that are employed in each text. Doing so should reveal not just composition, but how words relate to each other within and across texts; or put differently, the local context in which words appear.</p>
+<p>To produce such models, we need a different kind of data from the raw co-occurence matrices we made use of before. We will use what is called a skip-gram model, which counts the number of times a given word appears near another word, with near-ness being defined as some kind of window, say, of 4 or 5 words. A skip-gram window of two, for example, would count the number of times word j appears within the two words immediately before or after word i.</p>
+<p>Rather than building a skip-gram model ourselves, we can just use the CreateTcm() function from the textmineR package of last lesson to turn a text of interest into a skip-gram.</p>
+<p>First, let’s install the textmineR package and load it in.</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="culture-and-networks.html#cb427-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;textmineR&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="culture-and-networks.html#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textmineR)</span></code></pre></div>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Matrix&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:tidyr&#39;:
+## 
+##     expand, pack, unpack</code></pre>
+<pre><code>## 
+## Attaching package: &#39;textmineR&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:Matrix&#39;:
+## 
+##     update</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     update</code></pre>
+<p>The textmineR package has a super useful function - CreateTcm() - which produces a skip-gram matrix, just like we want. All we have to do is specify the texts we want to run the skip-gram model on, the size of the skip-gram window, and how many cpus we want to use on our computer. The problem is that gutenbergr doesn’t give us texts in a single string, so we will have to do some work to prepare the data. While we are doing this, we might as well clean the data too.</p>
+<p>We can turn this data set into the classic tokenized tidytext data set like we were working on before with the unnest_tokens function.</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="culture-and-networks.html#cb435-1" aria-hidden="true" tabindex="-1"></a>tokens <span class="ot">&lt;-</span> dickens_texts <span class="sc">%&gt;%</span> <span class="fu">unnest_tokens</span>(word, text)</span></code></pre></div>
+<p>Next we want to drop words which are less than three characters in length, and drop stop words. We can drop short words with filter combined with the nchar function, and anti_join to drop stopwords.</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="culture-and-networks.html#cb436-1" aria-hidden="true" tabindex="-1"></a>tokens <span class="ot">&lt;-</span> tokens <span class="sc">%&gt;%</span> </span>
+<span id="cb436-2"><a href="culture-and-networks.html#cb436-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(<span class="fu">nchar</span>(word) <span class="sc">&lt;</span> <span class="dv">3</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb436-3"><a href="culture-and-networks.html#cb436-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words)</span></code></pre></div>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<p>Next we drop empty words.</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="culture-and-networks.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter out empty words</span></span>
+<span id="cb438-2"><a href="culture-and-networks.html#cb438-2" aria-hidden="true" tabindex="-1"></a>tokens <span class="ot">&lt;-</span> tokens <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>(word<span class="sc">==</span><span class="st">&quot;&quot;</span>))</span></code></pre></div>
+<p>The next part is a bit complicated. The basic idea is that we want to paste the texts for each book together. The unite function is good for that, but it only works on a wide form data set. So we will first group by book, produce an index for the row number (that is, what position is a given word in each text), we will then spread the data, converting our long form data into wide form, setting the key argument (which defines the columns of the new data.frame) to equal the index we created, and the value argument to word. The result is that each book is now its own row in the data.frame, with the column i+2 identifying the ith word in a given book.</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="culture-and-networks.html#cb439-1" aria-hidden="true" tabindex="-1"></a>tokens <span class="ot">&lt;-</span> tokens <span class="sc">%&gt;%</span> </span>
+<span id="cb439-2"><a href="culture-and-networks.html#cb439-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(title) <span class="sc">%&gt;%</span> </span>
+<span id="cb439-3"><a href="culture-and-networks.html#cb439-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ind =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb439-4"><a href="culture-and-networks.html#cb439-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(<span class="at">key =</span> ind, <span class="at">value =</span> word)</span></code></pre></div>
+<p>We’ll convert NAs to "" and use unite to paste all of the columns in the data.frame together. We specify -title and -gutenberg_id so that those columns are preserved and not pasted with the words of each book</p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="culture-and-networks.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert NAs to empty strings</span></span>
+<span id="cb440-2"><a href="culture-and-networks.html#cb440-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tokens[is.na(tokens)] &lt;- &quot;&quot;</span></span>
+<span id="cb440-3"><a href="culture-and-networks.html#cb440-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb440-4"><a href="culture-and-networks.html#cb440-4" aria-hidden="true" tabindex="-1"></a><span class="co"># put the data.frame back together</span></span>
+<span id="cb440-5"><a href="culture-and-networks.html#cb440-5" aria-hidden="true" tabindex="-1"></a>tokens <span class="ot">&lt;-</span> <span class="fu">unite</span>(tokens, text, <span class="sc">-</span>title, <span class="sc">-</span>gutenberg_id, <span class="at">sep =</span><span class="st">&quot; &quot;</span> )</span></code></pre></div>
+<p>Great, now each book is its own row in the data and there is a column which includes all of its text. We can now use CreateTcm to create a skip_gram matrix. This might take a while.</p>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="culture-and-networks.html#cb441-1" aria-hidden="true" tabindex="-1"></a>skip_gram_dickens <span class="ot">&lt;-</span> <span class="fu">CreateTcm</span>(<span class="at">doc_vec =</span> tokens<span class="sc">$</span>text,</span>
+<span id="cb441-2"><a href="culture-and-networks.html#cb441-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">skipgram_window =</span> <span class="dv">10</span>,</span>
+<span id="cb441-3"><a href="culture-and-networks.html#cb441-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb441-4"><a href="culture-and-networks.html#cb441-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">cpus =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p>The result is a word-to-word matrix, where cells are weighted by how frequently two words appear in the same window.</p>
+</div>
+<div id="comparing-texts-with-cosine" class="section level2" number="17.5">
+<h2><span class="header-section-number">17.5</span> Comparing texts with cosine</h2>
+<p>We can easily turn either of the above matrices into networks by graphing them directly with igraph ( bipartite or unipartite, respectively). It is better, however, to use cosine analysis first.</p>
+<p>To do this, we treat each text or word’s distribution of words as a vector in multidimensional space (where the number of dimensions are the number of words in the data) and then use cosine similarity to take the angle of every pair of vectors. This is an intuitive measure of similarity - where values close to 1 signify that two vectors (i.e. the word distributions of two texts) are going in precisely the same direction, and values close to 0 signal that they are going in orthagonal directions (i.e. they are not similar at all).</p>
+<p>Let’s try this with both of the matrices above. We will use the proxy package to calculate cosine similarity.</p>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="culture-and-networks.html#cb442-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;proxy&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="culture-and-networks.html#cb443-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(proxy)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;proxy&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:Matrix&#39;:
+## 
+##     as.matrix</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     as.dist, dist</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     as.matrix</code></pre>
+<p>proxy has a useful function - simil() - which calculates similarity for you. All you have to do is specify your data and the method you want to use for measuring similarity. It has a lot of different methods, but we will use cosine.</p>
+<p>One thing you might notice is that these matrices are huge! We will have trouble analyzing them in our computers. There are many different strategies for extracting meaningful and useful terms (something called term extraction in computer science). Here is one simple strategy: evaluating the log-likelihood of each term in the corpus and selecting those with the highest log likelihood value. We will limit our matrices to the top 1000 terms (though a larger number is generally better as we are essentially throwing out data here…)</p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="culture-and-networks.html#cb448-1" aria-hidden="true" tabindex="-1"></a>log_likelihood_terms <span class="ot">&lt;-</span> <span class="cf">function</span>(dtm){</span>
+<span id="cb448-2"><a href="culture-and-networks.html#cb448-2" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">colSums</span>(dtm)</span>
+<span id="cb448-3"><a href="culture-and-networks.html#cb448-3" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">=</span> <span class="fu">ifelse</span>(b[] <span class="sc">==</span> <span class="dv">0</span>, <span class="fl">1e-12</span>, b[])</span>
+<span id="cb448-4"><a href="culture-and-networks.html#cb448-4" aria-hidden="true" tabindex="-1"></a>  LLs <span class="ot">=</span> <span class="fu">c</span>()</span>
+<span id="cb448-5"><a href="culture-and-networks.html#cb448-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(dtm)){</span>
+<span id="cb448-6"><a href="culture-and-networks.html#cb448-6" aria-hidden="true" tabindex="-1"></a>    a <span class="ot">=</span> dtm[i,]</span>
+<span id="cb448-7"><a href="culture-and-networks.html#cb448-7" aria-hidden="true" tabindex="-1"></a>    a <span class="ot">=</span> <span class="fu">ifelse</span>(a[] <span class="sc">==</span> <span class="dv">0</span>, <span class="fl">1e-12</span>, a[])</span>
+<span id="cb448-8"><a href="culture-and-networks.html#cb448-8" aria-hidden="true" tabindex="-1"></a>    c <span class="ot">=</span> <span class="fu">sum</span>(a)</span>
+<span id="cb448-9"><a href="culture-and-networks.html#cb448-9" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">=</span> <span class="fu">sum</span>(b)</span>
+<span id="cb448-10"><a href="culture-and-networks.html#cb448-10" aria-hidden="true" tabindex="-1"></a>    E1 <span class="ot">=</span> c<span class="sc">*</span>(a<span class="sc">+</span>b)<span class="sc">/</span>(c<span class="sc">+</span>d)</span>
+<span id="cb448-11"><a href="culture-and-networks.html#cb448-11" aria-hidden="true" tabindex="-1"></a>    E2 <span class="ot">=</span> d<span class="sc">*</span>(a<span class="sc">+</span>b)<span class="sc">/</span>(c<span class="sc">+</span>d)</span>
+<span id="cb448-12"><a href="culture-and-networks.html#cb448-12" aria-hidden="true" tabindex="-1"></a>    LL <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span>((a<span class="sc">*</span><span class="fu">log</span>(a<span class="sc">/</span>E1))<span class="sc">+</span>(b<span class="sc">*</span><span class="fu">log</span>(b<span class="sc">/</span>E2)))</span>
+<span id="cb448-13"><a href="culture-and-networks.html#cb448-13" aria-hidden="true" tabindex="-1"></a>    LL <span class="ot">=</span> <span class="fu">sum</span>(LL)</span>
+<span id="cb448-14"><a href="culture-and-networks.html#cb448-14" aria-hidden="true" tabindex="-1"></a>    LLs <span class="ot">=</span> <span class="fu">c</span>(LLs, LL)</span>
+<span id="cb448-15"><a href="culture-and-networks.html#cb448-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">length</span>(LLs)<span class="sc">/</span> <span class="fu">nrow</span>(dtm)</span>
+<span id="cb448-16"><a href="culture-and-networks.html#cb448-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb448-17"><a href="culture-and-networks.html#cb448-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(LLs) <span class="ot">=</span> <span class="fu">rownames</span>(dtm)</span>
+<span id="cb448-18"><a href="culture-and-networks.html#cb448-18" aria-hidden="true" tabindex="-1"></a>  LLs <span class="ot">=</span> LLs[<span class="fu">order</span>(LLs, <span class="at">decreasing =</span> T)]</span>
+<span id="cb448-19"><a href="culture-and-networks.html#cb448-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(LLs)</span>
+<span id="cb448-20"><a href="culture-and-networks.html#cb448-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb448-21"><a href="culture-and-networks.html#cb448-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb448-22"><a href="culture-and-networks.html#cb448-22" aria-hidden="true" tabindex="-1"></a>dickens_dtm <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(dickens_dtm)</span>
+<span id="cb448-23"><a href="culture-and-networks.html#cb448-23" aria-hidden="true" tabindex="-1"></a>ll_terms <span class="ot">=</span> <span class="fu">log_likelihood_terms</span>(<span class="fu">t</span>(dickens_dtm))</span>
+<span id="cb448-24"><a href="culture-and-networks.html#cb448-24" aria-hidden="true" tabindex="-1"></a>ll_terms <span class="ot">=</span> ll_terms[<span class="fu">order</span>(ll_terms, <span class="at">decreasing =</span> T)]</span>
+<span id="cb448-25"><a href="culture-and-networks.html#cb448-25" aria-hidden="true" tabindex="-1"></a>ll_terms <span class="ot">=</span> <span class="fu">names</span>(ll_terms[<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>])</span></code></pre></div>
+<p>Now, we will do a couple of things. We will limit the matrices to only those terms which we deemed important using log-likelihood. We will then calculate cosine for every pair of words using the simil function from proxy.</p>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="culture-and-networks.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For the document-to-term matrix</span></span>
+<span id="cb449-2"><a href="culture-and-networks.html#cb449-2" aria-hidden="true" tabindex="-1"></a>cosine_dtm <span class="ot">&lt;-</span> <span class="fu">simil</span>(dickens_dtm[,ll_terms], <span class="at">method =</span> <span class="st">&quot;cosine&quot;</span>)</span>
+<span id="cb449-3"><a href="culture-and-networks.html#cb449-3" aria-hidden="true" tabindex="-1"></a>cosine_dtm <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(cosine_dtm)</span>
+<span id="cb449-4"><a href="culture-and-networks.html#cb449-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-5"><a href="culture-and-networks.html#cb449-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For the skip-gram matrix</span></span>
+<span id="cb449-6"><a href="culture-and-networks.html#cb449-6" aria-hidden="true" tabindex="-1"></a>sg_ll_words <span class="ot">&lt;-</span> <span class="fu">rownames</span>(skip_gram_dickens) <span class="sc">%in%</span> ll_terms</span>
+<span id="cb449-7"><a href="culture-and-networks.html#cb449-7" aria-hidden="true" tabindex="-1"></a>smaller_dickens_sg <span class="ot">&lt;-</span> skip_gram_dickens[sg_ll_words, sg_ll_words]</span>
+<span id="cb449-8"><a href="culture-and-networks.html#cb449-8" aria-hidden="true" tabindex="-1"></a>smaller_dickens_sg <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(smaller_dickens_sg)</span>
+<span id="cb449-9"><a href="culture-and-networks.html#cb449-9" aria-hidden="true" tabindex="-1"></a>cosine_sg <span class="ot">&lt;-</span> <span class="fu">simil</span>(smaller_dickens_sg, <span class="at">method =</span> <span class="st">&quot;cosine&quot;</span>)</span>
+<span id="cb449-10"><a href="culture-and-networks.html#cb449-10" aria-hidden="true" tabindex="-1"></a>cosine_sg <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(cosine_sg)</span></code></pre></div>
+<p>We could take the cosine of our cosine matrix again and again, again to CONCOR. We could therefore use this repeated cosine strategy to blockmodel the data.</p>
+<p>How do the new cosine matrices look? Notice that the dtm matrix became a book-to-book matrix. We could have first taken the transpose to produce a word-to-word matrix, but one with different values from the skip-gram cosine matrix.</p>
+<p>For each matrix, we can look at a value to see how similar two words or books are. For example, king and queen appear in very similar contexts according to the skip-gram cosine matrix.</p>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="culture-and-networks.html#cb450-1" aria-hidden="true" tabindex="-1"></a>cosine_sg[<span class="st">&quot;queen&quot;</span>, <span class="st">&quot;king&quot;</span>]</span></code></pre></div>
+<pre><code>## [1] 0.81195</code></pre>
+<blockquote>
+<p>This might remind you of word embeddings. Both rely on the skip-gram matrix underneath and so we should expect similarities. If, instead of taking cosine, you instead took the singular value decomposition of the skip-gram matrix, using the svd() function, you would essentially get word embeddings. Check out GloVe (<a href="https://nlp.stanford.edu/projects/glove/" class="uri">https://nlp.stanford.edu/projects/glove/</a>) from Stanford’s NLP group to learn more.</p>
+</blockquote>
+<p>Let’s plot the results as networks. To do so, we need igraph.</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="culture-and-networks.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code></pre></div>
+<p>We will filter the matrices so that it only contains values which are in the top 5% of the cosine distribution. For reference, here is the distribution for the document-to-term matrix.</p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="culture-and-networks.html#cb453-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(cosine_dtm)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-280-1.png" width="672" /></p>
+<p>We use indexing to filter the matrix. First, we identify values which are less than the 0.95 percentile of the distribution. Then we use that logical to index the matrix and set those values to zero. Finally, we set the diagonal to zero too. In many cases, it may behoove you to set an even more stringent cut-off.</p>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="culture-and-networks.html#cb454-1" aria-hidden="true" tabindex="-1"></a>low_values_dtm <span class="ot">&lt;-</span> cosine_dtm <span class="sc">&lt;</span> <span class="fu">quantile</span>(cosine_dtm, <span class="fl">0.95</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb454-2"><a href="culture-and-networks.html#cb454-2" aria-hidden="true" tabindex="-1"></a>cosine_dtm[low_values_dtm] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb454-3"><a href="culture-and-networks.html#cb454-3" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(cosine_dtm) <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb454-4"><a href="culture-and-networks.html#cb454-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb454-5"><a href="culture-and-networks.html#cb454-5" aria-hidden="true" tabindex="-1"></a>low_values_sg <span class="ot">&lt;-</span> cosine_sg <span class="sc">&lt;</span> <span class="fu">quantile</span>(cosine_sg, <span class="fl">0.95</span>, <span class="at">na.rm =</span> T)</span>
+<span id="cb454-6"><a href="culture-and-networks.html#cb454-6" aria-hidden="true" tabindex="-1"></a>cosine_sg[low_values_sg] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb454-7"><a href="culture-and-networks.html#cb454-7" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(cosine_sg) <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
+<p>Now let’s use igraph to graph the resulting matrices as a network.
+We use graph.adjacency to graph the matrix, we set weighted = T, so that it takes into account the cosine values when doing so. We set the mode to undirected since the matrix is symmetrical.</p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="culture-and-networks.html#cb455-1" aria-hidden="true" tabindex="-1"></a>cosine_net_dtm <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(cosine_dtm, <span class="at">weighted =</span> T, <span class="at">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span>
+<span id="cb455-2"><a href="culture-and-networks.html#cb455-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb455-3"><a href="culture-and-networks.html#cb455-3" aria-hidden="true" tabindex="-1"></a>cosine_net_sg <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(cosine_sg, <span class="at">weighted =</span> T, <span class="at">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
+<p>We drop nodes which are disconnected from the main graphs.</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="culture-and-networks.html#cb456-1" aria-hidden="true" tabindex="-1"></a>comps <span class="ot">&lt;-</span> <span class="fu">components</span>(cosine_net_dtm)<span class="sc">$</span>membership</span>
+<span id="cb456-2"><a href="culture-and-networks.html#cb456-2" aria-hidden="true" tabindex="-1"></a>largest_component <span class="ot">&lt;-</span> <span class="fu">which.max</span>(<span class="fu">table</span>(comps))</span>
+<span id="cb456-3"><a href="culture-and-networks.html#cb456-3" aria-hidden="true" tabindex="-1"></a>cosine_net_dtm <span class="ot">&lt;-</span> <span class="fu">delete.vertices</span>(cosine_net_dtm, <span class="fu">which</span>(comps <span class="sc">!=</span> largest_component))</span>
+<span id="cb456-4"><a href="culture-and-networks.html#cb456-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb456-5"><a href="culture-and-networks.html#cb456-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb456-6"><a href="culture-and-networks.html#cb456-6" aria-hidden="true" tabindex="-1"></a>comps_sg <span class="ot">&lt;-</span> <span class="fu">components</span>(cosine_net_sg)<span class="sc">$</span>membership</span>
+<span id="cb456-7"><a href="culture-and-networks.html#cb456-7" aria-hidden="true" tabindex="-1"></a>largest_component_sg <span class="ot">&lt;-</span> <span class="fu">which.max</span>(<span class="fu">table</span>(comps_sg))</span>
+<span id="cb456-8"><a href="culture-and-networks.html#cb456-8" aria-hidden="true" tabindex="-1"></a>cosine_net_sg <span class="ot">&lt;-</span> <span class="fu">delete.vertices</span>(cosine_net_sg, <span class="fu">which</span>(comps_sg <span class="sc">!=</span> largest_component_sg))</span></code></pre></div>
+<p>And plot the result marking groups using the Louvain clustering algorithm!</p>
+<div id="dtm" class="section level4" number="17.5.0.1">
+<h4><span class="header-section-number">17.5.0.1</span> DTM</h4>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="culture-and-networks.html#cb457-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cosine_net_dtm, </span>
+<span id="cb457-2"><a href="culture-and-networks.html#cb457-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="dv">5</span>,</span>
+<span id="cb457-3"><a href="culture-and-networks.html#cb457-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">mark.groups =</span> <span class="fu">cluster_louvain</span>(cosine_net_dtm), </span>
+<span id="cb457-4"><a href="culture-and-networks.html#cb457-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.color =</span> <span class="st">&quot;grey80&quot;</span>,</span>
+<span id="cb457-5"><a href="culture-and-networks.html#cb457-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.border.color =</span> <span class="st">&quot;grey60&quot;</span>,</span>
+<span id="cb457-6"><a href="culture-and-networks.html#cb457-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> <span class="fl">0.5</span>,</span>
+<span id="cb457-7"><a href="culture-and-networks.html#cb457-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-284-1.png" width="672" /></p>
+</div>
+<div id="sg" class="section level4" number="17.5.0.2">
+<h4><span class="header-section-number">17.5.0.2</span> SG</h4>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="culture-and-networks.html#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cosine_net_sg, </span>
+<span id="cb458-2"><a href="culture-and-networks.html#cb458-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="dv">1</span>,</span>
+<span id="cb458-3"><a href="culture-and-networks.html#cb458-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.color =</span> <span class="st">&quot;grey80&quot;</span>,</span>
+<span id="cb458-4"><a href="culture-and-networks.html#cb458-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.border.color =</span> <span class="st">&quot;grey60&quot;</span>,</span>
+<span id="cb458-5"><a href="culture-and-networks.html#cb458-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> <span class="fl">0.1</span>,</span>
+<span id="cb458-6"><a href="culture-and-networks.html#cb458-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-285-1.png" width="672" /></p>
+<p>Of course, now it is just a network and you can graph and analyze it as one.</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="culture-and-networks.html#cb459-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">degree</span>(cosine_net_dtm), <span class="at">decreasing =</span> T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
+<pre><code>##                            Speeches: Literary and Social 
+##                                                       27 
+##                                         Reprinted Pieces 
+##                                                       22 
+##     Dickens&#39; Stories About Children Every Child Can Read 
+##                                                       19 
+##                        Charles Dickens&#39; Children Stories 
+##                                                       14 
+##                                           American Notes 
+##                                                       11 
+##                              Oliver Twist, Vol. 3 (of 3) 
+##                                                       10 
+##                              Oliver Twist, Vol. 1 (of 3) 
+##                                                        8 
+##                             A Child&#39;s History of England 
+##                                                        7 
+##                                             Oliver Twist 
+##                                                        7 
+## Oliver Twist, Illustrated\nor, The Parish Boy&#39;s Progress 
+##                                                        7</code></pre>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="culture-and-networks.html#cb461-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">degree</span>(cosine_net_sg), <span class="at">decreasing =</span> T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
+<pre><code>##   dickens  haredale    maryon  sidenote  mistress    dorrit pecksniff     laura 
+##       198       192       189       182       179       178       175       172 
+## assistant   nupkins 
+##       171       171</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="positional-analysis-in-networks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dynamics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

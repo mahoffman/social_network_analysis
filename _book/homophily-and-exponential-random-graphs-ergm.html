@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>15 Homophily and Exponential Random Graphs (ERGM) | Methods for Network Analysis</title>
+  <meta name="description" content="15 Homophily and Exponential Random Graphs (ERGM) | Methods for Network Analysis" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="15 Homophily and Exponential Random Graphs (ERGM) | Methods for Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="15 Homophily and Exponential Random Graphs (ERGM) | Methods for Network Analysis" />
+  
+  
+  
+
+<meta name="author" content="Mark Hoffman" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="finding-groups-in-networks.html"/>
+<link rel="next" href="positional-analysis-in-networks.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Course</a></li>
+<li class="chapter" data-level="1" data-path="reading-list.html"><a href="reading-list.html"><i class="fa fa-check"></i><b>1</b> Reading List</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="reading-list.html"><a href="reading-list.html#week-1-beg.-september-20th-introductions-and-introduction-to-r"><i class="fa fa-check"></i><b>1.0.1</b> Week 1 (beg. September 20th): Introductions and Introduction to R</a></li>
+<li class="chapter" data-level="1.0.2" data-path="reading-list.html"><a href="reading-list.html#week-2-beg.-september-27th-types-of-networks"><i class="fa fa-check"></i><b>1.0.2</b> Week 2 (beg. September 27th): Types of networks</a></li>
+<li class="chapter" data-level="1.0.3" data-path="reading-list.html"><a href="reading-list.html#week-3-beg.-october-4th-triads-balance-and-hierarchy"><i class="fa fa-check"></i><b>1.0.3</b> Week 3 (beg. October 4th): Triads, Balance and Hierarchy</a></li>
+<li class="chapter" data-level="1.0.4" data-path="reading-list.html"><a href="reading-list.html#week-4-beg.-october-11th-centrality-power-and-inequality"><i class="fa fa-check"></i><b>1.0.4</b> Week 4 (beg. October 11th): Centrality, Power, and Inequality</a></li>
+<li class="chapter" data-level="1.0.5" data-path="reading-list.html"><a href="reading-list.html#week-5-beg.-october-18th-connectivity-and-the-small-world-problem"><i class="fa fa-check"></i><b>1.0.5</b> Week 5 (beg. October 18th): Connectivity and the Small World Problem</a></li>
+<li class="chapter" data-level="1.0.6" data-path="reading-list.html"><a href="reading-list.html#week-6-beg.-october-25th-groups-communities-and-homophily"><i class="fa fa-check"></i><b>1.0.6</b> Week 6 (beg. October 25th): Groups, Communities, and Homophily</a></li>
+<li class="chapter" data-level="1.0.7" data-path="reading-list.html"><a href="reading-list.html#week-7-beg.-november-1st-categories-and-positions"><i class="fa fa-check"></i><b>1.0.7</b> Week 7 (beg. November 1st): Categories and Positions</a></li>
+<li class="chapter" data-level="1.0.8" data-path="reading-list.html"><a href="reading-list.html#week-8-beg.-november-8th-networks-from-culture-and-culture-from-networks"><i class="fa fa-check"></i><b>1.0.8</b> Week 8 (beg. November 8th): Networks from Culture and Culture from Networks</a></li>
+<li class="chapter" data-level="1.0.9" data-path="reading-list.html"><a href="reading-list.html#week-9-beg.-november-15th-dynamics-and-diffusion"><i class="fa fa-check"></i><b>1.0.9</b> Week 9 (beg. November 15th): Dynamics and Diffusion</a></li>
+<li class="chapter" data-level="1.0.10" data-path="reading-list.html"><a href="reading-list.html#week-9-and-34-thanksgiving"><i class="fa fa-check"></i><b>1.0.10</b> Week 9 and 3/4: Thanksgiving!</a></li>
+<li class="chapter" data-level="1.0.11" data-path="reading-list.html"><a href="reading-list.html#week-10-beg.-november-29th-presentations-of-research"><i class="fa fa-check"></i><b>1.0.11</b> Week 10 (beg. November 29th): Presentations of Research</a></li>
+<li class="chapter" data-level="1.0.12" data-path="reading-list.html"><a href="reading-list.html#december-11th-final-papers-are-due."><i class="fa fa-check"></i><b>1.0.12</b> December 11th: Final papers are due.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>2</b> Installing R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-r"><i class="fa fa-check"></i><b>2.1</b> Downloading and Installing R</a></li>
+<li class="chapter" data-level="2.2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-rstudio"><i class="fa fa-check"></i><b>2.2</b> Downloading and Installing RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>3</b> Tour RStudio with Udacity</a></li>
+<li class="chapter" data-level="4" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-data.frames"><i class="fa fa-check"></i><b>4.1</b> Vectors, matrices and data.frames</a></li>
+<li class="chapter" data-level="4.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>4.2</b> Indexing and Subsetting</a></li>
+<li class="chapter" data-level="4.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>4.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html"><i class="fa fa-check"></i><b>5</b> Understanding network data structures</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#edge-lists"><i class="fa fa-check"></i><b>5.1</b> Edge lists</a></li>
+<li class="chapter" data-level="5.2" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#adjacency-matrices"><i class="fa fa-check"></i><b>5.2</b> Adjacency matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="your-first-network.html"><a href="your-first-network.html"><i class="fa fa-check"></i><b>6</b> Your First Network</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="your-first-network.html"><a href="your-first-network.html#creating-a-project"><i class="fa fa-check"></i><b>6.1</b> Creating a project</a></li>
+<li class="chapter" data-level="6.2" data-path="your-first-network.html"><a href="your-first-network.html#creating-data-in-excel"><i class="fa fa-check"></i><b>6.2</b> Creating data in Excel</a></li>
+<li class="chapter" data-level="6.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>6.3</b> Saving Excel data as a .csv file</a></li>
+<li class="chapter" data-level="6.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>6.4</b> Loading data into R</a></li>
+<li class="chapter" data-level="6.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>6.5</b> From data to networks</a></li>
+<li class="chapter" data-level="6.6" data-path="your-first-network.html"><a href="your-first-network.html#exploring-your-network"><i class="fa fa-check"></i><b>6.6</b> Exploring your network</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>7</b> Network Visualization and Aesthetics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#the-basics"><i class="fa fa-check"></i><b>7.1</b> The Basics</a></li>
+<li class="chapter" data-level="7.2" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#layouts"><i class="fa fa-check"></i><b>7.2</b> Layouts</a></li>
+<li class="chapter" data-level="7.3" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>7.3</b> Adding attributes to a network object</a></li>
+<li class="chapter" data-level="7.4" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#plotting-based-on-attributes"><i class="fa fa-check"></i><b>7.4</b> Plotting based on attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ego-networks.html"><a href="ego-networks.html"><i class="fa fa-check"></i><b>8</b> Ego Networks</a></li>
+<li class="chapter" data-level="9" data-path="calculating-network-size-and-density.html"><a href="calculating-network-size-and-density.html"><i class="fa fa-check"></i><b>9</b> Calculating Network Size and Density</a></li>
+<li class="chapter" data-level="10" data-path="affiliation-data.html"><a href="affiliation-data.html"><i class="fa fa-check"></i><b>10</b> Affiliation Data</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="affiliation-data.html"><a href="affiliation-data.html#unipartite-projection"><i class="fa fa-check"></i><b>10.0.1</b> Unipartite Projection</a></li>
+<li class="chapter" data-level="10.1" data-path="affiliation-data.html"><a href="affiliation-data.html#tripartite-network-analysis"><i class="fa fa-check"></i><b>10.1</b> Tripartite network analysis?</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="affiliation-data.html"><a href="affiliation-data.html#lab"><i class="fa fa-check"></i><b>10.1.1</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html"><i class="fa fa-check"></i><b>11</b> Transitivity, structural balance, and hierarchy</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-dyad"><i class="fa fa-check"></i><b>11.1</b> The Dyad</a></li>
+<li class="chapter" data-level="11.2" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#generating-a-random-graph-for-comparison"><i class="fa fa-check"></i><b>11.2</b> Generating a random graph for comparison</a></li>
+<li class="chapter" data-level="11.3" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-triad"><i class="fa fa-check"></i><b>11.3</b> The Triad</a></li>
+<li class="chapter" data-level="11.4" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#calculating-a-triad-census"><i class="fa fa-check"></i><b>11.4</b> Calculating a triad census</a></li>
+<li class="chapter" data-level="11.5" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#random-graphs-galore"><i class="fa fa-check"></i><b>11.5</b> Random graphs galore!</a></li>
+<li class="chapter" data-level="11.6" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#producing-a-tau-statistic"><i class="fa fa-check"></i><b>11.6</b> Producing a tau statistic</a></li>
+<li class="chapter" data-level="11.7" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#banning-triads"><i class="fa fa-check"></i><b>11.7</b> Banning triads</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="centrality.html"><a href="centrality.html"><i class="fa fa-check"></i><b>12</b> Centrality</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="centrality.html"><a href="centrality.html#loading-the-example-network"><i class="fa fa-check"></i><b>12.0.1</b> Loading the example network</a></li>
+<li class="chapter" data-level="12.0.2" data-path="centrality.html"><a href="centrality.html#degree-centrality"><i class="fa fa-check"></i><b>12.0.2</b> Degree Centrality</a></li>
+<li class="chapter" data-level="12.0.3" data-path="centrality.html"><a href="centrality.html#betweenness-centrality"><i class="fa fa-check"></i><b>12.0.3</b> Betweenness Centrality</a></li>
+<li class="chapter" data-level="12.0.4" data-path="centrality.html"><a href="centrality.html#closeness-centrality"><i class="fa fa-check"></i><b>12.0.4</b> Closeness Centrality</a></li>
+<li class="chapter" data-level="12.1" data-path="centrality.html"><a href="centrality.html#eigenvector-centrality"><i class="fa fa-check"></i><b>12.1</b> Eigenvector Centrality</a></li>
+<li class="chapter" data-level="12.2" data-path="centrality.html"><a href="centrality.html#bonacich-centrality"><i class="fa fa-check"></i><b>12.2</b> Bonacich Centrality</a></li>
+<li class="chapter" data-level="12.3" data-path="centrality.html"><a href="centrality.html#page-rank"><i class="fa fa-check"></i><b>12.3</b> Page Rank</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="centrality.html"><a href="centrality.html#measure-correlations"><i class="fa fa-check"></i><b>12.3.1</b> Measure Correlations</a></li>
+<li class="chapter" data-level="12.3.2" data-path="centrality.html"><a href="centrality.html#centralization-and-degree-distributions"><i class="fa fa-check"></i><b>12.3.2</b> Centralization and Degree Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="centrality.html"><a href="centrality.html#distance-weighted-reach"><i class="fa fa-check"></i><b>12.4</b> Distance weighted reach</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html"><i class="fa fa-check"></i><b>13</b> Bridges, Holes, the Small World Problem, and Simulation</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#its-a-small-world-after-all."><i class="fa fa-check"></i><b>13.1</b> It’s a small world after all.</a></li>
+<li class="chapter" data-level="13.2" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#measuring-connectivity-of-networks"><i class="fa fa-check"></i><b>13.2</b> Measuring connectivity of networks</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#one-last-thing"><i class="fa fa-check"></i><b>13.2.1</b> One last thing…</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html"><i class="fa fa-check"></i><b>14</b> Finding Groups in Networks</a>
+<ul>
+<li class="chapter" data-level="14.0.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#component-analysis"><i class="fa fa-check"></i><b>14.0.1</b> Component analysis</a></li>
+<li class="chapter" data-level="14.0.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cliques"><i class="fa fa-check"></i><b>14.0.2</b> Cliques</a></li>
+<li class="chapter" data-level="14.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cohesive-blocking"><i class="fa fa-check"></i><b>14.1</b> Cohesive Blocking</a></li>
+<li class="chapter" data-level="14.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#group-detection"><i class="fa fa-check"></i><b>14.2</b> Group Detection</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#modularity"><i class="fa fa-check"></i><b>14.2.1</b> Modularity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html"><i class="fa fa-check"></i><b>15</b> Homophily and Exponential Random Graphs (ERGM)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#homophily"><i class="fa fa-check"></i><b>15.1</b> Homophily</a></li>
+<li class="chapter" data-level="15.2" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#ergms"><i class="fa fa-check"></i><b>15.2</b> ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html"><i class="fa fa-check"></i><b>16</b> Positional analysis in networks</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#toy-data"><i class="fa fa-check"></i><b>16.1</b> Toy data</a></li>
+<li class="chapter" data-level="16.2" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#structural-equivalence"><i class="fa fa-check"></i><b>16.2</b> Structural equivalence</a></li>
+<li class="chapter" data-level="16.3" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#block-modeling-with-concor"><i class="fa fa-check"></i><b>16.3</b> Block Modeling with CONCOR</a></li>
+<li class="chapter" data-level="16.4" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#isomorphic-local-graphs"><i class="fa fa-check"></i><b>16.4</b> Isomorphic local graphs</a></li>
+<li class="chapter" data-level="16.5" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#stochastic-block-models-sbms"><i class="fa fa-check"></i><b>16.5</b> Stochastic Block Models (SBMs)</a></li>
+<li class="chapter" data-level="16.6" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#feature-based-strategies"><i class="fa fa-check"></i><b>16.6</b> Feature-based strategies</a></li>
+<li class="chapter" data-level="16.7" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#lab-try-these-different-strategies-on-a-real-graph-of-your-choosing-go-with-smaller-networks-and-compare-the-different-results-using-correlation.-which-methods-perform-similarly-do-the-roles-that-they-identify-look-meaningful-plot-the-network-coloring-the-nodes-by-role."><i class="fa fa-check"></i><b>16.7</b> Lab: Try these different strategies on a real graph of your choosing (go with smaller networks) and compare the different results using correlation. Which methods perform similarly? Do the roles that they identify look meaningful? Plot the network coloring the nodes by role.</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="culture-and-networks.html"><a href="culture-and-networks.html"><i class="fa fa-check"></i><b>17</b> Culture and Networks</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#rca"><i class="fa fa-check"></i><b>17.1</b> RCA</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-1"><i class="fa fa-check"></i><b>17.1.1</b> Group 1</a></li>
+<li class="chapter" data-level="17.1.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-4"><i class="fa fa-check"></i><b>17.1.2</b> Group 4:</a></li>
+<li class="chapter" data-level="17.1.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-5"><i class="fa fa-check"></i><b>17.1.3</b> Group 5:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#semantic-network-analysis"><i class="fa fa-check"></i><b>17.2</b> Semantic Network Analysis</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#counting-words"><i class="fa fa-check"></i><b>17.2.1</b> Counting Words</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#from-counts-to-a-document-to-term-matrix"><i class="fa fa-check"></i><b>17.3</b> From counts to a document-to-term matrix</a></li>
+<li class="chapter" data-level="17.4" data-path="culture-and-networks.html"><a href="culture-and-networks.html#producing-a-skip-gram-matrix-for-semantic-network-analysis-and-embedding-models"><i class="fa fa-check"></i><b>17.4</b> Producing a skip-gram matrix for semantic network analysis and embedding models</a></li>
+<li class="chapter" data-level="17.5" data-path="culture-and-networks.html"><a href="culture-and-networks.html#comparing-texts-with-cosine"><i class="fa fa-check"></i><b>17.5</b> Comparing texts with cosine</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="dynamics.html"><a href="dynamics.html"><i class="fa fa-check"></i><b>18</b> Dynamics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="dynamics.html"><a href="dynamics.html#tergms"><i class="fa fa-check"></i><b>18.1</b> TERGMs</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="dynamics.html"><a href="dynamics.html#tergm-terms-and-types"><i class="fa fa-check"></i><b>18.1.1</b> TERGM terms and types</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="dynamics.html"><a href="dynamics.html#tergm-syntax"><i class="fa fa-check"></i><b>18.2</b> <code>tergm</code> syntax</a></li>
+<li class="chapter" data-level="18.3" data-path="dynamics.html"><a href="dynamics.html#rsiena--"><i class="fa fa-check"></i><b>18.3</b> RSiena -</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Methods for Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="homophily-and-exponential-random-graphs-ergm" class="section level1" number="15">
+<h1><span class="header-section-number">15</span> Homophily and Exponential Random Graphs (ERGM)</h1>
+<div id="homophily" class="section level2" number="15.1">
+<h2><span class="header-section-number">15.1</span> Homophily</h2>
+<p>In this tutorial, we cover how to A) calculate homophily on a network and B) fit exponential random graphs to networks. First, we will need one of the Add Health data sets that we have been playing around with in previous tutorials. The code below downloads the data from Moreno’s website and converts it into an igraph object. We went over this in the Transitivy tutorial, so here, I just paste the code.</p>
+<p>Through this tutorial, we will rely on igraph to analyze the comm59 Add Health network that we made use of last class.</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in the edge list from our github</span></span>
+<span id="cb285-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-2" aria-hidden="true" tabindex="-1"></a>el <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/comm59.dat.txt&quot;</span>, <span class="at">header =</span> T)</span>
+<span id="cb285-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in attributes from our github</span></span>
+<span id="cb285-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-4" aria-hidden="true" tabindex="-1"></a>attributes <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/comm59_att.dat.txt&quot;</span>, <span class="at">header =</span> T)</span>
+<span id="cb285-5"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add an ID column</span></span>
+<span id="cb285-6"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-6" aria-hidden="true" tabindex="-1"></a>attributes<span class="sc">$</span>ID <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(attributes)</span>
+<span id="cb285-7"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb285-8"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Indexing data so that you only put in certain columns</span></span>
+<span id="cb285-9"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-9" aria-hidden="true" tabindex="-1"></a>el_no_weight <span class="ot">&lt;-</span> el[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="co"># We will ignore the ranking variable for now.</span></span>
+<span id="cb285-10"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-10" aria-hidden="true" tabindex="-1"></a>el_no_weight <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(el_no_weight) <span class="co"># igraph requires a matrix</span></span>
+<span id="cb285-11"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb285-12"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-12" aria-hidden="true" tabindex="-1"></a><span class="co"># convert ids to characters so they are preserved as names</span></span>
+<span id="cb285-13"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-13" aria-hidden="true" tabindex="-1"></a>el_no_weight[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(el_no_weight[,<span class="dv">1</span>])</span>
+<span id="cb285-14"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-14" aria-hidden="true" tabindex="-1"></a>el_no_weight[,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(el_no_weight[,<span class="dv">2</span>])</span>
+<span id="cb285-15"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb285-16"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Graph the network</span></span>
+<span id="cb285-17"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb285-18"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-18" aria-hidden="true" tabindex="-1"></a>net59 <span class="ot">&lt;-</span> <span class="fu">graph.edgelist</span>(el_no_weight, <span class="at">directed =</span> T)</span>
+<span id="cb285-19"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb285-20"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Finally, add attributes  </span></span>
+<span id="cb285-21"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-21" aria-hidden="true" tabindex="-1"></a><span class="co"># First link vertex names to their place in the attribute dataset</span></span>
+<span id="cb285-22"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-22" aria-hidden="true" tabindex="-1"></a>linked_ids <span class="ot">&lt;-</span> <span class="fu">match</span>(<span class="fu">V</span>(net59)<span class="sc">$</span>name, attributes<span class="sc">$</span>ID)</span>
+<span id="cb285-23"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb285-24"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Then we can use that to assign a variable to each user in the network</span></span>
+<span id="cb285-25"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-25" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net59)<span class="sc">$</span>race <span class="ot">&lt;-</span> attributes<span class="sc">$</span>race[linked_ids]</span>
+<span id="cb285-26"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-26" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net59)<span class="sc">$</span>sex <span class="ot">&lt;-</span> attributes<span class="sc">$</span>sex[linked_ids]</span>
+<span id="cb285-27"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-27" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net59)<span class="sc">$</span>grade <span class="ot">&lt;-</span> attributes<span class="sc">$</span>grade[linked_ids]</span>
+<span id="cb285-28"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-28" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net59)<span class="sc">$</span>school <span class="ot">&lt;-</span> attributes<span class="sc">$</span>school[linked_ids]</span>
+<span id="cb285-29"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb285-30"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-30" aria-hidden="true" tabindex="-1"></a>net59 <span class="ot">&lt;-</span> <span class="fu">delete.vertices</span>(net59, <span class="fu">which</span>(<span class="fu">is.na</span>(<span class="fu">V</span>(net59)<span class="sc">$</span>sex) <span class="sc">|</span> <span class="fu">V</span>(net59)<span class="sc">$</span>sex <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb285-31"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-31" aria-hidden="true" tabindex="-1"></a>net59 <span class="ot">&lt;-</span> <span class="fu">delete.vertices</span>(net59, <span class="fu">which</span>(<span class="fu">is.na</span>(<span class="fu">V</span>(net59)<span class="sc">$</span>race) <span class="sc">|</span> <span class="fu">V</span>(net59)<span class="sc">$</span>race <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb285-32"><a href="homophily-and-exponential-random-graphs-ergm.html#cb285-32" aria-hidden="true" tabindex="-1"></a>net59 <span class="ot">&lt;-</span> <span class="fu">delete.vertices</span>(net59, <span class="fu">which</span>(<span class="fu">is.na</span>(<span class="fu">V</span>(net59)<span class="sc">$</span>grade) <span class="sc">|</span> <span class="fu">V</span>(net59)<span class="sc">$</span>grade <span class="sc">==</span> <span class="dv">0</span>))</span></code></pre></div>
+<p>Great, now that we have the network, we can evaluate homophily. We can either use igraph’s built in function…</p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assortativity</span>(net59, <span class="at">types1 =</span> <span class="fu">as.numeric</span>(<span class="fu">V</span>(net59)<span class="sc">$</span>sex))</span></code></pre></div>
+<pre><code>## [1] 0.2180534</code></pre>
+<p>Or do it ourselves. If you’ll remember from class on Tuesday, assortativity on variable is calculated by simply correlating the values of an attribute for every ego-alter pair in the network. We just grab the edgelist, match in ego and alter’s values for the variable of interest, and correlate with cor.test.</p>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb288-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">get.edgelist</span>(net59), <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb288-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb288-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>sex1 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(attributes<span class="sc">$</span>sex[<span class="fu">match</span>(df<span class="sc">$</span>X1, attributes<span class="sc">$</span>ID)])</span>
+<span id="cb288-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb288-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>sex2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(attributes<span class="sc">$</span>sex[<span class="fu">match</span>(df<span class="sc">$</span>X2, attributes<span class="sc">$</span>ID)])</span>
+<span id="cb288-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb288-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>sex1, df<span class="sc">$</span>sex2)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  df$sex1 and df$sex2
+## t = 14.092, df = 3978, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.1882596 0.2474463
+## sample estimates:
+##       cor 
+## 0.2180534</code></pre>
+<p>Race, however, is probably better conceptualized as a categorical variable. Assortativity_nominal can be used to evaluate assortativity for categorical variables. It requires a numeric vector, denoting the different categories, which starts at 1, so we add one to the race variable, which starts at 0.</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assortativity_nominal</span>(net59, <span class="at">types =</span> <span class="fu">as.numeric</span>(<span class="fu">V</span>(net59)<span class="sc">$</span>race) <span class="sc">+</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.04103466</code></pre>
+</div>
+<div id="ergms" class="section level2" number="15.2">
+<h2><span class="header-section-number">15.2</span> ERGMs</h2>
+<p>Now imagine, like Wimmer and Lewis, we wanted to calculate homophily for race, but wanted to control for other network factors, such as transitivity, which might lead to a higher degree of same race friendships, but which don’t actually signal an in-group preference. Just like them, we can use exponential random graphs, which model networks as a function of network statistics. Specifically, ERGMs imagine the observed network to be just one instantiation of a set of possible networks with similar features, that is, as the outcome of a stochastic process, which is unknown and must therefore be inferred.</p>
+<p>The package that allows one to fit ergm models is part of the statnet (statistical networks) suite of packages. Much like tidyverse, which you might be familiar with, statnet includes a number of complementary packages for the statistical analysis of networks. Let’s install statnet and load it into R.</p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;statnet&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statnet)</span></code></pre></div>
+<p>Great, now we can use statnet’s ergm() function to fit our first ERGM. The only problem? Our network is an igraph object rather than a statnet one. There is some good news though. People have built a package for converting igraph objects to statnet and vise versa - intergraph. Let’s install that and load it in too.</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;intergraph&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(intergraph)</span></code></pre></div>
+<p>Now that we have intergraph installed and in our R environment, we can use the asNetwork function to convert it to a statnet object. I will also subset the data here, because ERGMs take forever to run and the network is somewhat large (~1000 nodes).</p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb296-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb296-2" aria-hidden="true" tabindex="-1"></a>sampled_students <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">V</span>(net59)<span class="sc">$</span>name, <span class="dv">350</span>, <span class="at">replace =</span> F)</span>
+<span id="cb296-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb296-3" aria-hidden="true" tabindex="-1"></a>net59_for_ergm <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">delete.vertices</span>(net59, <span class="sc">!</span><span class="fu">V</span>(net59)<span class="sc">$</span>name <span class="sc">%in%</span> sampled_students)</span>
+<span id="cb296-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb296-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb296-5"><a href="homophily-and-exponential-random-graphs-ergm.html#cb296-5" aria-hidden="true" tabindex="-1"></a>statnet59 <span class="ot">&lt;-</span> <span class="fu">asNetwork</span>(net59_for_ergm)</span>
+<span id="cb296-6"><a href="homophily-and-exponential-random-graphs-ergm.html#cb296-6" aria-hidden="true" tabindex="-1"></a>statnet59</span></code></pre></div>
+<pre><code>##  Network attributes:
+##   vertices = 350 
+##   directed = TRUE 
+##   hyper = FALSE 
+##   loops = FALSE 
+##   multiple = FALSE 
+##   bipartite = FALSE 
+##   total edges= 547 
+##     missing edges= 0 
+##     non-missing edges= 547 
+## 
+##  Vertex attribute names: 
+##     grade race school sex vertex.names 
+## 
+## No edge attributes</code></pre>
+<p>It even ported over our node attributes! You can plot it to see if it looks the same as it did in igraph.</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(statnet59, </span>
+<span id="cb298-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb298-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.col =</span> <span class="st">&quot;tomato&quot;</span>, </span>
+<span id="cb298-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb298-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.cex =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-179-1.png" width="672" /></p>
+<p>With our data ready for analysis using statnet, let’s build our first ERGM. There are a number of potential ERG model terms that we could use in fitting our model. You can view a full list by looking at the documentation for:</p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb299-1" aria-hidden="true" tabindex="-1"></a>?ergm.terms</span></code></pre></div>
+<p>That said, it is common to build up from some basic terms first. The McFarland-Moody paper we read in class is a useful reference point as is the Wimmer-Lewis paper. Generally, the first term that people use is the edges term. It is a statistic which counts how many edges there are in the network.</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb300-1" aria-hidden="true" tabindex="-1"></a>random_graph <span class="ot">&lt;-</span> <span class="fu">ergm</span>(statnet59 <span class="sc">~</span> edges, <span class="at">control =</span> <span class="fu">control.ergm</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span></code></pre></div>
+<p>How do we interpret this coefficient? Coefficients in ERGMs represent the change in the (log-odds) likelihood of a tie for a unit change in a predictor. We can use a simple formula for converting log-odds to probability to understand them better.</p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb301-1" aria-hidden="true" tabindex="-1"></a>inv.logit <span class="ot">&lt;-</span> <span class="cf">function</span>(logit){</span>
+<span id="cb301-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb301-2" aria-hidden="true" tabindex="-1"></a>  odds <span class="ot">&lt;-</span> <span class="fu">exp</span>(logit)</span>
+<span id="cb301-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb301-3" aria-hidden="true" tabindex="-1"></a>  prob <span class="ot">&lt;-</span> odds <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> odds)</span>
+<span id="cb301-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb301-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(prob)</span>
+<span id="cb301-5"><a href="homophily-and-exponential-random-graphs-ergm.html#cb301-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb301-6"><a href="homophily-and-exponential-random-graphs-ergm.html#cb301-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-7"><a href="homophily-and-exponential-random-graphs-ergm.html#cb301-7" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">coef</span>(random_graph)</span>
+<span id="cb301-8"><a href="homophily-and-exponential-random-graphs-ergm.html#cb301-8" aria-hidden="true" tabindex="-1"></a><span class="fu">inv.logit</span>(theta)</span></code></pre></div>
+<pre><code>##       edges 
+## 0.004478101</code></pre>
+<p>So the probability of an edge being in the graph is roughly 0.02. The probability of an edge being drawn should in theory be the same as density - let’s check.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="fu">network.density</span>(statnet59)</span></code></pre></div>
+<pre><code>## [1] 0.004478101</code></pre>
+<p>Nice.</p>
+<p>To put it all back into the theoretical underpinnings of ERGMs, we have modeled a stochastic generating process, and the only constraint we have put on the stochastic process is the probability with which edges are drawn, which was set equal to the network density of our observed graph.</p>
+<p>We can more closely examine the model fit using the summary() function, just like lm() or glm() in base R.</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(random_graph)</span></code></pre></div>
+<pre><code>## Call:
+## ergm(formula = statnet59 ~ edges, control = control.ergm(seed = 1234))
+## 
+## Maximum Likelihood Results:
+## 
+##       Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
+## edges -5.40407    0.04285      0  -126.1   &lt;1e-04 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##      Null Deviance: 169336  on 122150  degrees of freedom
+##  Residual Deviance:   7009  on 122149  degrees of freedom
+##  
+## AIC: 7011  BIC: 7020  (Smaller is better. MC Std. Err. = 0)</code></pre>
+<p>We can also simulate graphs using our ERGM fit. We did something similar to this when we simulated random graphs and set the probability of an edge being drawn to be equal to our network’s density. We just didn’t know it at the time!</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb307-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb307-2" aria-hidden="true" tabindex="-1"></a>hundred_simulations <span class="ot">&lt;-</span> <span class="fu">simulate</span>(random_graph, </span>
+<span id="cb307-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb307-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">coef =</span> theta,</span>
+<span id="cb307-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb307-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nsim =</span> <span class="dv">100</span>,</span>
+<span id="cb307-5"><a href="homophily-and-exponential-random-graphs-ergm.html#cb307-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">control =</span> <span class="fu">control.simulate.ergm</span>(<span class="at">MCMC.burnin =</span> <span class="dv">1000</span>,</span>
+<span id="cb307-6"><a href="homophily-and-exponential-random-graphs-ergm.html#cb307-6" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">MCMC.interval =</span> <span class="dv">1000</span>))</span></code></pre></div>
+<p>Let’s examine the first nine simulations.</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb308-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb308-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb308-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(hundred_simulations[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>], plot, <span class="at">vertex.cex =</span> <span class="dv">1</span>, <span class="at">vertex.col =</span> <span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-186-1.png" width="672" /></p>
+<p>We can compare the number of edges our observed graph has to the average of the simulated networks.</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb309-1" aria-hidden="true" tabindex="-1"></a>net_densities <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(hundred_simulations, network.density))</span>
+<span id="cb309-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb309-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb309-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb309-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(net_densities, <span class="at">xlab =</span> <span class="st">&quot;Density&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span>
+<span id="cb309-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb309-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">network.density</span>(statnet59), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb309-5"><a href="homophily-and-exponential-random-graphs-ergm.html#cb309-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(net_densities), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-187-1.png" width="672" />
+Pretty close!</p>
+<p>Another way to evaluate our model is to use the built-in goodness of fit measures. Essentially, we will evaluate whether our network has similar structural features as the simulated graphs. ergm has a built-in function - gof() - which calculates the statistics for us. We just have to tell it how many simulations we want to use in the comparison set - the larger the number, the more accurate representation of the model.</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb310-1" aria-hidden="true" tabindex="-1"></a>gof_stats <span class="ot">&lt;-</span> <span class="fu">gof</span>(random_graph)</span>
+<span id="cb310-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb310-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb310-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb310-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb310-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb310-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gof_stats, <span class="at">main =</span> <span class="st">&#39;&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-188-1.png" width="672" /></p>
+<p>On one measure, edgewise shared partners, our model looks okay. On the others, especially in and out degree, it looks awful. How to we improve our fit? By adding more terms to the model!</p>
+<p>First, let’s build a model with only dyad-independent terms. Just like with the random graph, we are essentially fitting a logistic regression.</p>
+<p>nodematch is the homophily term in ergm. We can specify the attribute we want to examine as well as the diff argument, which allows for differential levels of homophily for different groups.</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb311-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">ergm</span>(statnet59 <span class="sc">~</span> edges <span class="sc">+</span> </span>
+<span id="cb311-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb311-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;race&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb311-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb311-3" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;sex&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb311-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb311-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;grade&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div>
+<pre><code>## Call:
+## ergm(formula = statnet59 ~ edges + nodematch(&quot;race&quot;) + nodematch(&quot;sex&quot;) + 
+##     nodematch(&quot;grade&quot;))
+## 
+## Maximum Likelihood Results:
+## 
+##                 Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
+## edges           -6.91859    0.12039      0 -57.468  &lt; 1e-04 ***
+## nodematch.race   0.05272    0.09125      0   0.578  0.56341    
+## nodematch.sex    0.26996    0.08717      0   3.097  0.00195 ** 
+## nodematch.grade  2.87780    0.10361      0  27.774  &lt; 1e-04 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##      Null Deviance: 169336  on 122150  degrees of freedom
+##  Residual Deviance:   6007  on 122146  degrees of freedom
+##  
+## AIC: 6015  BIC: 6054  (Smaller is better. MC Std. Err. = 0)</code></pre>
+<p>Every variable is significant! Grade and race have especially large coefficients and all three are positive.</p>
+<p>Let’s try it with diff set to T. We will limit our examination to only grade/race/sex categories represented by a large number of vertices in our network. You can examine this using the table function</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">V</span>(net59_for_ergm)<span class="sc">$</span>race) <span class="co"># 1 = white, 2 = black, 3 = hispanic, 4 = asian, and 5 = mixed/other</span></span>
+<span id="cb314-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb314-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">V</span>(net59_for_ergm)<span class="sc">$</span>sex) <span class="co"># 1 = male, 2 = female</span></span>
+<span id="cb314-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb314-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">V</span>(net59_for_ergm)<span class="sc">$</span>grade)</span>
+<span id="cb314-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb314-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb314-5"><a href="homophily-and-exponential-random-graphs-ergm.html#cb314-5" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">ergm</span>(statnet59 <span class="sc">~</span> edges <span class="sc">+</span> </span>
+<span id="cb314-6"><a href="homophily-and-exponential-random-graphs-ergm.html#cb314-6" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;race&quot;</span>, <span class="at">diff =</span> T, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;5&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb314-7"><a href="homophily-and-exponential-random-graphs-ergm.html#cb314-7" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;sex&quot;</span>, <span class="at">diff =</span> T, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb314-8"><a href="homophily-and-exponential-random-graphs-ergm.html#cb314-8" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;grade&quot;</span>, <span class="at">diff =</span> T, <span class="at">levels =</span> <span class="fu">as.character</span>(<span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">12</span>))))</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
+<pre><code>## Call:
+## ergm(formula = statnet59 ~ edges + nodematch(&quot;race&quot;, diff = T, 
+##     levels = c(&quot;1&quot;, &quot;2&quot;, &quot;5&quot;)) + nodematch(&quot;sex&quot;, diff = T, levels = c(&quot;1&quot;, 
+##     &quot;2&quot;)) + nodematch(&quot;grade&quot;, diff = T, levels = as.character(c(7:12))))
+## 
+## Maximum Likelihood Results:
+## 
+##                    Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
+## edges              -6.96247    0.12167      0 -57.226  &lt; 1e-04 ***
+## nodematch.race.1    0.11676    0.09397      0   1.243 0.214032    
+## nodematch.race.2       -Inf    0.00000      0    -Inf  &lt; 1e-04 ***
+## nodematch.race.5   -0.07078    0.28052      0  -0.252 0.800805    
+## nodematch.sex.1     0.17007    0.11570      0   1.470 0.141582    
+## nodematch.sex.2     0.34239    0.09813      0   3.489 0.000485 ***
+## nodematch.grade.7   2.86262    0.14430      0  19.838  &lt; 1e-04 ***
+## nodematch.grade.8   2.65692    0.16632      0  15.975  &lt; 1e-04 ***
+## nodematch.grade.9   2.97460    0.12574      0  23.657  &lt; 1e-04 ***
+## nodematch.grade.10  2.42069    0.19922      0  12.151  &lt; 1e-04 ***
+## nodematch.grade.11  2.54508    0.21460      0  11.860  &lt; 1e-04 ***
+## nodematch.grade.12  3.31829    0.14238      0  23.306  &lt; 1e-04 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##      Null Deviance: 169336  on 122150  degrees of freedom
+##  Residual Deviance:   5976  on 122138  degrees of freedom
+##  
+## AIC: 5998  BIC: 6105  (Smaller is better. MC Std. Err. = 0)
+## 
+##  Warning: The following terms have infinite coefficient estimates:
+##   nodematch.race.2</code></pre>
+<p>Interesting! Now let’s add some dyad-dependent terms. These can be a bit finnicky, especially transitivity ones.</p>
+<p>mutual is the term for reciprocity.</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb317-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">ergm</span>(statnet59 <span class="sc">~</span> edges <span class="sc">+</span> </span>
+<span id="cb317-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb317-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;race&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb317-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb317-3" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;sex&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb317-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb317-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;grade&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb317-5"><a href="homophily-and-exponential-random-graphs-ergm.html#cb317-5" aria-hidden="true" tabindex="-1"></a>                 mutual)</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code></pre></div>
+<pre><code>## Call:
+## ergm(formula = statnet59 ~ edges + nodematch(&quot;race&quot;) + nodematch(&quot;sex&quot;) + 
+##     nodematch(&quot;grade&quot;) + mutual)
+## 
+## Monte Carlo Maximum Likelihood Results:
+## 
+##                 Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
+## edges           -6.95232    0.10987      0 -63.275   &lt;1e-04 ***
+## nodematch.race   0.04004    0.07970      0   0.502   0.6154    
+## nodematch.sex    0.19509    0.07657      0   2.548   0.0108 *  
+## nodematch.grade  2.32082    0.10386      0  22.345   &lt;1e-04 ***
+## mutual           4.39947    0.15846      0  27.764   &lt;1e-04 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##      Null Deviance: 169336  on 122150  degrees of freedom
+##  Residual Deviance:   5418  on 122145  degrees of freedom
+##  
+## AIC: 5428  BIC: 5477  (Smaller is better. MC Std. Err. = 1.117)</code></pre>
+<p>Now let’s add a term for triadic closure. There are a few terms for triads - one of them, triangles, tends to lead to degeneracy. The gwesp term behaves better, though convergence is far from guaranteed.</p>
+<p>It may be a good time to use the bathroom. This will take a while…</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb320-1" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">ergm</span>(statnet59 <span class="sc">~</span> edges <span class="sc">+</span> </span>
+<span id="cb320-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb320-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;race&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb320-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb320-3" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;sex&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb320-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb320-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nodematch</span>(<span class="st">&quot;grade&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb320-5"><a href="homophily-and-exponential-random-graphs-ergm.html#cb320-5" aria-hidden="true" tabindex="-1"></a>                 mutual <span class="sc">+</span> </span>
+<span id="cb320-6"><a href="homophily-and-exponential-random-graphs-ergm.html#cb320-6" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">gwesp</span>(<span class="fl">0.25</span>, <span class="at">fixed =</span> T),</span>
+<span id="cb320-7"><a href="homophily-and-exponential-random-graphs-ergm.html#cb320-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">control=</span><span class="fu">control.ergm</span>(<span class="at">MCMLE.maxit=</span> <span class="dv">40</span>))</span>
+<span id="cb320-8"><a href="homophily-and-exponential-random-graphs-ergm.html#cb320-8" aria-hidden="true" tabindex="-1"></a><span class="co"># you can change a number of other things about the MCMC algorithm - from its burn-in to its step and sample size</span></span>
+<span id="cb320-9"><a href="homophily-and-exponential-random-graphs-ergm.html#cb320-9" aria-hidden="true" tabindex="-1"></a><span class="co"># here we just up the maximum iterations we wait to see if it has converged</span></span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model4)</span></code></pre></div>
+<p>Let’s take a look at the goodness-of-fit statistics for this most elaborate model.</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="homophily-and-exponential-random-graphs-ergm.html#cb322-1" aria-hidden="true" tabindex="-1"></a>model4_gof <span class="ot">&lt;-</span> <span class="fu">gof</span>(model4)</span>
+<span id="cb322-2"><a href="homophily-and-exponential-random-graphs-ergm.html#cb322-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb322-3"><a href="homophily-and-exponential-random-graphs-ergm.html#cb322-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))</span>
+<span id="cb322-4"><a href="homophily-and-exponential-random-graphs-ergm.html#cb322-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model4_gof, <span class="at">main =</span> <span class="st">&#39;&#39;</span>)</span></code></pre></div>
+<p>Definitely an improvement over the random graph.</p>
+<p>Lab: Run ergm on a graph of interest to you and include balance (reciprocity and triadic closure) and homophily terms. Interpret the results. Simulate a graph from this model and compare it to your original graph.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="finding-groups-in-networks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="positional-analysis-in-networks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

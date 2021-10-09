@@ -1,0 +1,174 @@
+---
+title: "Affiliation data"
+author: "Mark Hoffman"
+output: html_document
+---
+
+# Affiliation Data
+
+This portion of the tutorial focuses on affiliation data. Individuals can be directly linked to one another by affections or interactions. We have spent the tutorial so far working with direct, one-mode networks. 
+
+That said, individuals can also be linked through "affiliations", that is, shared associations to groups or objects.  
+
+As an example, people might be tied by the classes they have taken together. Such data might look like:
+  
+Person,  Classes
+Leo,     Biostatistics, Chemistry, Linear Algebra
+Clement, Islamic Civilization, The Modern World-System, Exile and Diaspora
+Paula,   Calc 1, Calc 2, Linear Algebra, 
+Filippo, Linear Algebra, Social Networks, The Modern World-System
+
+We can create a network with two types of nodes - one set of nodes will be people, the other classes. People, in this network, cannot be directly tied to each other. Rather they are co-affiliated with a class, which serves as the basis of their connection. Therefore, all ties will be between nodes of different types.
+
+To create this network, we need to turn the above data into an edgelist, convert it to a matrix, and plot it in igraph.
+
+Let's start with the data.
+
+
+```r
+library(igraph)
+```
+
+```
+## 
+## Attaching package: 'igraph'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     decompose, spectrum
+```
+
+```
+## The following object is masked from 'package:base':
+## 
+##     union
+```
+
+```r
+classes_data <- data.frame(name = c("Leo", "Clement", "Palla", "Filippo"), class1 = c("Biostatistics","Islamic Civ", "Calc 1", "Linear Algebra"), class2 = c("Chemistry", "The Modern World-System", "Calc 2", "Social Networks"), class3 = c("Linear Algebra", "Exile and Diaspora", "Linear Algebra", "The Modern World-System"), stringsAsFactors = FALSE)
+
+classes_data
+```
+
+```
+##      name         class1                  class2                  class3
+## 1     Leo  Biostatistics               Chemistry          Linear Algebra
+## 2 Clement    Islamic Civ The Modern World-System      Exile and Diaspora
+## 3   Palla         Calc 1                  Calc 2          Linear Algebra
+## 4 Filippo Linear Algebra         Social Networks The Modern World-System
+```
+
+The reshape packages will let us convert this type of data into an edgelist.
+
+
+```r
+# install.packages("reshape2")
+library(reshape2)
+classes_data <- melt(classes_data, measure.vars = c("class1", "class2","class3"), value.name = "classes", variable.name = "order")
+```
+
+The ?melt function turns so called "short form data" into "long form". It takes the class variables and combines them into a single variable "classes". We only need two columns, name and classes, so we use the subset function to select them. If we look at the data now, it is basically an edge list, in which people are on the left side and classes they are affiliated with on the right.
+
+
+```r
+classes_data <- subset(classes_data, select = c("name", "classes"))
+```
+
+Once we have such an edge list, we can then use the table function to turn it into an incidence matrix, which is what igraph needs to turn affiliation data into an igraph object.
+
+
+```r
+classesMatrix = table(classes_data)
+class(classesMatrix) <- "matrix" # And we convert it from a table to a matrix
+
+# View(classesMatrix)
+```
+
+In an incidence matrix, the rows are of one class of node, while columns are of another. The rows are generally people who are affiliated with groups in the columns. 
+
+Using the get.incidence() function will turn our matrix into a bipartite network. 
+
+
+```r
+classesNet <- graph.incidence(classesMatrix, mode = c("all"))
+plot(classesNet, vertex.label.cex = .6, vertex.label.color = "black")
+```
+
+<img src="09-TwoModeNets_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+
+We can change the shape of nodes to highlight their type.
+
+
+```r
+V(classesNet)$shape <- ifelse(V(classesNet)$type == FALSE, "circle", "square")
+plot(classesNet, 
+vertex.label.cex = .6, 
+vertex.label.color = "black")
+```
+
+<img src="09-TwoModeNets_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+
+### Unipartite Projection
+
+Bipartite networks can be represented (or "projected") as unipartite networks.  In this case, either people will be the only nodes, and they will be connected if they share an affiliation (i.e. they are in the same group) OR groups willbe the only nodes and they will be connected if they share an affiliation to a person. 
+
+We can make the projection two ways - using the bipartite.projection() function in igraph, or by multiplying the incidence matrix by its transpose (or vise versa).  
+
+The mathematical operation to make a person-to-person projection is to multiply the initial matrix by its transpose. In R that looks like:
+
+
+```r
+personMatrix = classesMatrix %*% t(classesMatrix) 
+# View(personMatrix)
+```
+
+where the t() function transposes the matrix that is passed to it and %*% performs matrix multiplication. 
+
+The diagonal of this new matrix tells us the number of groups each person is affiliated with, but we set it to 0 using the ?diag function.
+
+
+```r
+number_of_classes_taken = diag(personMatrix)
+diag(personMatrix) <- 0 
+# View(personMatrix)
+
+personNet <- graph.adjacency(personMatrix, mode = "undirected")
+
+plot(personNet, vertex.size = 8, vertex.label.cex = .8, vertex.label.color = "black")
+```
+
+<img src="09-TwoModeNets_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+
+To get the group-to-group matrix, we multiply the transpose by the initial matrix (reverse!)
+
+
+```r
+groupMatrix = t(classesMatrix) %*% classesMatrix
+# View(groupMatrix) # The diagonal details the number of people in each class
+
+number_of_students <- diag(groupMatrix)
+
+diag(groupMatrix) <- 0 # we again set it to 0
+```
+
+Both of these operations turn our rectangular incidence matrix into a square adjacency matrix. Order matters. Now that we have adjacency matrices can use the graph.adjacency() function to turn them into network objects.
+
+
+```r
+personNet <- graph.adjacency(personMatrix, mode = "undirected")
+groupNet <- graph.adjacency(groupMatrix, mode = "undirected")
+
+plot(personNet, vertex.label.cex = .6, vertex.label.color = "black")
+```
+
+<img src="09-TwoModeNets_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+
+```r
+plot(groupNet, vertex.size = betweenness(groupNet)/max(betweenness(groupNet)) * 10, vertex.label.cex = .6, vertex.label.color = "black")
+```
+
+<img src="09-TwoModeNets_files/figure-html/unnamed-chunk-10-2.png" width="672" />
+
+We can analyze these networks just like we would any other network with a single node type.

@@ -1,0 +1,329 @@
+---
+output: html_document
+---
+# Centrality
+
+In this tutorial, we look at measures of network centrality, which we use to identify structurally important actors. We also discuss possible ideas for identifying important edges. 
+
+Centrality originally referred to how central actors are in a network's structure. It has become abstracted as a term from its topological origins and now refers very generally to how important actors are to a network. Topological centrality has a clear definition, but many operationalizations. Network "importance" on the other hand has many definitions _and_ many operationalizations. We will explore the possible meanings and operationalizations of centrality here. There are four well-known centrality measures: degree, betweenness, closeness and eigenvector - each with its own strengths and weaknesses. The main point we want to make is that the analytical usefulness of each depends heavily on the context of the network, the type of relation being analyzed and the underlying network morphology. We don't want to leave you with the impression that one is better than another - only that one might serve your research goals better than another.
+
+Every node-level measure has its graph-level analogue. Centralization measures the extent to which the ties of a given network are concentrated on a single actor or group of actors. We can also look at the degree distribution.  It is a simple histogram of degree, which tells you whether the network is highly unequal or not.
+
+### Loading the example network
+
+As always, we need to load igraph. We will load in tidyverse too in case we need to do some data munging or plotting.
+
+```{r}
+library(igraph)
+library(tidyverse)
+library(reshape2)
+```
+
+We will use John Padgett's Florentine Families dataset. It is part of a famous historical datset about the relationships of prominent Florentine families in 15th century Italy. The historical puzzle is how the Medici, an upstart family, managed to accumulate political power during this period. Padgett's goal was to explain their rise. 
+
+He looked at many relations. On the github, we have access to marriage, credit, and business partnership ties, but we will focus on marriage for now. Marriage was a tool in diplomacy, central to political alliances. A tie is drawn between families if the daughter of one family was sent to marry the son of another. 
+
+Ron Breiger, who analyzed these data in a famous paper on local role analysis, has argued these edges should be directed, tracing where daughters were sent or where finances flowed. 
+
+As always, we first load and prepare the dataset. We will do so directly from GitHub again. 
+```{r}
+# prepare the marriage adjacency matrix
+florentine_edj <- read.csv("https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/florentine_marriage_edgelist.csv")
+florentine_edj <- florentine_edj[,2:3]
+
+# prepare the attributes file
+florentine_attributes <- read.csv("https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/florentine_attributes.csv")
+
+# graph the marriage network
+marriageNet <- graph.edgelist(as.matrix(florentine_edj), directed = T)
+V(marriageNet)$Wealth <- florentine_attributes$Gwealth[match(V(marriageNet)$name, florentine_attributes$Family)]
+
+# Gross wealth (Florins), for 87 (92) families
+# simple mean imputation of wealth (alternatively, we might think that those with NA were too poor to show up in historical records?)
+V(marriageNet)$Wealth <- ifelse(is.na(V(marriageNet)$Wealth), mean(V(marriageNet)$Wealth, na.rm = T), V(marriageNet)$Wealth)
+
+# Number of Priors, The Priorate (or city council), first created in 1282, was Florence's governing body. Count of how many seats a family had on that city council from 1282-1344
+# measure of the aggregate political influence of the family over a long period of time
+V(marriageNet)$Priorates <- florentine_attributes$Npriors[match(V(marriageNet)$name, florentine_attributes$Family)]
+```
+
+Let's see how it looks.
+
+```{r}
+plot(marriageNet, vertex.size = 8, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato", edge.arrow.size = 0.4)
+```
+
+Based on this plot, which family do you expect is most central?
+
+### Degree Centrality
+
+The simplest measure of centrality is degree centrality. It counts how many edges each node has - the most degree central actor is the one with the most ties. 
+
+> **Note:** In a directed network, you will need to specify if in or out ties should be counted. These will be referred to as in or out degree respectively. If both are counted, then it is just called degree
+
+Degree centrality is calculated using the degree function in R. It returns how many edges each node has.
+
+```{r}
+degree(marriageNet) 
+```
+
+Who is the most degree central? 
+
+We can assign the output to a variable in the network and size the nodes according to degree.
+
+```{r}
+V(marriageNet)$degree <- degree(marriageNet) # assignment
+
+plot(marriageNet, vertex.label.cex = .6, vertex.label.color = "black", vertex.size = V(marriageNet)$degree, vertex.label.cex = .2) # sized by degree
+```
+
+The problem is that the degree values are a little small to plot well. We can use a scalar to increase the value of the degree but maintain the ratio.
+
+```{r}
+plot(marriageNet, 
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$degree*3)
+```
+
+### Betweenness Centrality
+
+Betweenness centrality captures which nodes are important in the flow of the network. It makes use of the shortest paths in the network. A path is a series of adjacent nodes. For any two nodes we can find the shortest path between them, that is, the path with the least amount of total steps (or edges). If a node C is on a shortest path between A and B, then it means C is important to the efficient flow of goods between A and B.  Without C, flows would have to take a longer route to get from A to B. 
+
+Thus, betweenness effectively counts how many shortest paths each node is on. The higher a node's betweenness, the more important they are for the efficient flow of goods in a network.
+
+In igraph, betweenness() computes betweenness in the network
+
+```{r}
+betweenness(marriageNet, directed = FALSE)
+```
+
+We can again assign the output of betweenness() to a variable in the network and size the nodes according to it.
+
+```{r}
+V(marriageNet)$betweenness <- betweenness(marriageNet, directed = F) # assignment
+
+plot(marriageNet, 
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$betweenness) # sized by betweenness
+```
+
+Betweenness centrality can be very large. It is often helpful to normalize it by dividing by the maximum and multiplying by some scalar when plotting. 
+
+```{r}
+plot(marriageNet,
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$betweenness/max(V(marriageNet)$betweenness) * 20)
+```
+
+### Closeness Centrality
+
+With closeness centrality we again make use of the shortest paths between nodes. We measure the distance between two nodes as the length of the shortest path between them. Farness, for a given node, is the average distance from that node to all other nodes.
+Closeness is then the reciprocal of farness (1/farness).
+
+```{r}
+closeness(marriageNet)
+```
+
+We assign it to a node variable and plot the network, adjusting node size by closeness.
+
+```{r}
+V(marriageNet)$closeness <- closeness(marriageNet)
+```
+
+```{r}
+plot(marriageNet,
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$closeness/max(V(marriageNet)$closeness) * 20)
+```
+
+## Eigenvector Centrality
+
+Degree centrality only takes into account the number of edges for each node, but it leaves out information about ego's alters.
+
+However, we might think that power comes from being tied to powerful people. If A and B have the same degree centrality, but A is tied to all high degree people and B is tied to all low degree people, then intuitively we want to see A with a higher score than B. 
+
+Eigenvector centrality takes into account alters' power. It is calculated a little bit differently in igraph. It produces a list object and we need to extract only the vector of centrality values.
+
+```{r}
+evcent(marriageNet)$vector
+```
+
+Then we can assign that vector to our network and plot it.
+
+```{r}
+V(marriageNet)$eigenvector <- evcent(marriageNet)$vector
+
+plot(marriageNet,
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$eigenvector/max(V(marriageNet)$eigenvector) * 20)
+```
+
+## Bonacich Centrality
+Perhaps marrying your daughters off to weaker families is a good way to ensure their loyalty? We could evaluate this using bonacich centrality. From igraph: "Interpretively, the Bonacich power measure corresponds to the notion that the power of a vertex is recursively defined by the sum of the power of its alters. The nature of the recursion involved is then controlled by the power exponent: positive values imply that vertices become more powerful as their alters become more powerful (as occurs in cooperative relations), while negative values imply that vertices become more powerful only as their alters become weaker (as occurs in competitive or antagonistic relations)."
+```{r}
+V(marriageNet)$bonacich <- power_centrality(marriageNet, exponent = -2, rescale = T)
+V(marriageNet)$bonacich <- ifelse(V(marriageNet)$bonacich < 0, 0, V(marriageNet)$bonacich)
+
+plot(marriageNet,
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$bonacich/max(V(marriageNet)$bonacich) * 20)
+```
+
+## Page Rank
+Here is Google's page rank measure. It uses random walks to identify individuals who are commonly encountered along such walks. Those individuals are viewed as central. 
+```{r}
+V(marriageNet)$page_rank <- page_rank(marriageNet, directed = TRUE)$vector
+
+plot(marriageNet,
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$page_rank/max(V(marriageNet)$page_rank) * 20)
+```
+
+
+### Measure Correlations
+
+Most of these measures are highly correlated, meaning they don't necessarily capture unique aspects of pwoer. However, the amount of correlation depends on the network structure. Let's see how the correlations between centrality measures looks in the Florentine Family network. cor.test(x,y) performs a simple correlation test between two vectors.
+
+```{r}
+# extract all the vertex attributes
+all_atts <- lapply(list.vertex.attributes(marriageNet),function(x) get.vertex.attribute(marriageNet,x))
+# bind them into a matrix
+all_atts <- do.call("cbind", all_atts)
+# add column nams
+colnames(all_atts) <- list.vertex.attributes(marriageNet)
+# drop the family variable
+all_atts <- data.frame(all_atts[,2:ncol(all_atts)])
+# convert all to numeric
+all_atts <- sapply(all_atts, as.numeric)
+# produce a correlation matrix
+cormat <- cor(all_atts)
+# melt it using reshape to function melt() to prepare it for ggplot which requires long form data
+melted_cormat <- melt(cormat)
+ggplot(data = melted_cormat, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile() +
+  scale_fill_distiller(palette = "Spectral", direction=-2) +
+  xlab("") +
+  ylab("")
+
+
+```
+
+What do we learn?
+
+### Centralization and Degree Distributions
+
+To understand the measures further, we can look at their distributions. This will tell us roughly how many nodes have centralities of a given value.
+```{r}
+# fitting a degree distribution on the log-log scale
+alter_hist = table(degree(marriageNet))
+vals = as.numeric(names(alter_hist))
+vals = vals[2:length(vals)]
+alter_hist = alter_hist[2:length(alter_hist)]
+df = data.frame(Vals = log(vals), Hist = log(as.numeric(alter_hist)), stringsAsFactors = F)
+
+# plot log-log degree distribution
+plot(Hist ~ Vals, data = df)
+
+# regression line
+abline(lm(Hist ~ Vals, data = df))
+```
+
+
+Do their marriage partners have more marriage partners than they do?
+```{r}
+# degrees of your friends
+neighbor_degrees <- knn(marriageNet)$knn
+degrees <- degree(marriageNet)
+
+mean(neighbor_degrees, na.rm = T)
+mean(degrees)
+
+# plot neighbor degrees vs. ego degress
+hist(neighbor_degrees)
+hist(degrees)
+
+````
+
+We can see that most nodes in the marriage network have low betweenness centrality, and only one node has more than 40 betweenness. Degree distributions tend to be right-skewed; that is, only a few nodes in most networks have most of the ties. Evenly distributed degree is much rarer.
+
+Finally centralization measures the extent to which a network is centered around a single node. The closer a network gets to looking like a star, the higher the centralization score will be. 
+
+```{r}
+degcent <- centralization.degree(marriageNet)$centralization
+centralization.betweenness(marriageNet)$centralization
+centralization.evcent(marriageNet)$centralization
+centralization.closeness(marriageNet)$centralization
+```
+
+Can we compare our centralization scores against some baseline? Here is an example with Barabasi-Albert model, which simulates a network in which there is preferential attachment with respect to degree, the amount of which is controlled by the power parameter.
+```{r}
+N <- vcount(marriageNet)
+degcent <- centralization.degree(marriageNet)$centralization
+
+centralizations = c()
+powers <- seq(from = 0, to = 3, by = 0.1)
+for(e in powers){
+  net <- barabasi.game(N, directed = F, power=e)
+  centralizations <- c(centralizations, centralization.degree(net)$centralization)
+}
+
+power_df <- data.frame(Centralization = centralizations, Power = powers)
+
+ggplot(power_df, aes(x = Power, y = Centralization)) + 
+  geom_point() + 
+  geom_hline(yintercept = degcent, linetype="dashed", color = "red") +
+  theme_bw()
+```
+## Reach N
+What proportion of nodes can any node reach at N steps?  
+```{r}
+reach_n =function(x, n = 2){
+  r=vector(length=vcount(x))
+  for (i in 1:vcount(x)){
+    neighb =neighborhood(x, n, nodes=i)
+    ni=unlist(neighb)
+    l=length(ni)
+    r[i]=(l)/vcount(x)
+  }
+  return(r)
+}
+
+two_reach = reach_n(marriageNet, 2)
+
+plot(marriageNet, vertex.size = two_reach * 10, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato")
+
+three_reach = reach_n(marriageNet, 3)
+
+plot(marriageNet, vertex.size = three_reach * 10, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato")
+
+four_reach = reach_n(marriageNet, 4)
+
+plot(marriageNet, vertex.size = four_reach * 10, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato")
+
+five_reach = reach_n(marriageNet, 5)
+
+plot(marriageNet, vertex.size = five_reach * 10, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato")
+```
+
+## Distance weighted reach
+```{r}
+distance_weighted_reach=function(x){
+  distances=shortest.paths(x) #create matrix of geodesic distances
+  diag(distances)=1 # replace the diagonal with 1s
+  weights=1/distances # take the reciprocal of distances
+  return(apply(weights,1,sum)) # sum for each node (row)
+}
+
+dw_reach = distance_weighted_reach(marriageNet) 
+dw_reach = dw_reach/max(dw_reach)
+
+plot(marriageNet, vertex.size = dw_reach * 10, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato")
+
+```

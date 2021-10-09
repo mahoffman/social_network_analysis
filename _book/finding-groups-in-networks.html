@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>14 Finding Groups in Networks | Methods for Network Analysis</title>
+  <meta name="description" content="14 Finding Groups in Networks | Methods for Network Analysis" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="14 Finding Groups in Networks | Methods for Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="14 Finding Groups in Networks | Methods for Network Analysis" />
+  
+  
+  
+
+<meta name="author" content="Mark Hoffman" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bridges-holes-the-small-world-problem-and-simulation.html"/>
+<link rel="next" href="homophily-and-exponential-random-graphs-ergm.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Course</a></li>
+<li class="chapter" data-level="1" data-path="reading-list.html"><a href="reading-list.html"><i class="fa fa-check"></i><b>1</b> Reading List</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="reading-list.html"><a href="reading-list.html#week-1-beg.-september-20th-introductions-and-introduction-to-r"><i class="fa fa-check"></i><b>1.0.1</b> Week 1 (beg. September 20th): Introductions and Introduction to R</a></li>
+<li class="chapter" data-level="1.0.2" data-path="reading-list.html"><a href="reading-list.html#week-2-beg.-september-27th-types-of-networks"><i class="fa fa-check"></i><b>1.0.2</b> Week 2 (beg. September 27th): Types of networks</a></li>
+<li class="chapter" data-level="1.0.3" data-path="reading-list.html"><a href="reading-list.html#week-3-beg.-october-4th-triads-balance-and-hierarchy"><i class="fa fa-check"></i><b>1.0.3</b> Week 3 (beg. October 4th): Triads, Balance and Hierarchy</a></li>
+<li class="chapter" data-level="1.0.4" data-path="reading-list.html"><a href="reading-list.html#week-4-beg.-october-11th-centrality-power-and-inequality"><i class="fa fa-check"></i><b>1.0.4</b> Week 4 (beg. October 11th): Centrality, Power, and Inequality</a></li>
+<li class="chapter" data-level="1.0.5" data-path="reading-list.html"><a href="reading-list.html#week-5-beg.-october-18th-connectivity-and-the-small-world-problem"><i class="fa fa-check"></i><b>1.0.5</b> Week 5 (beg. October 18th): Connectivity and the Small World Problem</a></li>
+<li class="chapter" data-level="1.0.6" data-path="reading-list.html"><a href="reading-list.html#week-6-beg.-october-25th-groups-communities-and-homophily"><i class="fa fa-check"></i><b>1.0.6</b> Week 6 (beg. October 25th): Groups, Communities, and Homophily</a></li>
+<li class="chapter" data-level="1.0.7" data-path="reading-list.html"><a href="reading-list.html#week-7-beg.-november-1st-categories-and-positions"><i class="fa fa-check"></i><b>1.0.7</b> Week 7 (beg. November 1st): Categories and Positions</a></li>
+<li class="chapter" data-level="1.0.8" data-path="reading-list.html"><a href="reading-list.html#week-8-beg.-november-8th-networks-from-culture-and-culture-from-networks"><i class="fa fa-check"></i><b>1.0.8</b> Week 8 (beg. November 8th): Networks from Culture and Culture from Networks</a></li>
+<li class="chapter" data-level="1.0.9" data-path="reading-list.html"><a href="reading-list.html#week-9-beg.-november-15th-dynamics-and-diffusion"><i class="fa fa-check"></i><b>1.0.9</b> Week 9 (beg. November 15th): Dynamics and Diffusion</a></li>
+<li class="chapter" data-level="1.0.10" data-path="reading-list.html"><a href="reading-list.html#week-9-and-34-thanksgiving"><i class="fa fa-check"></i><b>1.0.10</b> Week 9 and 3/4: Thanksgiving!</a></li>
+<li class="chapter" data-level="1.0.11" data-path="reading-list.html"><a href="reading-list.html#week-10-beg.-november-29th-presentations-of-research"><i class="fa fa-check"></i><b>1.0.11</b> Week 10 (beg. November 29th): Presentations of Research</a></li>
+<li class="chapter" data-level="1.0.12" data-path="reading-list.html"><a href="reading-list.html#december-11th-final-papers-are-due."><i class="fa fa-check"></i><b>1.0.12</b> December 11th: Final papers are due.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>2</b> Installing R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-r"><i class="fa fa-check"></i><b>2.1</b> Downloading and Installing R</a></li>
+<li class="chapter" data-level="2.2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-rstudio"><i class="fa fa-check"></i><b>2.2</b> Downloading and Installing RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>3</b> Tour RStudio with Udacity</a></li>
+<li class="chapter" data-level="4" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-data.frames"><i class="fa fa-check"></i><b>4.1</b> Vectors, matrices and data.frames</a></li>
+<li class="chapter" data-level="4.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>4.2</b> Indexing and Subsetting</a></li>
+<li class="chapter" data-level="4.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>4.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html"><i class="fa fa-check"></i><b>5</b> Understanding network data structures</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#edge-lists"><i class="fa fa-check"></i><b>5.1</b> Edge lists</a></li>
+<li class="chapter" data-level="5.2" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#adjacency-matrices"><i class="fa fa-check"></i><b>5.2</b> Adjacency matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="your-first-network.html"><a href="your-first-network.html"><i class="fa fa-check"></i><b>6</b> Your First Network</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="your-first-network.html"><a href="your-first-network.html#creating-a-project"><i class="fa fa-check"></i><b>6.1</b> Creating a project</a></li>
+<li class="chapter" data-level="6.2" data-path="your-first-network.html"><a href="your-first-network.html#creating-data-in-excel"><i class="fa fa-check"></i><b>6.2</b> Creating data in Excel</a></li>
+<li class="chapter" data-level="6.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>6.3</b> Saving Excel data as a .csv file</a></li>
+<li class="chapter" data-level="6.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>6.4</b> Loading data into R</a></li>
+<li class="chapter" data-level="6.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>6.5</b> From data to networks</a></li>
+<li class="chapter" data-level="6.6" data-path="your-first-network.html"><a href="your-first-network.html#exploring-your-network"><i class="fa fa-check"></i><b>6.6</b> Exploring your network</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>7</b> Network Visualization and Aesthetics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#the-basics"><i class="fa fa-check"></i><b>7.1</b> The Basics</a></li>
+<li class="chapter" data-level="7.2" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#layouts"><i class="fa fa-check"></i><b>7.2</b> Layouts</a></li>
+<li class="chapter" data-level="7.3" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>7.3</b> Adding attributes to a network object</a></li>
+<li class="chapter" data-level="7.4" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#plotting-based-on-attributes"><i class="fa fa-check"></i><b>7.4</b> Plotting based on attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ego-networks.html"><a href="ego-networks.html"><i class="fa fa-check"></i><b>8</b> Ego Networks</a></li>
+<li class="chapter" data-level="9" data-path="calculating-network-size-and-density.html"><a href="calculating-network-size-and-density.html"><i class="fa fa-check"></i><b>9</b> Calculating Network Size and Density</a></li>
+<li class="chapter" data-level="10" data-path="affiliation-data.html"><a href="affiliation-data.html"><i class="fa fa-check"></i><b>10</b> Affiliation Data</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="affiliation-data.html"><a href="affiliation-data.html#unipartite-projection"><i class="fa fa-check"></i><b>10.0.1</b> Unipartite Projection</a></li>
+<li class="chapter" data-level="10.1" data-path="affiliation-data.html"><a href="affiliation-data.html#tripartite-network-analysis"><i class="fa fa-check"></i><b>10.1</b> Tripartite network analysis?</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="affiliation-data.html"><a href="affiliation-data.html#lab"><i class="fa fa-check"></i><b>10.1.1</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html"><i class="fa fa-check"></i><b>11</b> Transitivity, structural balance, and hierarchy</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-dyad"><i class="fa fa-check"></i><b>11.1</b> The Dyad</a></li>
+<li class="chapter" data-level="11.2" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#generating-a-random-graph-for-comparison"><i class="fa fa-check"></i><b>11.2</b> Generating a random graph for comparison</a></li>
+<li class="chapter" data-level="11.3" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-triad"><i class="fa fa-check"></i><b>11.3</b> The Triad</a></li>
+<li class="chapter" data-level="11.4" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#calculating-a-triad-census"><i class="fa fa-check"></i><b>11.4</b> Calculating a triad census</a></li>
+<li class="chapter" data-level="11.5" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#random-graphs-galore"><i class="fa fa-check"></i><b>11.5</b> Random graphs galore!</a></li>
+<li class="chapter" data-level="11.6" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#producing-a-tau-statistic"><i class="fa fa-check"></i><b>11.6</b> Producing a tau statistic</a></li>
+<li class="chapter" data-level="11.7" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#banning-triads"><i class="fa fa-check"></i><b>11.7</b> Banning triads</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="centrality.html"><a href="centrality.html"><i class="fa fa-check"></i><b>12</b> Centrality</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="centrality.html"><a href="centrality.html#loading-the-example-network"><i class="fa fa-check"></i><b>12.0.1</b> Loading the example network</a></li>
+<li class="chapter" data-level="12.0.2" data-path="centrality.html"><a href="centrality.html#degree-centrality"><i class="fa fa-check"></i><b>12.0.2</b> Degree Centrality</a></li>
+<li class="chapter" data-level="12.0.3" data-path="centrality.html"><a href="centrality.html#betweenness-centrality"><i class="fa fa-check"></i><b>12.0.3</b> Betweenness Centrality</a></li>
+<li class="chapter" data-level="12.0.4" data-path="centrality.html"><a href="centrality.html#closeness-centrality"><i class="fa fa-check"></i><b>12.0.4</b> Closeness Centrality</a></li>
+<li class="chapter" data-level="12.1" data-path="centrality.html"><a href="centrality.html#eigenvector-centrality"><i class="fa fa-check"></i><b>12.1</b> Eigenvector Centrality</a></li>
+<li class="chapter" data-level="12.2" data-path="centrality.html"><a href="centrality.html#bonacich-centrality"><i class="fa fa-check"></i><b>12.2</b> Bonacich Centrality</a></li>
+<li class="chapter" data-level="12.3" data-path="centrality.html"><a href="centrality.html#page-rank"><i class="fa fa-check"></i><b>12.3</b> Page Rank</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="centrality.html"><a href="centrality.html#measure-correlations"><i class="fa fa-check"></i><b>12.3.1</b> Measure Correlations</a></li>
+<li class="chapter" data-level="12.3.2" data-path="centrality.html"><a href="centrality.html#centralization-and-degree-distributions"><i class="fa fa-check"></i><b>12.3.2</b> Centralization and Degree Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="centrality.html"><a href="centrality.html#distance-weighted-reach"><i class="fa fa-check"></i><b>12.4</b> Distance weighted reach</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html"><i class="fa fa-check"></i><b>13</b> Bridges, Holes, the Small World Problem, and Simulation</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#its-a-small-world-after-all."><i class="fa fa-check"></i><b>13.1</b> It’s a small world after all.</a></li>
+<li class="chapter" data-level="13.2" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#measuring-connectivity-of-networks"><i class="fa fa-check"></i><b>13.2</b> Measuring connectivity of networks</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#one-last-thing"><i class="fa fa-check"></i><b>13.2.1</b> One last thing…</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html"><i class="fa fa-check"></i><b>14</b> Finding Groups in Networks</a>
+<ul>
+<li class="chapter" data-level="14.0.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#component-analysis"><i class="fa fa-check"></i><b>14.0.1</b> Component analysis</a></li>
+<li class="chapter" data-level="14.0.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cliques"><i class="fa fa-check"></i><b>14.0.2</b> Cliques</a></li>
+<li class="chapter" data-level="14.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cohesive-blocking"><i class="fa fa-check"></i><b>14.1</b> Cohesive Blocking</a></li>
+<li class="chapter" data-level="14.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#group-detection"><i class="fa fa-check"></i><b>14.2</b> Group Detection</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#modularity"><i class="fa fa-check"></i><b>14.2.1</b> Modularity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html"><i class="fa fa-check"></i><b>15</b> Homophily and Exponential Random Graphs (ERGM)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#homophily"><i class="fa fa-check"></i><b>15.1</b> Homophily</a></li>
+<li class="chapter" data-level="15.2" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#ergms"><i class="fa fa-check"></i><b>15.2</b> ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html"><i class="fa fa-check"></i><b>16</b> Positional analysis in networks</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#toy-data"><i class="fa fa-check"></i><b>16.1</b> Toy data</a></li>
+<li class="chapter" data-level="16.2" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#structural-equivalence"><i class="fa fa-check"></i><b>16.2</b> Structural equivalence</a></li>
+<li class="chapter" data-level="16.3" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#block-modeling-with-concor"><i class="fa fa-check"></i><b>16.3</b> Block Modeling with CONCOR</a></li>
+<li class="chapter" data-level="16.4" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#isomorphic-local-graphs"><i class="fa fa-check"></i><b>16.4</b> Isomorphic local graphs</a></li>
+<li class="chapter" data-level="16.5" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#stochastic-block-models-sbms"><i class="fa fa-check"></i><b>16.5</b> Stochastic Block Models (SBMs)</a></li>
+<li class="chapter" data-level="16.6" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#feature-based-strategies"><i class="fa fa-check"></i><b>16.6</b> Feature-based strategies</a></li>
+<li class="chapter" data-level="16.7" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#lab-try-these-different-strategies-on-a-real-graph-of-your-choosing-go-with-smaller-networks-and-compare-the-different-results-using-correlation.-which-methods-perform-similarly-do-the-roles-that-they-identify-look-meaningful-plot-the-network-coloring-the-nodes-by-role."><i class="fa fa-check"></i><b>16.7</b> Lab: Try these different strategies on a real graph of your choosing (go with smaller networks) and compare the different results using correlation. Which methods perform similarly? Do the roles that they identify look meaningful? Plot the network coloring the nodes by role.</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="culture-and-networks.html"><a href="culture-and-networks.html"><i class="fa fa-check"></i><b>17</b> Culture and Networks</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#rca"><i class="fa fa-check"></i><b>17.1</b> RCA</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-1"><i class="fa fa-check"></i><b>17.1.1</b> Group 1</a></li>
+<li class="chapter" data-level="17.1.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-4"><i class="fa fa-check"></i><b>17.1.2</b> Group 4:</a></li>
+<li class="chapter" data-level="17.1.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-5"><i class="fa fa-check"></i><b>17.1.3</b> Group 5:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#semantic-network-analysis"><i class="fa fa-check"></i><b>17.2</b> Semantic Network Analysis</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#counting-words"><i class="fa fa-check"></i><b>17.2.1</b> Counting Words</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#from-counts-to-a-document-to-term-matrix"><i class="fa fa-check"></i><b>17.3</b> From counts to a document-to-term matrix</a></li>
+<li class="chapter" data-level="17.4" data-path="culture-and-networks.html"><a href="culture-and-networks.html#producing-a-skip-gram-matrix-for-semantic-network-analysis-and-embedding-models"><i class="fa fa-check"></i><b>17.4</b> Producing a skip-gram matrix for semantic network analysis and embedding models</a></li>
+<li class="chapter" data-level="17.5" data-path="culture-and-networks.html"><a href="culture-and-networks.html#comparing-texts-with-cosine"><i class="fa fa-check"></i><b>17.5</b> Comparing texts with cosine</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="dynamics.html"><a href="dynamics.html"><i class="fa fa-check"></i><b>18</b> Dynamics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="dynamics.html"><a href="dynamics.html#tergms"><i class="fa fa-check"></i><b>18.1</b> TERGMs</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="dynamics.html"><a href="dynamics.html#tergm-terms-and-types"><i class="fa fa-check"></i><b>18.1.1</b> TERGM terms and types</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="dynamics.html"><a href="dynamics.html#tergm-syntax"><i class="fa fa-check"></i><b>18.2</b> <code>tergm</code> syntax</a></li>
+<li class="chapter" data-level="18.3" data-path="dynamics.html"><a href="dynamics.html#rsiena--"><i class="fa fa-check"></i><b>18.3</b> RSiena -</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Methods for Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="finding-groups-in-networks" class="section level1" number="14">
+<h1><span class="header-section-number">14</span> Finding Groups in Networks</h1>
+<p>Groups are one of the many tools we have for analyzing network structure. Group detection focuses on the presence of ties - in attempt to identify densly connected groups of actors. There are many different tools for doing this - we will cover four: component analysis, k-cliques, modularity, and cohesive blocking. Each method has its own uses and theoretical underpinnings, so I put citations of famous papers that use each method at the bottom of the script.</p>
+<div id="component-analysis" class="section level3" number="14.0.1">
+<h3><span class="header-section-number">14.0.1</span> Component analysis</h3>
+<p>The most basic form of network group is a component. In a connected component, every node is reachable via some path by every other node. Most network datasets have only a single large connected component with a few isolates - however, some unique datasets might have three or four large, distinct components.</p>
+<p>In a directed graph, components can be weakly or strongly connected. If node i can reach j via a directed path and j can reach i via a directed path, for all i and j nodes in the component, then we say the component is strongly connected. If all nodes are only reachable from a single direction, (i.e. i can reach j via a directed path, but j can’t reach i), then we say the component is weakly connected.</p>
+<p>The ?decompose.graph function in igraph will take a network and decompose it into its connected components. We can then analyze each component separately.</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="finding-groups-in-networks.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb258-2"><a href="finding-groups-in-networks.html#cb258-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb258-3"><a href="finding-groups-in-networks.html#cb258-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb258-4"><a href="finding-groups-in-networks.html#cb258-4" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">barabasi.game</span>(<span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">5</span>) <span class="co"># Generate a scale-free network</span></span>
+<span id="cb258-5"><a href="finding-groups-in-networks.html#cb258-5" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g1)<span class="sc">$</span>name <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb258-6"><a href="finding-groups-in-networks.html#cb258-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb258-7"><a href="finding-groups-in-networks.html#cb258-7" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">erdos.renyi.game</span>(<span class="dv">20</span>, <span class="fu">graph.density</span>(g1), <span class="at">directed =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb258-8"><a href="finding-groups-in-networks.html#cb258-8" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g2)<span class="sc">$</span>name <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="dv">21</span><span class="sc">:</span><span class="dv">40</span>)</span>
+<span id="cb258-9"><a href="finding-groups-in-networks.html#cb258-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb258-10"><a href="finding-groups-in-networks.html#cb258-10" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span> <span class="fu">graph.union</span>(g1, g2, <span class="at">byname =</span> <span class="cn">TRUE</span>) <span class="co"># The ?graph.union function combines two networks. </span></span>
+<span id="cb258-11"><a href="finding-groups-in-networks.html#cb258-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb258-12"><a href="finding-groups-in-networks.html#cb258-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g3, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">vertex.size=</span><span class="dv">2</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">1</span>) <span class="co"># Two distinct networks in a single plot</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
+<p>Now let’s use decompose to isolate each component. There will be two components.</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="finding-groups-in-networks.html#cb259-1" aria-hidden="true" tabindex="-1"></a>component_list <span class="ot">&lt;-</span> <span class="fu">decompose.graph</span>(g3, <span class="at">mode =</span> <span class="st">&quot;weak&quot;</span>)</span>
+<span id="cb259-2"><a href="finding-groups-in-networks.html#cb259-2" aria-hidden="true" tabindex="-1"></a>component_list</span></code></pre></div>
+<pre><code>## [[1]]
+## IGRAPH 3864a87 DN-- 20 85 -- 
+## + attr: name_1 (g/c), name_2 (g/c), power (g/n), m (g/n), zero.appeal
+## | (g/n), algorithm (g/c), type (g/c), loops (g/l), p (g/n), name (v/c)
+## + edges from 3864a87 (vertex names):
+##  [1] 2 -&gt;1  3 -&gt;1  3 -&gt;2  4 -&gt;1  4 -&gt;2  4 -&gt;3  5 -&gt;1  5 -&gt;2  5 -&gt;3  5 -&gt;4 
+## [11] 6 -&gt;1  6 -&gt;2  6 -&gt;3  6 -&gt;4  6 -&gt;5  7 -&gt;1  7 -&gt;2  7 -&gt;3  7 -&gt;4  7 -&gt;6 
+## [21] 8 -&gt;1  8 -&gt;2  8 -&gt;3  8 -&gt;4  8 -&gt;5  9 -&gt;1  9 -&gt;2  9 -&gt;3  9 -&gt;4  9 -&gt;7 
+## [31] 10-&gt;1  10-&gt;2  10-&gt;3  10-&gt;4  10-&gt;5  11-&gt;1  11-&gt;2  11-&gt;3  11-&gt;4  11-&gt;5 
+## [41] 12-&gt;1  12-&gt;3  12-&gt;5  12-&gt;6  12-&gt;8  13-&gt;1  13-&gt;2  13-&gt;3  13-&gt;4  13-&gt;5 
+## [51] 14-&gt;1  14-&gt;3  14-&gt;5  14-&gt;8  14-&gt;13 15-&gt;1  15-&gt;2  15-&gt;3  15-&gt;4  15-&gt;5 
+## [61] 16-&gt;1  16-&gt;2  16-&gt;3  16-&gt;5  16-&gt;10 17-&gt;1  17-&gt;2  17-&gt;3  17-&gt;5  17-&gt;7 
+## + ... omitted several edges
+## 
+## [[2]]
+## IGRAPH fb4647d DN-- 20 94 -- 
+## + attr: name_1 (g/c), name_2 (g/c), power (g/n), m (g/n), zero.appeal
+## | (g/n), algorithm (g/c), type (g/c), loops (g/l), p (g/n), name (v/c)
+## + edges from fb4647d (vertex names):
+##  [1] 21-&gt;22 21-&gt;25 21-&gt;29 21-&gt;37 21-&gt;39 22-&gt;24 22-&gt;31 22-&gt;32 22-&gt;36 23-&gt;24
+## [11] 23-&gt;27 23-&gt;29 23-&gt;32 23-&gt;35 23-&gt;37 23-&gt;38 24-&gt;22 24-&gt;30 25-&gt;21 25-&gt;22
+## [21] 25-&gt;24 25-&gt;34 25-&gt;37 26-&gt;21 26-&gt;25 26-&gt;27 26-&gt;30 26-&gt;33 26-&gt;36 27-&gt;29
+## [31] 27-&gt;30 27-&gt;31 27-&gt;33 27-&gt;34 27-&gt;36 27-&gt;39 28-&gt;27 28-&gt;33 28-&gt;34 28-&gt;35
+## [41] 28-&gt;40 29-&gt;25 29-&gt;26 29-&gt;27 29-&gt;34 29-&gt;37 29-&gt;40 30-&gt;25 30-&gt;34 30-&gt;40
+## [51] 31-&gt;33 31-&gt;39 32-&gt;26 32-&gt;28 32-&gt;29 32-&gt;35 32-&gt;39 33-&gt;21 33-&gt;23 34-&gt;24
+## [61] 34-&gt;25 34-&gt;27 34-&gt;29 34-&gt;38 34-&gt;39 34-&gt;40 35-&gt;23 35-&gt;26 35-&gt;29 35-&gt;39
+## + ... omitted several edges</code></pre>
+<p>It returns a list with two graphs in it - one for each component.</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="finding-groups-in-networks.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb261-2"><a href="finding-groups-in-networks.html#cb261-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(component_list[[<span class="dv">1</span>]], <span class="at">main =</span> <span class="st">&quot;The Scale-Free Graph&quot;</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">vertex.size =</span> <span class="dv">3</span>)</span>
+<span id="cb261-3"><a href="finding-groups-in-networks.html#cb261-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(component_list[[<span class="dv">2</span>]], <span class="at">main =</span> <span class="st">&quot;The Random Graph&quot;</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">vertex.size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
+</div>
+<div id="cliques" class="section level3" number="14.0.2">
+<h3><span class="header-section-number">14.0.2</span> Cliques</h3>
+<p>Cliques are fully connected subgraphs within a network structure; they are like the caves in the caveman structure we learned about a few weeks ago. We often want to find all of the cliques in a network of various sizes. We could have a theory for example that people will dress or behave similarly or affect those in their cliques. That is, we might imagine cliques to be meaningful for the outcomes we are interested in study. We can do this with the clique function in igraph.</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="finding-groups-in-networks.html#cb262-1" aria-hidden="true" tabindex="-1"></a>clique_out <span class="ot">&lt;-</span> <span class="fu">cliques</span>(g1)</span></code></pre></div>
+<pre><code>## Warning in cliques(g1): At igraph_cliquer.c:56 :Edge directions are ignored for
+## clique calculations</code></pre>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="finding-groups-in-networks.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(clique_out)</span></code></pre></div>
+<pre><code>## [1] 467</code></pre>
+<p>Quite a few… imagine the number of cliques in a really large network
+If we want to look for cliques of a certain size we can use the min and max arguments.</p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="finding-groups-in-networks.html#cb266-1" aria-hidden="true" tabindex="-1"></a>clique_four <span class="ot">&lt;-</span> <span class="fu">cliques</span>(g1, <span class="at">min =</span> <span class="dv">4</span>, <span class="at">max =</span> <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## Warning in cliques(g1, min = 4, max = 4): At igraph_cliquer.c:56 :Edge
+## directions are ignored for clique calculations</code></pre>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="finding-groups-in-networks.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(clique_four)<span class="sc">/</span><span class="fu">length</span>(clique_out)</span></code></pre></div>
+<pre><code>## [1] 0.2955032</code></pre>
+<p>Cliques of size four make about 25% of total cliques in the network.</p>
+</div>
+<div id="cohesive-blocking" class="section level2" number="14.1">
+<h2><span class="header-section-number">14.1</span> Cohesive Blocking</h2>
+<p>Cohesive blocking builds on the idea of cliques. It starts at the level of the component and identifies large substructures nested within the component. It then moves to those large substructures and identifies smaller and smaller nested substructures, until it reaches cliques. It is therefore a useful way to operationalize network embeddedness. We will run it on a small world network size 20.</p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="finding-groups-in-networks.html#cb270-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">as.undirected</span>(g2)</span>
+<span id="cb270-2"><a href="finding-groups-in-networks.html#cb270-2" aria-hidden="true" tabindex="-1"></a>g4 <span class="ot">&lt;-</span> <span class="fu">watts.strogatz.game</span>(<span class="dv">1</span>, <span class="dv">20</span> , <span class="dv">5</span>, .<span class="dv">1</span>)</span>
+<span id="cb270-3"><a href="finding-groups-in-networks.html#cb270-3" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g4)<span class="sc">$</span>name <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb270-4"><a href="finding-groups-in-networks.html#cb270-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb270-5"><a href="finding-groups-in-networks.html#cb270-5" aria-hidden="true" tabindex="-1"></a>g5 <span class="ot">&lt;-</span> <span class="fu">graph.union</span>(g2, g4)</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="finding-groups-in-networks.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb271-2"><a href="finding-groups-in-networks.html#cb271-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g5, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">vertex.size=</span><span class="dv">2</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">1</span>) <span class="co"># Two distinct networks in a single plot</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
+<p>The function for cohesive blocking is ?cohesive.blocks. It is very inefficient so it will take awhile to run. Run time depends on the number of edges in the network and the degree of nestedness. Don’t even bother running it on very large networks.</p>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="finding-groups-in-networks.html#cb272-1" aria-hidden="true" tabindex="-1"></a>blocks <span class="ot">&lt;-</span> <span class="fu">cohesive.blocks</span>(g5)  <span class="co"># The basic function for finding cohesive blocks</span></span>
+<span id="cb272-2"><a href="finding-groups-in-networks.html#cb272-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb272-3"><a href="finding-groups-in-networks.html#cb272-3" aria-hidden="true" tabindex="-1"></a><span class="fu">blocks</span>(blocks) <span class="co"># This tells us what the blocks are and which nodes are in them</span></span>
+<span id="cb272-4"><a href="finding-groups-in-networks.html#cb272-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb272-5"><a href="finding-groups-in-networks.html#cb272-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cohesion</span>(blocks) <span class="co"># This gives a cohesion score for each block. Cohesion is the minimum number of vertices you must remove in order to make the block not strongly connected.</span></span>
+<span id="cb272-6"><a href="finding-groups-in-networks.html#cb272-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb272-7"><a href="finding-groups-in-networks.html#cb272-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plotHierarchy</span>(blocks) <span class="co"># Finally, plotHierarchy shows the nestedness structure of the blocks.</span></span></code></pre></div>
+</div>
+<div id="group-detection" class="section level2" number="14.2">
+<h2><span class="header-section-number">14.2</span> Group Detection</h2>
+<p>The previous methods for detecting groups require either that all individuals in a group are connected or that the groups are completely isolated from one another. We might wish to relax those rather stringent requirements. For example, if we randomize our g5 network, which was the union of a random graph and a watts.strogatz graph, enough times, it will connect the two separate networks with a handful of edges.</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="finding-groups-in-networks.html#cb273-1" aria-hidden="true" tabindex="-1"></a>g5 <span class="ot">&lt;-</span> g5 <span class="sc">%&gt;%</span> <span class="fu">rewire</span>(<span class="fu">keeping_degseq</span>(<span class="at">niter =</span> <span class="fu">vcount</span>(g5) <span class="sc">*</span> <span class="fl">0.05</span>))</span>
+<span id="cb273-2"><a href="finding-groups-in-networks.html#cb273-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g5, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">vertex.size=</span><span class="dv">2</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">1</span>) <span class="co"># Two distinct networks in a single plot</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-160-1.png" width="672" /></p>
+<p>Our component analysis would not reveal that there are two distinct groups - instead the whole graph would appear connected. But we know there are (at least) two groups in the network - we designed it that way - so how might we identify them? We could define groups as sets of nodes who have a higher proportion of edges going inwards rather than outwards - that is, solidarity is strongest within the group - and use that definition to search for groups.</p>
+<p>How does group detecion work? Remember the Girvan and Newman algorithm we covered in class? We can write a simple version of it in R. Here is one I wrote with comments.</p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="finding-groups-in-networks.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first we create a function which defines what happens at each iteration of our algorithm</span></span>
+<span id="cb274-2"><a href="finding-groups-in-networks.html#cb274-2" aria-hidden="true" tabindex="-1"></a>edge_betweenness_step <span class="ot">=</span> <span class="cf">function</span>(mat){</span>
+<span id="cb274-3"><a href="finding-groups-in-networks.html#cb274-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># graph the matrix</span></span>
+<span id="cb274-4"><a href="finding-groups-in-networks.html#cb274-4" aria-hidden="true" tabindex="-1"></a>  net <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(mat)</span>
+<span id="cb274-5"><a href="finding-groups-in-networks.html#cb274-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># evaluate edge betweenness</span></span>
+<span id="cb274-6"><a href="finding-groups-in-networks.html#cb274-6" aria-hidden="true" tabindex="-1"></a>  edgebets <span class="ot">&lt;-</span> <span class="fu">edge_betweenness</span>(net)</span>
+<span id="cb274-7"><a href="finding-groups-in-networks.html#cb274-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># identify the edge that has the highest betweenness</span></span>
+<span id="cb274-8"><a href="finding-groups-in-networks.html#cb274-8" aria-hidden="true" tabindex="-1"></a>  to_delete <span class="ot">&lt;-</span> <span class="fu">which.max</span>(edgebets)</span>
+<span id="cb274-9"><a href="finding-groups-in-networks.html#cb274-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># delete that edge</span></span>
+<span id="cb274-10"><a href="finding-groups-in-networks.html#cb274-10" aria-hidden="true" tabindex="-1"></a>  net_new <span class="ot">&lt;-</span> <span class="fu">delete.edges</span>(net, to_delete)</span>
+<span id="cb274-11"><a href="finding-groups-in-networks.html#cb274-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># evaluate the number of components</span></span>
+<span id="cb274-12"><a href="finding-groups-in-networks.html#cb274-12" aria-hidden="true" tabindex="-1"></a>  net_new <span class="ot">&lt;-</span> <span class="fu">decompose</span>(net_new)</span>
+<span id="cb274-13"><a href="finding-groups-in-networks.html#cb274-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if the number of components grew to be greater than 1, return the matrices of those two components</span></span>
+<span id="cb274-14"><a href="finding-groups-in-networks.html#cb274-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(net_new) <span class="sc">&gt;</span> <span class="dv">1</span>){</span>
+<span id="cb274-15"><a href="finding-groups-in-networks.html#cb274-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">lapply</span>(net_new, get.adjacency))</span>
+<span id="cb274-16"><a href="finding-groups-in-networks.html#cb274-16" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb274-17"><a href="finding-groups-in-networks.html#cb274-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># otherwise return the matrix that we started with, minus the deleted edge</span></span>
+<span id="cb274-18"><a href="finding-groups-in-networks.html#cb274-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">get.adjacency</span>(net_new[[<span class="dv">1</span>]]))</span>
+<span id="cb274-19"><a href="finding-groups-in-networks.html#cb274-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb274-20"><a href="finding-groups-in-networks.html#cb274-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb274-21"><a href="finding-groups-in-networks.html#cb274-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb274-22"><a href="finding-groups-in-networks.html#cb274-22" aria-hidden="true" tabindex="-1"></a><span class="co"># recursive function to measure depth of a list </span></span>
+<span id="cb274-23"><a href="finding-groups-in-networks.html#cb274-23" aria-hidden="true" tabindex="-1"></a>depth <span class="ot">&lt;-</span> <span class="cf">function</span>(this) <span class="fu">ifelse</span>(<span class="fu">is.list</span>(this), 1L <span class="sc">+</span> <span class="fu">max</span>(<span class="fu">sapply</span>(this, depth)), 0L)</span>
+<span id="cb274-24"><a href="finding-groups-in-networks.html#cb274-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb274-25"><a href="finding-groups-in-networks.html#cb274-25" aria-hidden="true" tabindex="-1"></a><span class="co"># next we will repeatedly run this step algorithm a certain number of times, at each step applying it to every component we have created</span></span>
+<span id="cb274-26"><a href="finding-groups-in-networks.html#cb274-26" aria-hidden="true" tabindex="-1"></a><span class="co"># so at first, we start with the whole graph, we delete the highest between edges until the network is split into two components. </span></span>
+<span id="cb274-27"><a href="finding-groups-in-networks.html#cb274-27" aria-hidden="true" tabindex="-1"></a><span class="co"># then we apply the above to each of the network subsets</span></span>
+<span id="cb274-28"><a href="finding-groups-in-networks.html#cb274-28" aria-hidden="true" tabindex="-1"></a><span class="co"># we do this until we have made N effective cuts</span></span>
+<span id="cb274-29"><a href="finding-groups-in-networks.html#cb274-29" aria-hidden="true" tabindex="-1"></a>edge_betweenness_clustering <span class="ot">&lt;-</span> <span class="cf">function</span>(net, <span class="at">desired_depth =</span> <span class="dv">15</span>){</span>
+<span id="cb274-30"><a href="finding-groups-in-networks.html#cb274-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># required packages</span></span>
+<span id="cb274-31"><a href="finding-groups-in-networks.html#cb274-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(reshape2)</span>
+<span id="cb274-32"><a href="finding-groups-in-networks.html#cb274-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># turn our net into a matrix</span></span>
+<span id="cb274-33"><a href="finding-groups-in-networks.html#cb274-33" aria-hidden="true" tabindex="-1"></a>  net_mat <span class="ot">&lt;-</span> <span class="fu">get.adjacency</span>(net)</span>
+<span id="cb274-34"><a href="finding-groups-in-networks.html#cb274-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># run the first iteration of edge_betweenness and save the result in a list</span></span>
+<span id="cb274-35"><a href="finding-groups-in-networks.html#cb274-35" aria-hidden="true" tabindex="-1"></a>  net_temp <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">edge_betweenness_step</span>(net_mat))</span>
+<span id="cb274-36"><a href="finding-groups-in-networks.html#cb274-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># while actual depth is &lt; desired_depth</span></span>
+<span id="cb274-37"><a href="finding-groups-in-networks.html#cb274-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># depth signifies how many effective cuts have been made</span></span>
+<span id="cb274-38"><a href="finding-groups-in-networks.html#cb274-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># where an effective cut is any cut that divides a component into at least two new components</span></span>
+<span id="cb274-39"><a href="finding-groups-in-networks.html#cb274-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span>(<span class="fu">depth</span>(net_temp) <span class="sc">&lt;</span> desired_depth){</span>
+<span id="cb274-40"><a href="finding-groups-in-networks.html#cb274-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># apply edge_betweenness recursively to every component in the list</span></span>
+<span id="cb274-41"><a href="finding-groups-in-networks.html#cb274-41" aria-hidden="true" tabindex="-1"></a>    net_temp <span class="ot">&lt;-</span> <span class="fu">rapply</span>(net_temp, edge_betweenness_step, <span class="at">how =</span> <span class="st">&quot;list&quot;</span>)</span>
+<span id="cb274-42"><a href="finding-groups-in-networks.html#cb274-42" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb274-43"><a href="finding-groups-in-networks.html#cb274-43" aria-hidden="true" tabindex="-1"></a>  <span class="co">#get the row.names of every matrix (i.e. the actors who are in each component/group at the end of the iterations)</span></span>
+<span id="cb274-44"><a href="finding-groups-in-networks.html#cb274-44" aria-hidden="true" tabindex="-1"></a>  groups <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">unlist</span>(net_temp), row.names)</span>
+<span id="cb274-45"><a href="finding-groups-in-networks.html#cb274-45" aria-hidden="true" tabindex="-1"></a>  <span class="co"># name the groups according to their order</span></span>
+<span id="cb274-46"><a href="finding-groups-in-networks.html#cb274-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(groups) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(groups))</span>
+<span id="cb274-47"><a href="finding-groups-in-networks.html#cb274-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use melt to produce a person to group data.frame</span></span>
+<span id="cb274-48"><a href="finding-groups-in-networks.html#cb274-48" aria-hidden="true" tabindex="-1"></a>  memberships <span class="ot">&lt;-</span> <span class="fu">melt</span>(groups)</span>
+<span id="cb274-49"><a href="finding-groups-in-networks.html#cb274-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># convert value (i.e. id) to a character vector from factor</span></span>
+<span id="cb274-50"><a href="finding-groups-in-networks.html#cb274-50" aria-hidden="true" tabindex="-1"></a>  memberships<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="fu">as.character</span>(memberships<span class="sc">$</span>value)</span>
+<span id="cb274-51"><a href="finding-groups-in-networks.html#cb274-51" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reorder the memberships data.frame so that it matches the order of vertices in the original network</span></span>
+<span id="cb274-52"><a href="finding-groups-in-networks.html#cb274-52" aria-hidden="true" tabindex="-1"></a>  memberships <span class="ot">&lt;-</span> memberships[<span class="fu">match</span>(<span class="fu">V</span>(net)<span class="sc">$</span>name, memberships<span class="sc">$</span>value),]</span>
+<span id="cb274-53"><a href="finding-groups-in-networks.html#cb274-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># construct the communities object using this helpful function provided by igraph</span></span>
+<span id="cb274-54"><a href="finding-groups-in-networks.html#cb274-54" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">make_clusters</span>(net, </span>
+<span id="cb274-55"><a href="finding-groups-in-networks.html#cb274-55" aria-hidden="true" tabindex="-1"></a>                <span class="at">membership =</span> <span class="fu">as.numeric</span>(memberships<span class="sc">$</span>L1), </span>
+<span id="cb274-56"><a href="finding-groups-in-networks.html#cb274-56" aria-hidden="true" tabindex="-1"></a>                <span class="at">algorithm =</span> <span class="st">&quot;edge_betweenness_attempt&quot;</span>, </span>
+<span id="cb274-57"><a href="finding-groups-in-networks.html#cb274-57" aria-hidden="true" tabindex="-1"></a>                <span class="at">modularity =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb274-58"><a href="finding-groups-in-networks.html#cb274-58" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return the communities object</span></span>
+<span id="cb274-59"><a href="finding-groups-in-networks.html#cb274-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb274-60"><a href="finding-groups-in-networks.html#cb274-60" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="finding-groups-in-networks.html#cb275-1" aria-hidden="true" tabindex="-1"></a>mod_comparison <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb275-2"><a href="finding-groups-in-networks.html#cb275-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>){</span>
+<span id="cb275-3"><a href="finding-groups-in-networks.html#cb275-3" aria-hidden="true" tabindex="-1"></a>  mod_comparison <span class="ot">&lt;-</span> <span class="fu">c</span>(mod_comparison, <span class="fu">edge_betweenness_clustering</span>(g5, i)<span class="sc">$</span>modularity)</span>
+<span id="cb275-4"><a href="finding-groups-in-networks.html#cb275-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb275-5"><a href="finding-groups-in-networks.html#cb275-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, mod_comparison, <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;Modularity&quot;</span>), <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;Effective Cuts Made&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
+<p>It looks like a simple 2 component solution performs best - modularity actually decreases as we increase the number of cuts. Let’s see how it looks on the network.</p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="finding-groups-in-networks.html#cb276-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g5, </span>
+<span id="cb276-2"><a href="finding-groups-in-networks.html#cb276-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label =</span> <span class="cn">NA</span>, </span>
+<span id="cb276-3"><a href="finding-groups-in-networks.html#cb276-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size=</span><span class="dv">2</span>, </span>
+<span id="cb276-4"><a href="finding-groups-in-networks.html#cb276-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> .<span class="dv">1</span>, </span>
+<span id="cb276-5"><a href="finding-groups-in-networks.html#cb276-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">mark.groups =</span> <span class="fu">edge_betweenness_clustering</span>(g5, <span class="dv">2</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-163-1.png" width="672" />
+It works!</p>
+<p>This was a fun exercise, but my code is quite slow and not that intelligent. Thankfully, there are a plethora of group detection algorithms in igraph written to be much faster than mine. The full list is: edge.betweenness.community (i.e. what I tried to make above), fastgreedy.community, label.propagation.community, leading.eigenvector.community, multilevel.community, optimal.community, spinglass.community, and walktrap.community.</p>
+<p>This webpage has a summary of their pros and cons for an older version of igraph: <a href="http://bommaritollc.com/2012/06/summary-community-detection-algorithms-igraph-0-6/" class="uri">http://bommaritollc.com/2012/06/summary-community-detection-algorithms-igraph-0-6/</a></p>
+<p>The main takeaway is that you should tailor your algorithm choice to your network. Certain algorithms are designed for directed or undirected graphs, and work better with small or large graphs.</p>
+<p>Each algorithm as its own igraph function. These functions produce lists with information about the algorithm results. Element 1 holds a vector that details which group each node is in, which I will refer to as the membership vector. Element 6 holds the modularity of the network given the group detection algorithm.</p>
+<p>For undirected graphs, you can use the optimal or multilevel algorithms.</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="finding-groups-in-networks.html#cb277-1" aria-hidden="true" tabindex="-1"></a>communityMulti <span class="ot">&lt;-</span> <span class="fu">multilevel.community</span>(g5)</span></code></pre></div>
+<p>For directed graphs, edge betweenness is generally your best bet, though the walktrap algorithm performs well too.</p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="finding-groups-in-networks.html#cb278-1" aria-hidden="true" tabindex="-1"></a>communityWalk <span class="ot">&lt;-</span> <span class="fu">walktrap.community</span>(g2)</span>
+<span id="cb278-2"><a href="finding-groups-in-networks.html#cb278-2" aria-hidden="true" tabindex="-1"></a>communityEB <span class="ot">&lt;-</span> <span class="fu">edge.betweenness.community</span>(g2)</span>
+<span id="cb278-3"><a href="finding-groups-in-networks.html#cb278-3" aria-hidden="true" tabindex="-1"></a>communityInfo <span class="ot">&lt;-</span> <span class="fu">infomap.community</span>(g2)</span></code></pre></div>
+<p>We can use the mark.groups argument in plot to see the groups.</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="finding-groups-in-networks.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g5, <span class="at">vertex.size =</span> <span class="dv">3</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">mark.groups =</span> communityMulti)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
+<p>Alternatively, we can just color the nodes by group membership. In this case, we can just use the membership function</p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="finding-groups-in-networks.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(g5)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="fu">membership</span>(communityMulti)</span>
+<span id="cb280-2"><a href="finding-groups-in-networks.html#cb280-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g5, <span class="at">vertex.size =</span> <span class="dv">3</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
+<p>This becomes less feasible as the number of groups increases! It is better in that case to use one of the coloring functions I sent along via Canvas a few weeks back.</p>
+<div id="modularity" class="section level3" number="14.2.1">
+<h3><span class="header-section-number">14.2.1</span> Modularity</h3>
+<p>Modularity takes a given group structure and calculates how separated the different groups are from each other. It therefore operationalizes our notion of groups above by calculating the proportion of ties that are within groups as opposed to between them. Networks with high modularity have dense connections between the nodes within modules but sparse connections between nodes in different modules.</p>
+<p>We can think of modularity as both a measure of how effective a given grouping algorithm is - i.e. higher modularity means the alogrithm is identifying distinct, sociall separate groups. But it can also be thought of as a measure of the saliency of groups to the network in general. The higher modularity the more that groups structure the network. Modularity measures the extent to which a network can be divided into distinct modules or groups.</p>
+<p>Getting a network’s modularity in igraph is easy! We can either access the modularity score directly</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="finding-groups-in-networks.html#cb281-1" aria-hidden="true" tabindex="-1"></a>communityMulti <span class="ot">&lt;-</span> <span class="fu">multilevel.community</span>(g5)</span>
+<span id="cb281-2"><a href="finding-groups-in-networks.html#cb281-2" aria-hidden="true" tabindex="-1"></a>communityMulti<span class="sc">$</span>modularity</span></code></pre></div>
+<pre><code>## [1] 0.4270216 0.4716049</code></pre>
+<p>Or use the modularity() function.</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="finding-groups-in-networks.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(communityMulti) <span class="co"># We can use the modularity() function on a group detection output.</span></span></code></pre></div>
+<pre><code>## [1] 0.4716049</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bridges-holes-the-small-world-problem-and-simulation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="homophily-and-exponential-random-graphs-ergm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

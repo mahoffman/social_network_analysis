@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Your First Network | Methods for Network Analysis</title>
+  <meta name="description" content="6 Your First Network | Methods for Network Analysis" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Your First Network | Methods for Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Your First Network | Methods for Network Analysis" />
+  
+  
+  
+
+<meta name="author" content="Mark Hoffman" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="understanding-network-data-structures.html"/>
+<link rel="next" href="network-visualization-and-aesthetics.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Course</a></li>
+<li class="chapter" data-level="1" data-path="reading-list.html"><a href="reading-list.html"><i class="fa fa-check"></i><b>1</b> Reading List</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="reading-list.html"><a href="reading-list.html#week-1-beg.-september-20th-introductions-and-introduction-to-r"><i class="fa fa-check"></i><b>1.0.1</b> Week 1 (beg. September 20th): Introductions and Introduction to R</a></li>
+<li class="chapter" data-level="1.0.2" data-path="reading-list.html"><a href="reading-list.html#week-2-beg.-september-27th-types-of-networks"><i class="fa fa-check"></i><b>1.0.2</b> Week 2 (beg. September 27th): Types of networks</a></li>
+<li class="chapter" data-level="1.0.3" data-path="reading-list.html"><a href="reading-list.html#week-3-beg.-october-4th-triads-balance-and-hierarchy"><i class="fa fa-check"></i><b>1.0.3</b> Week 3 (beg. October 4th): Triads, Balance and Hierarchy</a></li>
+<li class="chapter" data-level="1.0.4" data-path="reading-list.html"><a href="reading-list.html#week-4-beg.-october-11th-centrality-power-and-inequality"><i class="fa fa-check"></i><b>1.0.4</b> Week 4 (beg. October 11th): Centrality, Power, and Inequality</a></li>
+<li class="chapter" data-level="1.0.5" data-path="reading-list.html"><a href="reading-list.html#week-5-beg.-october-18th-connectivity-and-the-small-world-problem"><i class="fa fa-check"></i><b>1.0.5</b> Week 5 (beg. October 18th): Connectivity and the Small World Problem</a></li>
+<li class="chapter" data-level="1.0.6" data-path="reading-list.html"><a href="reading-list.html#week-6-beg.-october-25th-groups-communities-and-homophily"><i class="fa fa-check"></i><b>1.0.6</b> Week 6 (beg. October 25th): Groups, Communities, and Homophily</a></li>
+<li class="chapter" data-level="1.0.7" data-path="reading-list.html"><a href="reading-list.html#week-7-beg.-november-1st-categories-and-positions"><i class="fa fa-check"></i><b>1.0.7</b> Week 7 (beg. November 1st): Categories and Positions</a></li>
+<li class="chapter" data-level="1.0.8" data-path="reading-list.html"><a href="reading-list.html#week-8-beg.-november-8th-networks-from-culture-and-culture-from-networks"><i class="fa fa-check"></i><b>1.0.8</b> Week 8 (beg. November 8th): Networks from Culture and Culture from Networks</a></li>
+<li class="chapter" data-level="1.0.9" data-path="reading-list.html"><a href="reading-list.html#week-9-beg.-november-15th-dynamics-and-diffusion"><i class="fa fa-check"></i><b>1.0.9</b> Week 9 (beg. November 15th): Dynamics and Diffusion</a></li>
+<li class="chapter" data-level="1.0.10" data-path="reading-list.html"><a href="reading-list.html#week-9-and-34-thanksgiving"><i class="fa fa-check"></i><b>1.0.10</b> Week 9 and 3/4: Thanksgiving!</a></li>
+<li class="chapter" data-level="1.0.11" data-path="reading-list.html"><a href="reading-list.html#week-10-beg.-november-29th-presentations-of-research"><i class="fa fa-check"></i><b>1.0.11</b> Week 10 (beg. November 29th): Presentations of Research</a></li>
+<li class="chapter" data-level="1.0.12" data-path="reading-list.html"><a href="reading-list.html#december-11th-final-papers-are-due."><i class="fa fa-check"></i><b>1.0.12</b> December 11th: Final papers are due.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>2</b> Installing R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-r"><i class="fa fa-check"></i><b>2.1</b> Downloading and Installing R</a></li>
+<li class="chapter" data-level="2.2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-rstudio"><i class="fa fa-check"></i><b>2.2</b> Downloading and Installing RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>3</b> Tour RStudio with Udacity</a></li>
+<li class="chapter" data-level="4" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-data.frames"><i class="fa fa-check"></i><b>4.1</b> Vectors, matrices and data.frames</a></li>
+<li class="chapter" data-level="4.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>4.2</b> Indexing and Subsetting</a></li>
+<li class="chapter" data-level="4.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>4.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html"><i class="fa fa-check"></i><b>5</b> Understanding network data structures</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#edge-lists"><i class="fa fa-check"></i><b>5.1</b> Edge lists</a></li>
+<li class="chapter" data-level="5.2" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#adjacency-matrices"><i class="fa fa-check"></i><b>5.2</b> Adjacency matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="your-first-network.html"><a href="your-first-network.html"><i class="fa fa-check"></i><b>6</b> Your First Network</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="your-first-network.html"><a href="your-first-network.html#creating-a-project"><i class="fa fa-check"></i><b>6.1</b> Creating a project</a></li>
+<li class="chapter" data-level="6.2" data-path="your-first-network.html"><a href="your-first-network.html#creating-data-in-excel"><i class="fa fa-check"></i><b>6.2</b> Creating data in Excel</a></li>
+<li class="chapter" data-level="6.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>6.3</b> Saving Excel data as a .csv file</a></li>
+<li class="chapter" data-level="6.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>6.4</b> Loading data into R</a></li>
+<li class="chapter" data-level="6.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>6.5</b> From data to networks</a></li>
+<li class="chapter" data-level="6.6" data-path="your-first-network.html"><a href="your-first-network.html#exploring-your-network"><i class="fa fa-check"></i><b>6.6</b> Exploring your network</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>7</b> Network Visualization and Aesthetics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#the-basics"><i class="fa fa-check"></i><b>7.1</b> The Basics</a></li>
+<li class="chapter" data-level="7.2" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#layouts"><i class="fa fa-check"></i><b>7.2</b> Layouts</a></li>
+<li class="chapter" data-level="7.3" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>7.3</b> Adding attributes to a network object</a></li>
+<li class="chapter" data-level="7.4" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#plotting-based-on-attributes"><i class="fa fa-check"></i><b>7.4</b> Plotting based on attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ego-networks.html"><a href="ego-networks.html"><i class="fa fa-check"></i><b>8</b> Ego Networks</a></li>
+<li class="chapter" data-level="9" data-path="calculating-network-size-and-density.html"><a href="calculating-network-size-and-density.html"><i class="fa fa-check"></i><b>9</b> Calculating Network Size and Density</a></li>
+<li class="chapter" data-level="10" data-path="affiliation-data.html"><a href="affiliation-data.html"><i class="fa fa-check"></i><b>10</b> Affiliation Data</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="affiliation-data.html"><a href="affiliation-data.html#unipartite-projection"><i class="fa fa-check"></i><b>10.0.1</b> Unipartite Projection</a></li>
+<li class="chapter" data-level="10.1" data-path="affiliation-data.html"><a href="affiliation-data.html#tripartite-network-analysis"><i class="fa fa-check"></i><b>10.1</b> Tripartite network analysis?</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="affiliation-data.html"><a href="affiliation-data.html#lab"><i class="fa fa-check"></i><b>10.1.1</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html"><i class="fa fa-check"></i><b>11</b> Transitivity, structural balance, and hierarchy</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-dyad"><i class="fa fa-check"></i><b>11.1</b> The Dyad</a></li>
+<li class="chapter" data-level="11.2" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#generating-a-random-graph-for-comparison"><i class="fa fa-check"></i><b>11.2</b> Generating a random graph for comparison</a></li>
+<li class="chapter" data-level="11.3" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-triad"><i class="fa fa-check"></i><b>11.3</b> The Triad</a></li>
+<li class="chapter" data-level="11.4" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#calculating-a-triad-census"><i class="fa fa-check"></i><b>11.4</b> Calculating a triad census</a></li>
+<li class="chapter" data-level="11.5" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#random-graphs-galore"><i class="fa fa-check"></i><b>11.5</b> Random graphs galore!</a></li>
+<li class="chapter" data-level="11.6" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#producing-a-tau-statistic"><i class="fa fa-check"></i><b>11.6</b> Producing a tau statistic</a></li>
+<li class="chapter" data-level="11.7" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#banning-triads"><i class="fa fa-check"></i><b>11.7</b> Banning triads</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="centrality.html"><a href="centrality.html"><i class="fa fa-check"></i><b>12</b> Centrality</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="centrality.html"><a href="centrality.html#loading-the-example-network"><i class="fa fa-check"></i><b>12.0.1</b> Loading the example network</a></li>
+<li class="chapter" data-level="12.0.2" data-path="centrality.html"><a href="centrality.html#degree-centrality"><i class="fa fa-check"></i><b>12.0.2</b> Degree Centrality</a></li>
+<li class="chapter" data-level="12.0.3" data-path="centrality.html"><a href="centrality.html#betweenness-centrality"><i class="fa fa-check"></i><b>12.0.3</b> Betweenness Centrality</a></li>
+<li class="chapter" data-level="12.0.4" data-path="centrality.html"><a href="centrality.html#closeness-centrality"><i class="fa fa-check"></i><b>12.0.4</b> Closeness Centrality</a></li>
+<li class="chapter" data-level="12.1" data-path="centrality.html"><a href="centrality.html#eigenvector-centrality"><i class="fa fa-check"></i><b>12.1</b> Eigenvector Centrality</a></li>
+<li class="chapter" data-level="12.2" data-path="centrality.html"><a href="centrality.html#bonacich-centrality"><i class="fa fa-check"></i><b>12.2</b> Bonacich Centrality</a></li>
+<li class="chapter" data-level="12.3" data-path="centrality.html"><a href="centrality.html#page-rank"><i class="fa fa-check"></i><b>12.3</b> Page Rank</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="centrality.html"><a href="centrality.html#measure-correlations"><i class="fa fa-check"></i><b>12.3.1</b> Measure Correlations</a></li>
+<li class="chapter" data-level="12.3.2" data-path="centrality.html"><a href="centrality.html#centralization-and-degree-distributions"><i class="fa fa-check"></i><b>12.3.2</b> Centralization and Degree Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="centrality.html"><a href="centrality.html#distance-weighted-reach"><i class="fa fa-check"></i><b>12.4</b> Distance weighted reach</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html"><i class="fa fa-check"></i><b>13</b> Bridges, Holes, the Small World Problem, and Simulation</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#its-a-small-world-after-all."><i class="fa fa-check"></i><b>13.1</b> It’s a small world after all.</a></li>
+<li class="chapter" data-level="13.2" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#measuring-connectivity-of-networks"><i class="fa fa-check"></i><b>13.2</b> Measuring connectivity of networks</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#one-last-thing"><i class="fa fa-check"></i><b>13.2.1</b> One last thing…</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html"><i class="fa fa-check"></i><b>14</b> Finding Groups in Networks</a>
+<ul>
+<li class="chapter" data-level="14.0.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#component-analysis"><i class="fa fa-check"></i><b>14.0.1</b> Component analysis</a></li>
+<li class="chapter" data-level="14.0.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cliques"><i class="fa fa-check"></i><b>14.0.2</b> Cliques</a></li>
+<li class="chapter" data-level="14.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cohesive-blocking"><i class="fa fa-check"></i><b>14.1</b> Cohesive Blocking</a></li>
+<li class="chapter" data-level="14.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#group-detection"><i class="fa fa-check"></i><b>14.2</b> Group Detection</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#modularity"><i class="fa fa-check"></i><b>14.2.1</b> Modularity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html"><i class="fa fa-check"></i><b>15</b> Homophily and Exponential Random Graphs (ERGM)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#homophily"><i class="fa fa-check"></i><b>15.1</b> Homophily</a></li>
+<li class="chapter" data-level="15.2" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#ergms"><i class="fa fa-check"></i><b>15.2</b> ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html"><i class="fa fa-check"></i><b>16</b> Positional analysis in networks</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#toy-data"><i class="fa fa-check"></i><b>16.1</b> Toy data</a></li>
+<li class="chapter" data-level="16.2" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#structural-equivalence"><i class="fa fa-check"></i><b>16.2</b> Structural equivalence</a></li>
+<li class="chapter" data-level="16.3" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#block-modeling-with-concor"><i class="fa fa-check"></i><b>16.3</b> Block Modeling with CONCOR</a></li>
+<li class="chapter" data-level="16.4" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#isomorphic-local-graphs"><i class="fa fa-check"></i><b>16.4</b> Isomorphic local graphs</a></li>
+<li class="chapter" data-level="16.5" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#stochastic-block-models-sbms"><i class="fa fa-check"></i><b>16.5</b> Stochastic Block Models (SBMs)</a></li>
+<li class="chapter" data-level="16.6" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#feature-based-strategies"><i class="fa fa-check"></i><b>16.6</b> Feature-based strategies</a></li>
+<li class="chapter" data-level="16.7" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#lab-try-these-different-strategies-on-a-real-graph-of-your-choosing-go-with-smaller-networks-and-compare-the-different-results-using-correlation.-which-methods-perform-similarly-do-the-roles-that-they-identify-look-meaningful-plot-the-network-coloring-the-nodes-by-role."><i class="fa fa-check"></i><b>16.7</b> Lab: Try these different strategies on a real graph of your choosing (go with smaller networks) and compare the different results using correlation. Which methods perform similarly? Do the roles that they identify look meaningful? Plot the network coloring the nodes by role.</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="culture-and-networks.html"><a href="culture-and-networks.html"><i class="fa fa-check"></i><b>17</b> Culture and Networks</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#rca"><i class="fa fa-check"></i><b>17.1</b> RCA</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-1"><i class="fa fa-check"></i><b>17.1.1</b> Group 1</a></li>
+<li class="chapter" data-level="17.1.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-4"><i class="fa fa-check"></i><b>17.1.2</b> Group 4:</a></li>
+<li class="chapter" data-level="17.1.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-5"><i class="fa fa-check"></i><b>17.1.3</b> Group 5:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#semantic-network-analysis"><i class="fa fa-check"></i><b>17.2</b> Semantic Network Analysis</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#counting-words"><i class="fa fa-check"></i><b>17.2.1</b> Counting Words</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#from-counts-to-a-document-to-term-matrix"><i class="fa fa-check"></i><b>17.3</b> From counts to a document-to-term matrix</a></li>
+<li class="chapter" data-level="17.4" data-path="culture-and-networks.html"><a href="culture-and-networks.html#producing-a-skip-gram-matrix-for-semantic-network-analysis-and-embedding-models"><i class="fa fa-check"></i><b>17.4</b> Producing a skip-gram matrix for semantic network analysis and embedding models</a></li>
+<li class="chapter" data-level="17.5" data-path="culture-and-networks.html"><a href="culture-and-networks.html#comparing-texts-with-cosine"><i class="fa fa-check"></i><b>17.5</b> Comparing texts with cosine</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="dynamics.html"><a href="dynamics.html"><i class="fa fa-check"></i><b>18</b> Dynamics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="dynamics.html"><a href="dynamics.html#tergms"><i class="fa fa-check"></i><b>18.1</b> TERGMs</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="dynamics.html"><a href="dynamics.html#tergm-terms-and-types"><i class="fa fa-check"></i><b>18.1.1</b> TERGM terms and types</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="dynamics.html"><a href="dynamics.html#tergm-syntax"><i class="fa fa-check"></i><b>18.2</b> <code>tergm</code> syntax</a></li>
+<li class="chapter" data-level="18.3" data-path="dynamics.html"><a href="dynamics.html#rsiena--"><i class="fa fa-check"></i><b>18.3</b> RSiena -</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Methods for Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="your-first-network" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Your First Network</h1>
+<p>In this chapter, we will create our own network data in Excel, learn to load the data into R, and the turn the data into a network object using the igraph package. You can use these steps to begin analyzing data from your own projects.</p>
+<div id="creating-a-project" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Creating a project</h2>
+<p>First let’s create a new R project. RStudio projects allow you to keep your various data analysis projects separate from one another. Each project has its own working directory, workspace, history, and source documents. When you load a project, you will therefore see the work, history and files associated with that project, helping your organize your work.</p>
+<p>Go to the “File” menu at the top of the screen and click on “New Project…”</p>
+<hr />
+<p><img src="Images/new_project.png"/></p>
+<hr />
+<p>Then start a new directory. Directories are folders where you keep your R Project and all of the data, files, code etc. that you create and use in the project.</p>
+<hr />
+<p><img src="Images/new_directory.png"/></p>
+<hr />
+<p>Now start an empty project. Projects are created by RStudio and they maintain your R workspace for you, so that you can load it exactly as it was before you closed RStudio.</p>
+<hr />
+<p><img src="Images/empty_project.png"/></p>
+<hr />
+<p>Finally name your project (I named mine “SNA_Tutorial”) and browse to find the location on your computer where you would like it to be saved. We will use this directory to store all of the files and information for the class, so make sure to choose a name you can remember.</p>
+<hr />
+<p><img src="Images/project_name.png"/></p>
+<hr />
+<p>Now if you navigate to the folder of your new R Project (mine is on my Desktop in the folder titled “SNA Tutorial”, for example), you will see the R Project there, symbolized by a blue glass cube with an R in it. If you ever want to re-open this project, you can double click on the cube. Alternatively, in RStudio you can go “File -&gt; Open Project”, navigate to the project’s directory and open it from there.</p>
+<hr />
+<p><img src="Images/directory_entrails.png"/></p>
+<hr />
+<p>This folder is where you should keep all of your data and R scripts for this project. Since we just created the project that we will use for the remainder of the tutorials, it is the best place for you to put all future class materials.</p>
+</div>
+<div id="creating-data-in-excel" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Creating data in Excel</h2>
+<p>Imagine you want to collect some data on your local social network. You might go to each of your friends and ask them to nominate up to five people who are their friends. You then want to load this data into R and graph it as a network. How could you go about doing this?</p>
+<p>The first step is to record the data in some machine-readable way, either using Excel or Numbers or even in plain text files. Many people, before coming to R, have experience using Excel or some program like it to manage data, whether financial, academic, or otherwise. An Excel worksheet is organized into rows and columns with columns generally containing information of a single kind (say First Names) and rows generally containing the data for a single observation. You can freely input data into any of the cells.</p>
+<p><strong>An empty Excel spreadsheet</strong></p>
+<hr />
+<p><img src="Images/an_excel_spreadsheet.png"/></p>
+<hr />
+<p>The first step in any network analysis project is to create a dataset with the relationships between the people in your study. The easiest way to record relationships in Excel is as an edge list, which, as we discussed in the last section, is a two column matrix that lists the pairs of actors in a relationship.</p>
+<p>Let’s build an edge list together in Excel. Imagine we want to track patterns of monetary provision in a household (i.e. whether person A gives person B money). We construct an edge list, where column A is the Ego (the money provider) and column B is the Alter (the money taker). We then fill in instances, or relationships, of monetary provision from Ego to Alter. Below is an example:</p>
+<p><strong>Money providing edge list (Hoffman family)</strong></p>
+<hr />
+<p><img src="Images/gift_giving_el.png"/></p>
+<hr />
+<p>Try recording something similar for your family!</p>
+</div>
+<div id="saving-excel-data-as-a-.csv-file" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Saving Excel data as a .csv file</h2>
+<p>Great! Now we need to save this data in a format that R can easily read. I generally use the .csv format, which separates values by commas, because R has a default function for reading .csv files.</p>
+<p>To save an Excel sheet as a .csv file, in Excel go to “File -&gt; Save As…”</p>
+<hr />
+<p><img src="Images/save_as.png"/></p>
+<hr />
+<p>Then give your file a name (I chose “money_edgelist”), choose the place where you want to save it (inside of the directory you made for class), and finally (the most important part!), click on the “File Format” dropdown menu and choose “Comma Separated Values (.csv)”. Click “Save”!</p>
+<hr />
+<p><img src="Images/csv_choose.png"/></p>
+<hr />
+<p>It will ask will warn you that the workbook contains features that will not work or may be removed if you save it in the selected file format and ask if you want to continue. Click “Continue”.</p>
+<hr />
+<p><img src="Images/continue.png"/></p>
+<hr />
+<p>Great! Now, inside of your class directory, you should see a new file titled “money_edgelist” (or whatever you chose to name it). In the following section, we will learn how to read that edge list into R.</p>
+</div>
+<div id="loading-data-into-r" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Loading data into R</h2>
+<p>Open up RStudio, make sure you are in your project for class (if not, go to “File -&gt; Open Project”, and selection your project), and open a new R Script by going “File -&gt; New File -&gt; R Script”. Save the empty script and name it “loading_data.R”. Your RStudio should look like this:</p>
+<hr />
+<p><img src="Images/new_script.png"/></p>
+<hr />
+<p>Now we will write our first line of code together. R has a simple function for loading .csv files: read.csv()
+To use read.csv, we just tell R the name of the .csv file that we want it to read. It will then look inside the directory for that file.</p>
+<p>If it can’t find the file - either because you typed the wrong name or you never dragged it to the directory - it will return something like the following error:</p>
+<blockquote>
+<p>Error in file(file, “rt”) : cannot open the connection
+In addition: Warning message:
+In file(file, “rt”) :
+cannot open file ‘money_edgelist.csv’: No such file or directory</p>
+</blockquote>
+<p>So be sure money_edgelist.csv is in your directory or the following lines of code won’t work! Of course, you can load in any edgelists here and name it anything you like.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="your-first-network.html#cb62-1" aria-hidden="true" tabindex="-1"></a>money_edgelist <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/money_edgelist.csv&quot;</span>)</span></code></pre></div>
+<p>Now you should see your data fle in your Environment pane under the “Data” heading. That means you successfully loaded the data into R.</p>
+<hr />
+<p><img src="Images/successful_load.png"/></p>
+<hr />
+<p>You can click on it to see its contents or else run View(your_data_here) in the console.</p>
+<hr />
+<p><img src="Images/view_data.png"/></p>
+<hr />
+<p>Cool! We now have our data loaded into R and ready to be turned into a network.</p>
+</div>
+<div id="from-data-to-networks" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> From data to networks</h2>
+<p>In this class, we will primarily use igraph, a user-maintained package in R, to analyze networks. Installing igraph gives us a bunch of new tools for graphing, analyzing and manipulating networks, that don’t come with base R. The first step then is to install igraph. To install a new package, we use the install.packages() function. It takes a character argument that is the name of the package you wish to install.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="your-first-network.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;igraph&quot;</span>, <span class="at">repos=</span><span class="st">&#39;http://cran.us.r-project.org&#39;</span>)</span></code></pre></div>
+<p>If you leave out the “repos” argument, it will cause a window to pop up with a list of CRAN mirrors. Then you can choose the repository nearest to you by double clicking on it.</p>
+<p>Now that igraph is installed, we need to use the library() function to load it into R. You will have to do this every time you open RStudio or switch projects if you wish to make use of igraph’s functions.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="your-first-network.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;igraph&quot;</span>)</span></code></pre></div>
+<p>This will allow us to use all of igraph’s functions. To analyze networks, igraph uses an object class called: “igraph”. We therefore have to convert our edge list, freshly loaded into R, into an igraph object.</p>
+<p>igraph only takes matrices, so we then have to convert our data.frame (the default class of objects returned by read.csv()) to a matrix.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="your-first-network.html#cb65-1" aria-hidden="true" tabindex="-1"></a>money_edgelist <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(money_edgelist)</span></code></pre></div>
+<p>We can now turn the money_edgelist edge list into a network object. The required function is graph.edgelist() and it takes two arguments, the network data (an edge list) and whether the edges are directed or undirected. In this case, because giving money is not necessarily a reciprocal relationship (i.e. just because I give you money, doesn’t mean you necessarily give it back… in fact, the opposite is almost always the case!), the network should be directed.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="your-first-network.html#cb66-1" aria-hidden="true" tabindex="-1"></a>moneyNetwork <span class="ot">&lt;-</span> <span class="fu">graph.edgelist</span>(money_edgelist, <span class="at">directed=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<blockquote>
+<p><strong>A Note on Function Documentation</strong>
+If you want to see more about graph.edgelist() or if you want to see other ways to graph data type, you can type ?graph.edgelist. Entering ? before any function will cause R to bring up documentation on that function.</p>
+</blockquote>
+<p>Now we have two objects in our Environment, the money_edgelist and a new networked, called moneyNetwork. Both contain the same information at the moment, but igraph can only make use of the latter.</p>
+<blockquote>
+<p><strong>What if my data was in adjacency matrix format?</strong>
+If your data was in adjacency matrix format, then you would use the graph.adjacency() function instead of the graph.edgelist() function. More about the graph.adjacency() function can be read in the function’s help section accessed by typing ?graph.adjacency</p>
+</blockquote>
+</div>
+<div id="exploring-your-network" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> Exploring your network</h2>
+<p>We finally have a network in R! So.. what next? Well we can read a summary of it by typing its name into R.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="your-first-network.html#cb67-1" aria-hidden="true" tabindex="-1"></a>moneyNetwork</span></code></pre></div>
+<pre><code>## IGRAPH f5811ef DN-- 6 11 -- 
+## + attr: name (v/c)
+## + edges from f5811ef (vertex names):
+##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick 
+##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick 
+## [11] Lexi -&gt;Nick</code></pre>
+<p>The first line - which begins with IGRAPH DN - tells us moneyNetwork is an igraph object and a directed network (DN), with N nodes and E edges.</p>
+<p>The next line tells us some attributes of the nodes and edges network. At the moment, it only has the attribute “name” for the vertices (v/c). We can look at the values of the “name” attribute with the V()$ function.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="your-first-network.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>name</span></code></pre></div>
+<pre><code>## [1] &quot;Greg&quot;  &quot;Maria&quot; &quot;Mark&quot;  &quot;Lexi&quot;  &quot;Grace&quot; &quot;Nick&quot;</code></pre>
+<p>Finally, the last part gives us a snapshot of the edges present in the network, most of which are omitted.</p>
+<p>We can visualize the network using the plot() function.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="your-first-network.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>The default visualization is pretty ugly… In the next section, we will learn how to improve the aesthetics of our network visualizations.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="understanding-network-data-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="network-visualization-and-aesthetics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,512 @@
+p2 <- group_connect[i+1]
+g <- add.edges(g, c(p1,p2)) # And I connect the points of connection using add.edges
+}
+g <- add.edges(g, c(group_connect[1],(group_connect[groups]+1))) # finally I connect the ends of the structure so that it forms a circle
+return(g)
+}
+caveman_net <- simulate_caveman(n = 100, clique_size = 5)
+caveman_net
+par(mar = c(2,2,2,2))
+plot(caveman_net, layout = layout.kamada.kawai(caveman_net), vertex.size = 2, vertex.label = NA, vertex.color = "grey80")
+graph.density(caveman_net)
+transitivity(caveman_net) # transitivity() measures clustering coefficient, which essentially says, how clustered is the network overall
+average.path.length(caveman_net)
+nodes.diameter<-get.diameter(caveman_net)
+nodes.diameter
+vcount(nodes.diameter)
+length(nodes.diameter)
+V(caveman_net)[nodes.diameter]$color<-"darkgreen"
+plot(caveman_net, layout = layout.kamada.kawai(caveman_net), vertex.size = 2, vertex.label = NA)
+plot(caveman_net, layout = layout.kamada.kawai(caveman_net), vertex.size = 2, vertex.label = NA)
+V(caveman_net)$color <- "orange"
+caveman_net_rewired <-  rewire(caveman_net, keeping_degseq(niter = 1000))
+plot(caveman_net_rewired, layout = layout.kamada.kawai(caveman_net), vertex.size = 2, vertex.label=NA)
+plot(caveman_net_rewired, layout = layout.kamada.kawai(caveman_net), vertex.size = 2, vertex.label=NA)
+plot(caveman_net_rewired, layout = layout.kamada.kawai(caveman_net_rewired), vertex.size = 2, vertex.label=NA) # Here it is laid out properly
+plot(caveman_net_rewired, layout = layout.kamada.kawai(caveman_net_rewired), vertex.size = 2, vertex.label=NA) # Here it is laid out properly
+graph.density(caveman_net_rewired)
+transitivity(caveman_net_rewired)
+average.path.length(caveman_net_rewired)
+avgpathlength <- average.path.length(caveman_net) # These are the first observation
+clusteringcoefficient <- transitivity(caveman_net)
+caveman_net_rewired <- caveman_net
+iter = 100
+for ( i in 2:iter){
+caveman_net_rewired <- caveman_net_rewired %>% rewire(keeping_degseq(niter = 1))
+avgpathlength <- c(avgpathlength, average.path.length(caveman_net_rewired)) # We are just appending the result to a vector
+clusteringcoefficient <- c(clusteringcoefficient, transitivity(caveman_net_rewired))
+}
+plot(1:100, avgpathlength, xlab = "Numer of Rewirings", ylab = "Average Path Length", main = "Caveman", type = "l")
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l")
+plot(1:100, avgpathlength, xlab = "Numer of Rewirings", ylab = "Average Path Length", main = "Caveman", type = "l")
+lines(1:100, clusteringcoefficient)
+plot(1:100, avgpathlength, xlab = "Numer of Rewirings", ylab = "Average Path Length", main = "Caveman", type = "l")
+lines(1:100, clusteringcoefficient)
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l")
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l")
+caveman_net_rewired <- simulate_caveman(n = 100, clique_size = 10)
+iter = 100
+for ( i in 2:iter){
+caveman_net_rewired <- caveman_net_rewired %>% rewire(keeping_degseq(niter = 1))
+avgpathlength <- c(avgpathlength, average.path.length(caveman_net_rewired)) # We are just appending the result to a vector
+clusteringcoefficient <- c(clusteringcoefficient, transitivity(caveman_net_rewired))
+}
+plot(1:100, avgpathlength, xlab = "Numer of Rewirings", ylab = "Average Path Length", main = "Caveman", type = "l")
+avgpathlength
+avgpathlength <- average.path.length(caveman_net) # These are the first observation
+clusteringcoefficient <- transitivity(caveman_net)
+caveman_net_rewired <- simulate_caveman(n = 100, clique_size = 10)
+iter = 100
+for ( i in 2:iter){
+caveman_net_rewired <- caveman_net_rewired %>% rewire(keeping_degseq(niter = 1))
+avgpathlength <- c(avgpathlength, average.path.length(caveman_net_rewired)) # We are just appending the result to a vector
+clusteringcoefficient <- c(clusteringcoefficient, transitivity(caveman_net_rewired))
+}
+plot(1:100, avgpathlength, xlab = "Numer of Rewirings", ylab = "Average Path Length", main = "Caveman", type = "l")
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l")
+caveman_net_rewired <- simulate_caveman(n = 100, clique_size = 10)
+avgpathlength <- average.path.length(caveman_net_rewired) # These are the first observation
+clusteringcoefficient <- transitivity(caveman_net_rewired)
+iter = 100
+for ( i in 2:iter){
+caveman_net_rewired <- caveman_net_rewired %>% rewire(keeping_degseq(niter = 1))
+avgpathlength <- c(avgpathlength, average.path.length(caveman_net_rewired)) # We are just appending the result to a vector
+clusteringcoefficient <- c(clusteringcoefficient, transitivity(caveman_net_rewired))
+}
+plot(1:100, avgpathlength, xlab = "Numer of Rewirings", ylab = "Average Path Length", main = "Caveman", type = "l")
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l")
+caveman_net_rewired <- simulate_caveman(n = 1000, clique_size = 10)
+avgpathlength <- average.path.length(caveman_net_rewired) # These are the first observation
+clusteringcoefficient <- transitivity(caveman_net_rewired)
+iter = 100
+for ( i in 2:iter){
+caveman_net_rewired <- caveman_net_rewired %>% rewire(keeping_degseq(niter = 1))
+avgpathlength <- c(avgpathlength, average.path.length(caveman_net_rewired)) # We are just appending the result to a vector
+clusteringcoefficient <- c(clusteringcoefficient, transitivity(caveman_net_rewired))
+}
+plot(1:100, avgpathlength, xlab = "Numer of Rewirings", ylab = "Average Path Length", main = "Caveman", type = "l")
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l")
+caveman_net_rewired <- simulate_caveman(n = 1000, clique_size = 100)
+avgpathlength <- average.path.length(caveman_net_rewired) # These are the first observation
+clusteringcoefficient <- transitivity(caveman_net_rewired)
+iter = 100
+for ( i in 2:iter){
+caveman_net_rewired <- caveman_net_rewired %>% rewire(keeping_degseq(niter = 1))
+avgpathlength <- c(avgpathlength, average.path.length(caveman_net_rewired)) # We are just appending the result to a vector
+clusteringcoefficient <- c(clusteringcoefficient, transitivity(caveman_net_rewired))
+}
+plot(1:100, avgpathlength, xlab = "Numer of Rewirings", ylab = "Average Path Length", main = "Caveman", type = "l")
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l")
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l", ylim = c(0,100))
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l", ylim = c(0,100))
+plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l", ylim = c(0,1))
+plot(1:100, avgpathlength, xlab = "Numer of Rewirings", ylab = "Average Path Length", main = "Caveman", type = "l")
+rm(list = ls())
+library(igraph)
+simulate_caveman <- function(n = 25, clique_size = 5){
+require(igraph)
+# Groups are all the same size, so I check whether N is divisible by the size of groups
+if ( ((n%/%clique_size) * clique_size) != n){
+stop("n is not evenly divisible by clique_size")
+}
+groups = n/clique_size # this determines the number of groups
+el <- data.frame(PersonA = 1:n, Group = NA) # I create a dataframe which has people and the groups they are in
+# I treat it like a person to group edgelist
+group_vector = c()
+for (i in 1:groups){
+group_vector <- c(group_vector, rep(i, clique_size))
+}
+el$Group <- group_vector
+inc <- table(el) # I use the table function to turn the person to group edgelist into an incidence matrix
+adj <- inc %*% t(inc) # And I use matrix multiplication with the transpose to turn the person to group incidence matrix
+# into a person to person adjacency matrix
+diag(adj) <- 0
+g <- graph.adjacency(adj, mode = "undirected") # I graph this matrix
+group_connect <- seq(from = 1, to = n, by = clique_size) # I determine the points of connection using a sequence funciton
+for( i in 1:(length(group_connect)-1)){
+p1 <- group_connect[i] + 1
+p2 <- group_connect[i+1]
+g <- add.edges(g, c(p1,p2)) # And I connect the points of connection using add.edges
+}
+g <- add.edges(g, c(group_connect[1],(group_connect[groups]+1))) # finally I connect the ends of the structure so that it forms a circle
+return(g)
+}
+sim_geo = function(graph, dist_mat = geographic_dist, iter = 1000){
+densities = graph.density(graph)
+transitivities = transitivity(graph)
+path_length = average.path.length(graph)
+for (i in 1:iter){
+## select node
+sampled_node = sample(1:vcount(graph), 1)
+## delete edge
+edge_to_delete = sample(incident(graph, sampled_node),1)
+if(length(edge_to_delete) > 0){
+graph = delete.edges(graph, edge_to_delete)
+}
+## reform edge
+graph_adj = get.adjacency(graph)
+graph_adj = as.matrix(graph_adj)
+not_present = graph_adj[sampled_node,]
+not_present = ifelse(not_present == 0, 1, 0)
+probs = (1/dist_mat[sampled_node,])
+probs = probs * not_present
+probs = ifelse(is.infinite(probs), 0, probs)
+probs = probs/sum(probs)
+to_add = sample(names(probs), 1, prob = c(probs))
+graph = add_edges(graph, c(sampled_node, to_add))
+densities = c(densities, graph.density(graph))
+transitivities = c(transitivities, transitivity(graph))
+path_length = c(path_length, average.path.length(graph))
+}
+return(list(graph = graph, stats = list(Iter = 0:iter, Density = densities, Transitivity = transitivities, PathLengths = path_length)))
+}
+caveman_net <- simulate_caveman(n = 300, clique_size = 30)
+par(mar = c(2,2,2,2))
+kk_layout =  layout.kamada.kawai(caveman_net)
+plot(caveman_net, layout = kk_layout, vertex.size = 2, vertex.label = NA, vertex.color = "grey80")
+geographic_dist = as.matrix(dist(kk_layout))
+social_dist = as.matrix(distances(caveman_net, v = V(caveman_net), to = V(caveman_net)))
+trial = sim_geo(caveman_net, dist_mat = geographic_dist, iter = 500)
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 2)
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 2)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80")
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 2)
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 2)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80", border = "grey80")
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4)
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80", border = "grey80")
+triad.census(graph)
+triad.census(caveman_net)
+triad.census(caveman_net)/sum(triad.census(caveman_net))
+geographic_dist = as.matrix(dist(kk_layout))
+geographic_dist[] = 1
+geographic_dist[]
+trial = sim_geo(caveman_net, dist_mat = geographic_dist, iter = 500)
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4)
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80", border = "grey80")
+geographic_dist = as.matrix(dist(kk_layout))
+geographic_dist = geographic_dist^2
+trial = sim_geo(caveman_net, dist_mat = geographic_dist, iter = 500)
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4)
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80", border = "grey80")
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4, ylim = c(0.1))
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80", border = "grey80")
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4, ylim = c(0,1))
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80", border = "grey80")
+## distances weighted by geographic proximity
+geographic_dist = as.matrix(dist(kk_layout))
+trial = sim_geo(caveman_net, dist_mat = geographic_dist, iter = 500)
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4, ylim = c(0,1))
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80", border = "grey80")
+## distances weighted by geographic proximity squared
+geographic_dist_squared = geographic_dist^2
+trial = sim_geo(caveman_net, dist_mat = geographic_dist_squared, iter = 500)
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4, ylim = c(0,1))
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80", border = "grey80")
+## distances weighted the same
+all_ones = geographic_dist
+all_ones[] = 1
+trial = sim_geo(caveman_net, dist_mat = geographic_dist, iter = 500)
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4, ylim = c(0,1))
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80", border = "grey80")
+geographic_dist_squared = geographic_dist^10
+trial = sim_geo(caveman_net, dist_mat = geographic_dist_squared, iter = 500)
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4, ylim = c(0,1))
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+polygon(c(trial$stats$Iter,rev(trial$stats$Iter)),c(trial$stats$Transitivity/max(trial$stats$Transitivity),rev(trial$stats$PathLengths/max(trial$stats$PathLengths))),col="grey80", border = "grey80")
+geographic_dist_squared = geographic_dist^3
+trial = sim_geo(caveman_net, dist_mat = geographic_dist_squared, iter = 500)
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4, ylim = c(0,1))
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+seq(from = 1, to = 5, by = .5)
+length(seq(from = 1, to = 5, by = .5))
+seq(from = .5, to = 5, by = .5)
+par(mfrow = c(3, 3))
+for(i in seq(from = 1, to = 5, by = .5)){
+geographic_dist_squared = geographic_dist^i
+trial = sim_geo(caveman_net, dist_mat = geographic_dist_squared, iter = 500)
+plot(trial$stats$Iter, trial$stats$PathLengths/max(trial$stats$PathLengths), type = "l", col = "red", lwd = 4, ylim = c(0,1), main = paste("Exponent:", i))
+lines(trial$stats$Iter, trial$stats$Transitivity/max(trial$stats$Transitivity), type = "l", col = "blue", lwd = 4)
+}
+library(igraph)
+marriage_edgelist <- read.csv("http://www.markanthonyhoffman.com/downloads/florentine_marriage_edgelist.csv", stringsAsFactors = FALSE, row.names = 1)
+marriage_edgelist <- read.csv("http://www.markanthonyhoffman.com/downloads/florentine_marriage_edgelist.csv", stringsAsFactors = FALSE, row.names = 1)
+credit_edgelist <- read.csv("http://www.markanthonyhoffman.com/downloads/florentine_credit_edgelist.csv", stringsAsFactors = FALSE, row.names = 1)
+partner_edgelist <- read.csv("http://www.markanthonyhoffman.com/downloads/florentine_partner_edgelist.csv", stringsAsFactors = FALSE, row.names = 1)
+florentine_attributes <- read.csv("http://www.markanthonyhoffman.com/downloads/florentine_attributes.csv", stringsAsFactors = FALSE)
+florentine = list(Credit = credit_edgelist, Partner = partner_edgelist, Marriage = marriage_edgelist)
+florentine <- lapply(florentine, FUN = function(x) simplify(graph_from_data_frame(d = x, directed = F, vertices = florentine_attributes)))
+florentine = lapply(florentine, FUN = function(x) as.data.frame(as.matrix(get.adjacency(x))))
+florentine
+florentine$Credit
+florentine$Partner
+florentine$Marriage
+florentine_stacked = do.call("rbind", florentine)
+florentine_stacked
+View(florentine_stacked)
+florentine$Credit_transpose = t(florentine$Credit)
+florentine_stacked = do.call("rbind", florentine)
+florentine_cor = cor(florentine_stacked)
+library(corrplot)
+corrplot(florentine_cor, order = "hclust", tl.col = "black", tl.cex = .6)
+corrplot(florentine_cor, order = "hclust", tl.col = "black", tl.cex = .6)
+dissimilarity <- 1 - florentine_cor
+dissimilarity <- as.dist(dissimilarity)
+library(NetCluster)
+result = hclust(dissimilarity)
+n = nrow(florentine_cor)
+plot(result)
+num_clusters = 7
+plot(result)
+clusters <- cutree(result, k = num_clusters)
+cluster_cor_mat <- clusterCorr(florentine_cor, clusters)
+cluster_cor_mat <- clusterCorr(florentine_cor, clusters)
+cluster_cor_mat
+cluster_cor_mat
+florentine_split = split(florentine_stacked, c(rep(1, 116), rep(2, 116), rep(3, 116)))
+florentine_split = split(florentine_stacked, c(rep(1, 116), rep(2, 116), rep(3, 116), rep(4, 116)))
+florentine_split = lapply(florentine_split, as.matrix)
+florentine_split
+all_output = blockmodel(florentine_split, clusters, glabels = names(florentine), plabels = colnames(florentine_split[[1]]))
+plot(all_output)
+plot(all_output)
+plot(all_output[[1]])
+all_output = blockmodel(florentine_split[[1]], clusters, glabels = names(florentine), plabels = colnames(florentine_split[[1]]))
+plot(all_output)
+plot(all_output)
+all_output
+all_output = blockmodel(florentine_split, clusters, glabels = names(florentine), plabels = colnames(florentine_split[[1]]))
+all_output
+mat1 = matrix(c(1,1,0,1,0,0,1,1,1), rows = 3)
+mat1 = matrix(c(1,1,0,1,0,0,1,1,1), nrow = 3, byrow = T)
+mat1
+mat1 %*% t(mat1)
+classes_data <- data.frame(name = c("Leo", "Clement", "Palla", "Filippo"), class1 = c("Biostatistics","Islamic Civ", "Calc 1", "Linear Algebra"), class2 = c("Chemistry", "The Modern World-System", "Calc 2", "Social Networks"), class3 = c("Linear Algebra", "Exile and Diaspora", "Linear Algebra", "The Modern World-System"), stringsAsFactors = FALSE)
+classes_data <- data.frame(name = c("Leo", "Clement", "Palla", "Filippo"), class1 = c("Biostatistics","Islamic Civ", "Calc 1", "Linear Algebra"), class2 = c("Chemistry", "The Modern World-System", "Calc 2", "Social Networks"), class3 = c("Linear Algebra", "Exile and Diaspora", "Linear Algebra", "The Modern World-System"), stringsAsFactors = FALSE)
+classes_data
+# install.packages("reshape2")
+library(reshape2)
+classes_data <- melt(classes_data, measure.vars = c("class1", "class2","class3"), value.name = "classes", variable.name = "order")
+classes_data
+classes_data <- subset(classes_data, select = c("name", "classes"))
+classesMatrix = table(classes_data)
+classesMatrix
+classesMatrix
+class(classesMatrix) <- "matrix" # And we convert it from a table to a matrix
+classesNet <- graph.incidence(classesMatrix, mode = c("all"))
+plot(classesNet, vertex.label.cex = .6, vertex.label.color = "black")
+V(classesNet)$type
+V(classesNet)$shape <- ifelse(V(classesNet)$type == FALSE, "circle", "square")
+plot(classesNet,
+vertex.label.cex = .6,
+vertex.label.color = "black")
+classesMatrix
+t(classesMatrix)
+personMatrix = classesMatrix %*% t(classesMatrix)
+personMatrix
+number_of_classes_taken = diag(personMatrix)
+number_of_classes_taken
+diag(personMatrix) <- 0
+personMatrix
+plot(personMatrix, vertex.size = 5, vertex.label.cex = .5, vertex.label.color = "black")
+personNet graph.adjacency(personMatrix, mode = "undirected")
+personNet <- graph.adjacency(personMatrix, mode = "undirected")
+plot(personNet, vertex.size = 5, vertex.label.cex = .5, vertex.label.color = "black")
+plot(personNet, vertex.size = 8, vertex.label.cex = .8, vertex.label.color = "black")
+groupMatrix = t(classesMatrix) %*% classesMatrix
+groupMatrix
+number_of_shared_students <- diag(groupMatrix)
+number_of_students <- diag(groupMatrix)
+number_of_students
+diag(groupMatrix) <- 0 # we again set it to 0
+groupNet <- graph.adjacency(groupMatrix, mode = "undirected")
+plot(groupNet, vertex.label.cex = .6, vertex.label.color = "black")
+plot(groupNet, vertex.size = betweenness(groupNet)/max(betweenness(groupNet)) * 10, vertex.label.cex = .6, vertex.label.color = "black")
+betweenness(groupNet)
+groupNet <- graph.adjacency(groupMatrix, mode = "undirected")
+betweenness(groupNet)
+detach(packages:sna)
+detach(package:sna)
+detach(package:NetCluster)
+detach(package:sna)
+plot(groupNet, vertex.size = betweenness(groupNet)/max(betweenness(groupNet)) * 10, vertex.label.cex = .6, vertex.label.color = "black")
+list.files("~/gh_repos/neanderthal/gwas_summary_stats")
+genotype = read.csv("~/Desktop/genotype_map.csv", header = F)
+files_to_fix = list.files("~/gh_repos/neanderthal/gwas_summary_stats")
+i = files_to_fix[1]
+read.table(i)
+files_to_fix = paste0("~/gh_repos/neanderthal/gwas_summary_stats/",list.files("~/gh_repos/neanderthal/gwas_summary_stats"))
+files_to_fix
+i = files_to_fix[1]
+read.table(i)
+read.table(i, fill = T)
+sum_stats = read.table(i, fill = T)
+sum_stats[425702,]
+sum_stats[425701,]
+sum_stats[425700,]
+sum_stats[425702,8]
+sum(sum_stats[,8] == "")
+sum_stats = subset(sum_stats, sum_stats$V8 != "")
+head(sum_stats$V1)
+neanderthal = read.table("~/Desktop/neanderthal_snps_list.txt", header = T)
+neanderthal$id
+neanderthal$snp
+neanderthal$id = gsub("[^0-9]","",neanderthal$snp)
+neanderthal$id
+neanderthal$snp
+neanderthal$new_id = ifelse(neanderthal$id %in% genotype$V4, genotype$V3[match(neanderthal$id, genotype$V4)], NA)
+neanderthal$new_id
+head(sum_stats$SNP)
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+sum_stats = subset(sum_stats, sum_stats$Pvalue != "")
+sum_stats$id = gsub("[^0-9]","",sum_stats$SNP)
+head(sum_stats$id)
+head(sum_stats$SNP)
+i
+new_name = strsplit(i, ".")
+new_name
+new_name = strsplit(i, "\.")
+new_name = strsplit(i, "\\.")
+new_name
+new_name = strsplit(i, "\\.")[1]
+new_name
+new_name = strsplit(i, "\\.")[[1]]
+new_name
+new_name = strsplit(i, "\\.")[[1]][1]
+head(sum_stats$SNP )
+sum_stats$SNP = ifelse(sum_stats$id %in% genotype$V4, genotype$V3[match(sum_stats$id, genotype$V4)], NA)
+head(sum_stats$SNP)
+sum_stats$id
+genotype$V4
+sum_stats$id %in% genotype$V4
+sum_stats$id
+genotype$V4
+View(genotype)
+sum_stats$id
+sum(is.na(sum_stats))
+sum(is.na(sum_stats$SNP))
+nrow(sum_stats)
+sum(is.na(sum_stats$SNP))/nrow(sum_stats)
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+sum_stats = subset(sum_stats, sum_stats$Pvalue != "")
+sum_stats$id = gsub("[^0-9]","",sum_stats$SNPID)
+sum_stats$id
+sum_stats$id %in% genotype$V4
+sum(sum_stats$id %in% genotype$V4 == F)
+i = files_to_fix[2]
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+genotype$V4
+sum_stats$id
+sum_stats = subset(sum_stats, sum_stats$Pvalue != "")
+sum_stats$id
+sum_stats$SNPID
+nrow(sum_stats)
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+colnames(sum_stats)
+sum_stats$SNPID
+sum_stats$id = gsub("[^0-9]","", sum_stats$SNPID)
+genotype$V4
+sum_stats$id %in% genotype$V4
+sum_stats$id %in% genotype$V3
+sum(sum_stats$id %in% genotype$V3)
+sum(sum_stats$id %in% genotype$V4)
+sum(sum_stats$id %in% genotype$V4)/nrow(sum_stats)
+files_to_fix[2]
+files_to_fix[3]
+i = files_to_fix[3]
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+sum_stats$id = gsub("[^0-9]","", sum_stats$SNPID)
+sum(sum_stats$id %in% genotype$V3)/nrow(sum_stats)
+sum_stats$id
+sum_stats$SNPID
+genotype$V3
+genotype$V3
+sum(sum_stats$id %in% genotype$V3)
+sum(sum_stats$id %in% genotype$V4)
+sum_stats$SNP = ifelse(sum_stats$id %in% genotype$V4, genotype$V3[match(sum_stats$id, genotype$V4)], NA)
+sum(is.na(sum_stats$SNP))
+genotype = read.csv("~/Desktop/genotype_map_larger.csv", stringsAsFactors = F, header = T)
+genotype = read.csv("~/gh_repos/neanderthal/genotype_map_larger.csv", stringsAsFactors = F, header = T)
+colnames(genotype)
+head(genotype$dbSNP.RS.ID)
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+sum_stats$id = gsub("[^0-9]","", sum_stats$SNPID)
+sum_stats$SNPID %in% genotype$dbSNP.RS.ID
+sum(sum_stats$SNPID %in% genotype$dbSNP.RS.ID)
+length(genotype$dbSNP.RS.ID)
+length(sum_stats$SNPID)
+sum_stats$SNPID %in% genotype$dbSNP.RS.ID
+sum(sum_stats$SNPID %in% genotype$dbSNP.RS.ID)
+sum(sum_stats$SNPID %in% genotype$dbSNP.RS.ID)/nrow(sum_stats)
+sum_stats$SNPID = ifelse(sum_stats$SNPID %in% genotype$dbSNP.RS.ID, genotype$Affy.SNP.ID[match(sum_stats$SNPID, genotype$dbSNP.RS.ID)], NA)
+sum_stats = sum_stats[,1:8]
+colnames(sum_stats)
+original_max = ncol(sum_stats)
+original_max
+original_max = original_max-1
+sum_stats = sum_stats[,1:original_max]
+i
+i = files_to_fix[[1]]
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+original_max = ncol(sum_stats)
+sum_stats$SNPID
+sum_stats$SNPID = ifelse(sum_stats$SNPID %in% genotype$dbSNP.RS.ID, genotype$Affy.SNP.ID[match(sum_stats$SNPID, genotype$dbSNP.RS.ID)], NA)
+sum_stats = sum_stats[,1:original_max]
+sum_stats$SNPID
+mean(is.na(sum_stats$SNPID))
+nrow(genotype)
+sum_stats = subset(sum_stats, is.na(sum_stats$SNPID) == F)
+nrow(sum_stats)
+sum_stats$SNPID
+sum_stats$SNPID = ifelse(sum_stats$SNPID %in% genotype$dbSNP.RS.ID, genotype$Affy.SNP.ID[match(sum_stats$SNPID, genotype$dbSNP.RS.ID)], NA)
+sum_stats = sum_stats[,1:original_max]
+sum_stats
+sum_stats = subset(sum_stats, is.na(sum_stats$SNPID) == F)
+nrow(sum_stats)
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+sum_stats$SNPID %in% genotype$dbSNP.RS.ID
+any(sum_stats$SNPID %in% genotype$dbSNP.RS.ID)
+match(sum_stats$SNPID, genotype$dbSNP.RS.ID)
+ifelse(sum_stats$SNPID %in% genotype$dbSNP.RS.ID, genotype$Affy.SNP.ID[match(sum_stats$SNPID, genotype$dbSNP.RS.ID)], NA)
+sum_stats$SNPID = ifelse(sum_stats$SNPID %in% genotype$dbSNP.RS.ID, genotype$Affy.SNP.ID[match(sum_stats$SNPID, genotype$dbSNP.RS.ID)], NA)
+is.na(sum_stats$SNPID)
+sum_stats = subset(sum_stats, is.na(sum_stats$SNPID) == F)
+nrow(sum_stats)
+is.na(sum_stats$SNPID) == F
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+original_max = ncol(sum_stats)
+sum_stats$SNPID = ifelse(sum_stats$SNPID %in% genotype$dbSNP.RS.ID, genotype$Affy.SNP.ID[match(sum_stats$SNPID, genotype$dbSNP.RS.ID)], NA)
+is.na(sum_stats$SNPID) == F
+sum_stats = sum_stats[is.na(sum_stats$SNPID) == F,]
+nrow(sum_stats)
+unique(sum_stats$SNPID)
+new_name = strsplit(i, "\\.")[[1]][1]
+for(i in files_to_fix){
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+original_max = ncol(sum_stats)
+sum_stats$SNPID = ifelse(sum_stats$SNPID %in% genotype$dbSNP.RS.ID, genotype$Affy.SNP.ID[match(sum_stats$SNPID, genotype$dbSNP.RS.ID)], NA)
+sum_stats = sum_stats[is.na(sum_stats$SNPID) == F,]
+new_name = strsplit(i, "\\.")[[1]][1]
+write.table(sum_stats, paste0(new_name, "_Fixed.txt"), quote = F, sep = "\t")
+rm(list = "sumstats")
+}
+sum_stats[,1] = ifelse(sum_stats[,1] %in% genotype$dbSNP.RS.ID, genotype$Affy.SNP.ID[match(sum_stats[,1], genotype$dbSNP.RS.ID)], NA)
+for(i in files_to_fix){
+sum_stats = read.table(i, fill = T, stringsAsFactors = F, header = T)
+original_max = ncol(sum_stats)
+sum_stats[,1] = ifelse(sum_stats[,1] %in% genotype$dbSNP.RS.ID, genotype$Affy.SNP.ID[match(sum_stats[,1], genotype$dbSNP.RS.ID)], NA)
+sum_stats = sum_stats[is.na(sum_stats[,1]) == F,]
+new_name = strsplit(i, "\\.")[[1]][1]
+write.table(sum_stats, paste0(new_name, "_Fixed.txt"), quote = F, sep = "\t")
+rm(list = "sumstats")
+}
+warnings()
+rm(list = ls())

@@ -1,0 +1,327 @@
+---
+output: html_document
+---
+
+# Positional analysis in networks
+
+This tutorial covers positional analysis in networks. Positional analysis seeks to identify actors or groups of actors who occupy similar positions or roles in a network. Nodes are therefore not grouped because they share more connections with each other than with other nodes in the network, as in modularity-based community or group detection, but rather because they share similar, or even precisely the same, *patterns* of relations. These positions might be though of as roles - in so far as people who occupy similar positions also perform similar functions for the graph - though this need not be the case. 
+
+However, compared to many of the other strategies we have so far seen for grouping and comparing nodes, positional analysis is particularly fraught with difficulty. It relies on one being able to identify which nodes are structurally equivalent, or more specifically, which nodes have identical or similar sets of relations across all other actors in a graph. This would be easy if we just wanted to know if two nodes shared the same exact set of relations - we could just calculate how different their relations are over the other nodes in the network and identify those pairs of nodes who have precisely the relations - but this exact form of equivalence is, in the real world, quite rare. In practice, we are interested in a more generalized notion of structural equivalence, one in which nodes are seen as sharing a position or role not when they have relations with the exact same people, but rather when they share patterns of relations that are generally similar. 
+
+There are a number of strategies for identifying roles or positions in a network. Here, we cover three such strategies: 1) CONCOR, which evaluates approximate structural equivalence to identify positions, 2) stochastic block modeling, which uses a more relaxed notion of stochastic equivalence to identify positions, and 3) feature-based strategies for learning roles in a network. 
+
+Block modeling of this sort is not implemented in igraph, so for much of this tutorial, we will have to rely on our own code. 
+
+## Toy data
+
+Let's make a toy network, where structurally equivalent nodes are easy to identify by eye, against which we can compare the different methods. 
+
+```{r}
+library(igraph)
+el <- data.frame(Ego = c("Q", "Q", "Q", "A", "B", "C", "C", "C", "D", "D", "D"), Alter = c("P", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"))
+
+net <- graph.edgelist(as.matrix(el), directed = T)
+```
+
+What does the network look like? Let's plot it, and color nodes by their equivalence class.
+```{r echo = F}
+set.seed(3)
+true_class <- c(1, 2, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5)
+```
+
+```{r}
+layout_save <- layout_with_fr(net)
+plot(net, vertex.color = true_class, 
+     vertex.label.color = "white", 
+     layout = layout_save)
+```
+
+## Structural equivalence
+
+Let's begin with an exact measure of structural equivalence - two nodes will be deemed structurally equivalent if they have precisely the same set of relations across all other nodes in the network. To evaluate this, we could simply identify which nodes have exactly the same set of neighbors, or using a matrix, take the absolute difference in row values for two nodes. 
+
+We extract the adjacency matrix.
+```{r}
+adj_mat <- as.matrix(as_adj(net))
+```
+
+Here is an example for nodes Q and A. 
+```{r}
+a_row <- adj_mat["Q", !colnames(adj_mat) %in% c("Q", "A")]
+b_row <- adj_mat["A", !colnames(adj_mat) %in% c("Q", "A")]
+
+# equivalent?
+sum(abs(a_row-b_row))
+```
+
+The sum of their absolute differences greater than 0, so we would say they are not precisely equivalent. Let's extrapolate to every pair of nodes in the network with a function.
+
+```{r}
+perfect_equivalence <- function(mat){
+  # make an empty version of the matrix where we will store equivalence values
+  matrix_vals <- mat
+  matrix_vals[] <- 0
+  # loop over the actors in the network, comparing pair-wise their values 
+  for(i in 1:nrow(mat)){
+    for(j in 1:nrow(mat)){
+      a_row <- mat[i, c(-i, -j)]
+      b_row <- mat[j, c(-i, -j)]
+      abs_diff <- sum(abs(a_row-b_row)) # take sum of absolute differences 
+      matrix_vals[i,j] <- abs_diff
+    }
+  }
+  # return results
+  return(matrix_vals)
+}
+```
+Now we apply the function to our network/matrix. What do you see?
+```{r}
+structurally_equivalent <- perfect_equivalence(adj_mat)
+structurally_equivalent
+```
+
+Let's convert this distance matrix to a similarity matrix.
+```{r}
+structurally_equivalent_sim <- 1-(structurally_equivalent/max(structurally_equivalent))
+```
+
+We can now cluster this similarity matrix to identify sets of similar actors using k-means, for example. If we set the number of clusters equal to 6, it will pull out the set of actors who have precisely the same relations. If we set it equal to 5 or 4, it will show us actors who are proximately similar. 
+
+```{r}
+group_ids_6 <- kmeans(structurally_equivalent_sim, centers = 6)
+group_ids_5 <- kmeans(structurally_equivalent_sim, centers = 5)
+```
+
+How close do we get? 
+```{r}
+plot(net, 
+     vertex.color = group_ids_5$cluster, 
+     layout = layout_save)
+```
+
+```{r}
+plot(net, 
+     vertex.color = group_ids_6$cluster, 
+     layout = layout_save)
+```
+
+Close, but there is a problem. This strategy appears to treat C and D as occupying different positions. Why is that? Well, it has to do with our strict definition of structural equivalence - which relies on comparing the precise set of actors that each node is connected to. As a result, our method is confusing similarity with closeness, and as a result, it turns out, nodes that we deem structurally equivalent can never be more than two steps away from one another.
+
+## Block Modeling with CONCOR
+
+Before we deal with our definitional problem, let's work through the CONCOR algorithm, introduced by Breiger et al. and made use of by White, Boorman, and Breiger in their seminal paper, **Social Structure from Multiple Networks. I. Blockmodels of Roles and Positions**. This method relies a similar definition of equivalence as the one outlined above - it identifies structurally equivalent nodes through correlating their relation sets - but because it uses correlation, and implements the stacking of matrices, it allows one to produce a block model of multiple relations simultaneously. 
+
+CONCOR measures structural equivalence using correlation (that is, we measure the similarity between people in terms of the pattern of their relations). The cor function measures correlation.
+```{r}
+net_mat <- as.matrix(get.adjacency(net))
+net_cor = cor(net_mat)
+net_cor[] <- ifelse(is.na(net_cor[]), 0, net_cor[])
+```
+
+The key insight of CONCOR is that, by repeatedly running correlation on the results of this initial correlation, the data will eventually converge to only -1s and 1s. Let's try 100 times and see how it goes.
+
+```{r}
+net_concor <- net_cor
+for(i in 1:200){
+  net_concor <- cor(net_concor)
+}
+```
+
+How does it look? It appears to have converged!
+```{r}
+range(net_concor)
+```
+
+Now what? First, we identify people who have 1s vs. -1s and group them together. These are our initial blocks, for a 2 block solution.
+```{r}
+group <- net_concor[, 1] > 0
+```
+
+We can split the original data into each of the respective groups.
+```{r}
+split_results <- list(net_mat[, names(group[group])], net_mat[, names(group[!group])])
+```
+
+Now, if we want we can run the same thing above again, on each of the groups. 
+```{r}
+cor_many_times <- function(x, times = 1000){
+  for(i in 1:times){
+    x <- cor(x)
+    if(sd(x, na.rm = T) == 0){
+      return(x)
+    } else {
+      x[] <- ifelse(is.na(x[]), 0, x[])
+    }
+  }
+  return(x)
+}
+
+split_results_corred <- lapply(split_results, cor_many_times)
+groups_2 <- lapply(split_results_corred, function(x) x[, 1] > 0)
+
+split_results_again <- lapply(groups_2, 
+                                     function(x)  list(net_mat[, names(x[x])], net_mat[, names(x[!x])]))
+
+split_results_again <- unlist(split_results_again, recursive = F)
+
+final_blocks <- lapply(split_results_again, colnames)
+final_blocks
+```
+
+We can also plot the result using the blockmodel() function from the sna package (part of statnet).
+```{r}
+clusters <- lapply(1:length(final_blocks), function(x) rep(x, length(final_blocks[[x]])))
+clusters <- unlist(clusters)
+names(clusters) = unlist(final_blocks)
+clusters <- clusters[colnames(net_mat)]
+
+all_output = sna::blockmodel(net_mat, 
+                             clusters, 
+                             glabels = "Feudal Network", 
+                             plabels = colnames(net_mat))
+plot(all_output)
+```
+
+Here is the plot of the graph, where nodes are colored by position.
+```{r}
+plot(net, vertex.color = clusters)
+```
+
+Not very good!
+
+## Isomorphic local graphs
+CONCOR allows us to apply our structural equivalence routine across many relations simultaneously, but it doesn't quite solve the issue of how to identify actors who are precise structural equivalents. First, we could try to relax the condition that nodes be tied to precisely the same set of nodes by defining them as structurally equivalent as long as their local neighborhoods (set to include nodes n steps away) are automorphic. The underlying algorithm, bliss, essentially permutes the matrices of the two networks it is comparing to see if, under any of the different permutations, the two matrices are equivalent. Since the matrices are being permuted, we are ignoring node labels (i.e. node ids) and focusing instead on the structure of their relations. 
+
+First, we select neighborhood size. For now, we set it to 2.
+```{r}
+steps = 2
+```
+
+Next, we extract each node's 2-step neighborhood using igraph's handy make_ego_graph() function. 
+```{r}
+local_graphs <- make_ego_graph(net, order = steps)
+```
+
+Then, we loop through the different local neighborhoods and evaluate whether they are automorphic, saving the result in a matrix. We convert the matrix (which is logical) to a numeric matrix (so that TRUE = 1 and FALSE = 0), and set the diagonal to 0. 
+```{r}
+iso_mat <- matrix(FALSE, nrow = length(local_graphs), ncol = length(local_graphs))
+for(i in 1:length(local_graphs)){
+  for(j in 1:length(local_graphs)){
+    iso_mat[i,j] <- isomorphic(local_graphs[[i]], local_graphs[[j]])
+  }
+}
+
+iso_mat[] <- as.numeric(iso_mat[])
+diag(iso_mat) = 0
+```
+
+We then cluster the resulting matrix in order to identify nodes who share isomorphic neighborhoods, using a network clustering strategy. 
+```{r}
+clusters_iso <- cluster_louvain(graph.adjacency(iso_mat, mode = "undirected"))
+```
+
+Let's plot the result.
+```{r}
+plot(net, 
+     vertex.color = membership(clusters_iso), 
+     layout = layout_save )
+```
+
+Wow, it worked! By relaxing the assumption that structurally equivalent nodes are tied to the same precise set of nodes, we get better results.. So why not just this strategy all the time?
+
+There are a couple of reasons. First, evaluating whether two neighborhoods are isomorphic is easy and quick when neighborhoods are small, but very soon becomes computationally costly (prohibitively so) as they grow. Also, this strategy is highly sensitive to missing data - if one of edge is missing or randomly rewired, then the two neighborhoods won't be viewed as isomorphic.
+
+So.. let's relax our assumptions even further. 
+
+## Stochastic Block Models (SBMs)
+
+Now that we can identify blocks using featurs, CONCOR and a relatively strict measure of structural equivalence, let's try to generalize our measure of equivalence even further. One such generalization is that rather than sharing the same set of nodes, actors that share a role or position will have the same probability of being attached to all other alters in the network. Under this operationalization, equivalence is not absolute, but probabilistic (and hence, stochastic).
+
+Stochastic block models are quite difficult to program, but thankfully, there is already an R package which can fit them to data, blockmodels. Let's install it.
+
+```{r eval = F}
+install.packages("blockmodels")
+```
+
+And load it into R.
+```{r}
+library(blockmodels)
+```
+
+Here we run an SBM on just the marriage network.
+```{r message=F}
+sbm_out <- BM_bernoulli("SBM", 
+                             net_mat, 
+                             verbosity = 3, 
+                             plotting = "",
+                             exploration_factor = 5) # run a bernoulli block model on the feudal matrix. 
+# bernoulli is for when your edge weights are binary
+# poisson is for when your edge weights are counts
+# gaussian (i.e. normal distribution) is for when your edge weights are continuous variables
+
+# estimate the result
+sbm_out$estimate()
+```
+
+Now we can extract the role assignments (which are probabilistic).
+```{r}
+best_fit_assignments <- sbm_out$memberships[[which.min(sbm_out$ICL)]] # extract the fit which is best according to ICL (Integrated Completed Likelihood), a measure for selecting the best model
+head(best_fit_assignments$Z) # probabilities of belonging to each group
+class_assignments <- apply(best_fit_assignments$Z, 1, which.max) # identify which column as the highest value for each node (row)
+```
+
+And we can plot the results, just like before, using the blockmodel function from sna
+```{r}
+sbm_output = sna::blockmodel(net_mat, 
+                             class_assignments, 
+                             glabels = "Feudal", 
+                             plabels = colnames(net_mat))
+
+plot(sbm_output)
+plot(net, vertex.color = class_assignments)
+```
+
+Pretty bad too... it seems to just be picking up degree (or something close to it).
+
+## Feature-based strategies
+
+Finally, an idea which is currently being used in computer science is to capture features for nodes to classify them into kinds of roles and positions depending on that feature set. For example, we could measure nodes' centralities, the motifs in their local neighborhoods (i.e. triangles/MAN), their average distance from other nodes, etc. and then cluster them according to those features. In a sense, this assumes the least about the data and also is most feasible for large graphs (since such features are usually computationally trivial to measure). Here is a quick example:
+
+```{r}
+# this function limits the network to a given node's neighborhood (defined n-steps away) and then runs the triad census on that neighborhood.
+local_man <- function(net, vertex_name, steps = 2){
+  n_steps <- ego(net, order = steps, vertex_name, mode = "out")[[1]]
+  subnet <- igraph::delete.vertices(net, !V(net) %in% n_steps)
+  local_triad_count <- igraph::triad.census(subnet)
+  return(local_triad_count)
+}
+
+onestep_triad_counts <- lapply(V(net)$name, FUN = function(x) local_man(net, x, steps = 1))
+twostep_triad_counts <- lapply(V(net)$name, FUN = function(x) local_man(net, x, steps = 2))
+threestep_triad_counts <- lapply(V(net)$name, FUN = function(x) local_man(net, x, steps = 3))
+
+onestep_triad_counts <- do.call("rbind", onestep_triad_counts)
+twostep_triad_counts <- do.call("rbind", twostep_triad_counts)
+threestep_triad_counts <- do.call("rbind", threestep_triad_counts)
+
+# different centrality measures
+indegrees <- igraph::degree(net, mode = "in")
+outdegrees <- igraph::degree(net, mode = "out")
+
+# average distance with other nodes
+average_distances <- rowMeans(distances(net))
+
+# put them all together
+graph_features <- cbind(onestep_triad_counts, twostep_triad_counts, threestep_triad_counts, indegrees, outdegrees, average_distances)
+
+# run kmeans on the resulting dataset
+cluster_ids <- kmeans(graph_features, 5)$cluster
+
+# plot the results
+plot(net, vertex.color = cluster_ids)
+```
+
+Pretty good! Of course, we knew the number of roles (k) beforehand. There are algorithms for choosing k if it is not known. This strategy can be very dependent on the set of features you include. 
+
+
+## Lab: Try these different strategies on a real graph of your choosing (go with smaller networks) and compare the different results using correlation. Which methods perform similarly? Do the roles that they identify look meaningful? Plot the network coloring the nodes by role.

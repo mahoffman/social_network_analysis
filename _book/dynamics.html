@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>18 Dynamics | Methods for Network Analysis</title>
+  <meta name="description" content="18 Dynamics | Methods for Network Analysis" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="18 Dynamics | Methods for Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="18 Dynamics | Methods for Network Analysis" />
+  
+  
+  
+
+<meta name="author" content="Mark Hoffman" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="culture-and-networks.html"/>
+
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Course</a></li>
+<li class="chapter" data-level="1" data-path="reading-list.html"><a href="reading-list.html"><i class="fa fa-check"></i><b>1</b> Reading List</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="reading-list.html"><a href="reading-list.html#week-1-beg.-september-20th-introductions-and-introduction-to-r"><i class="fa fa-check"></i><b>1.0.1</b> Week 1 (beg. September 20th): Introductions and Introduction to R</a></li>
+<li class="chapter" data-level="1.0.2" data-path="reading-list.html"><a href="reading-list.html#week-2-beg.-september-27th-types-of-networks"><i class="fa fa-check"></i><b>1.0.2</b> Week 2 (beg. September 27th): Types of networks</a></li>
+<li class="chapter" data-level="1.0.3" data-path="reading-list.html"><a href="reading-list.html#week-3-beg.-october-4th-triads-balance-and-hierarchy"><i class="fa fa-check"></i><b>1.0.3</b> Week 3 (beg. October 4th): Triads, Balance and Hierarchy</a></li>
+<li class="chapter" data-level="1.0.4" data-path="reading-list.html"><a href="reading-list.html#week-4-beg.-october-11th-centrality-power-and-inequality"><i class="fa fa-check"></i><b>1.0.4</b> Week 4 (beg. October 11th): Centrality, Power, and Inequality</a></li>
+<li class="chapter" data-level="1.0.5" data-path="reading-list.html"><a href="reading-list.html#week-5-beg.-october-18th-connectivity-and-the-small-world-problem"><i class="fa fa-check"></i><b>1.0.5</b> Week 5 (beg. October 18th): Connectivity and the Small World Problem</a></li>
+<li class="chapter" data-level="1.0.6" data-path="reading-list.html"><a href="reading-list.html#week-6-beg.-october-25th-groups-communities-and-homophily"><i class="fa fa-check"></i><b>1.0.6</b> Week 6 (beg. October 25th): Groups, Communities, and Homophily</a></li>
+<li class="chapter" data-level="1.0.7" data-path="reading-list.html"><a href="reading-list.html#week-7-beg.-november-1st-categories-and-positions"><i class="fa fa-check"></i><b>1.0.7</b> Week 7 (beg. November 1st): Categories and Positions</a></li>
+<li class="chapter" data-level="1.0.8" data-path="reading-list.html"><a href="reading-list.html#week-8-beg.-november-8th-networks-from-culture-and-culture-from-networks"><i class="fa fa-check"></i><b>1.0.8</b> Week 8 (beg. November 8th): Networks from Culture and Culture from Networks</a></li>
+<li class="chapter" data-level="1.0.9" data-path="reading-list.html"><a href="reading-list.html#week-9-beg.-november-15th-dynamics-and-diffusion"><i class="fa fa-check"></i><b>1.0.9</b> Week 9 (beg. November 15th): Dynamics and Diffusion</a></li>
+<li class="chapter" data-level="1.0.10" data-path="reading-list.html"><a href="reading-list.html#week-9-and-34-thanksgiving"><i class="fa fa-check"></i><b>1.0.10</b> Week 9 and 3/4: Thanksgiving!</a></li>
+<li class="chapter" data-level="1.0.11" data-path="reading-list.html"><a href="reading-list.html#week-10-beg.-november-29th-presentations-of-research"><i class="fa fa-check"></i><b>1.0.11</b> Week 10 (beg. November 29th): Presentations of Research</a></li>
+<li class="chapter" data-level="1.0.12" data-path="reading-list.html"><a href="reading-list.html#december-11th-final-papers-are-due."><i class="fa fa-check"></i><b>1.0.12</b> December 11th: Final papers are due.</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>2</b> Installing R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-r"><i class="fa fa-check"></i><b>2.1</b> Downloading and Installing R</a></li>
+<li class="chapter" data-level="2.2" data-path="installing-r-and-rstudio.html"><a href="installing-r-and-rstudio.html#downloading-and-installing-rstudio"><i class="fa fa-check"></i><b>2.2</b> Downloading and Installing RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tour-rstudio-with-udacity.html"><a href="tour-rstudio-with-udacity.html"><i class="fa fa-check"></i><b>3</b> Tour RStudio with Udacity</a></li>
+<li class="chapter" data-level="4" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-basics.html"><a href="r-basics.html#vectors-matrices-and-data.frames"><i class="fa fa-check"></i><b>4.1</b> Vectors, matrices and data.frames</a></li>
+<li class="chapter" data-level="4.2" data-path="r-basics.html"><a href="r-basics.html#indexing-and-subsetting"><i class="fa fa-check"></i><b>4.2</b> Indexing and Subsetting</a></li>
+<li class="chapter" data-level="4.3" data-path="r-basics.html"><a href="r-basics.html#loading-packages"><i class="fa fa-check"></i><b>4.3</b> Loading Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html"><i class="fa fa-check"></i><b>5</b> Understanding network data structures</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#edge-lists"><i class="fa fa-check"></i><b>5.1</b> Edge lists</a></li>
+<li class="chapter" data-level="5.2" data-path="understanding-network-data-structures.html"><a href="understanding-network-data-structures.html#adjacency-matrices"><i class="fa fa-check"></i><b>5.2</b> Adjacency matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="your-first-network.html"><a href="your-first-network.html"><i class="fa fa-check"></i><b>6</b> Your First Network</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="your-first-network.html"><a href="your-first-network.html#creating-a-project"><i class="fa fa-check"></i><b>6.1</b> Creating a project</a></li>
+<li class="chapter" data-level="6.2" data-path="your-first-network.html"><a href="your-first-network.html#creating-data-in-excel"><i class="fa fa-check"></i><b>6.2</b> Creating data in Excel</a></li>
+<li class="chapter" data-level="6.3" data-path="your-first-network.html"><a href="your-first-network.html#saving-excel-data-as-a-.csv-file"><i class="fa fa-check"></i><b>6.3</b> Saving Excel data as a .csv file</a></li>
+<li class="chapter" data-level="6.4" data-path="your-first-network.html"><a href="your-first-network.html#loading-data-into-r"><i class="fa fa-check"></i><b>6.4</b> Loading data into R</a></li>
+<li class="chapter" data-level="6.5" data-path="your-first-network.html"><a href="your-first-network.html#from-data-to-networks"><i class="fa fa-check"></i><b>6.5</b> From data to networks</a></li>
+<li class="chapter" data-level="6.6" data-path="your-first-network.html"><a href="your-first-network.html#exploring-your-network"><i class="fa fa-check"></i><b>6.6</b> Exploring your network</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>7</b> Network Visualization and Aesthetics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#the-basics"><i class="fa fa-check"></i><b>7.1</b> The Basics</a></li>
+<li class="chapter" data-level="7.2" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#layouts"><i class="fa fa-check"></i><b>7.2</b> Layouts</a></li>
+<li class="chapter" data-level="7.3" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>7.3</b> Adding attributes to a network object</a></li>
+<li class="chapter" data-level="7.4" data-path="network-visualization-and-aesthetics.html"><a href="network-visualization-and-aesthetics.html#plotting-based-on-attributes"><i class="fa fa-check"></i><b>7.4</b> Plotting based on attributes</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ego-networks.html"><a href="ego-networks.html"><i class="fa fa-check"></i><b>8</b> Ego Networks</a></li>
+<li class="chapter" data-level="9" data-path="calculating-network-size-and-density.html"><a href="calculating-network-size-and-density.html"><i class="fa fa-check"></i><b>9</b> Calculating Network Size and Density</a></li>
+<li class="chapter" data-level="10" data-path="affiliation-data.html"><a href="affiliation-data.html"><i class="fa fa-check"></i><b>10</b> Affiliation Data</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="affiliation-data.html"><a href="affiliation-data.html#unipartite-projection"><i class="fa fa-check"></i><b>10.0.1</b> Unipartite Projection</a></li>
+<li class="chapter" data-level="10.1" data-path="affiliation-data.html"><a href="affiliation-data.html#tripartite-network-analysis"><i class="fa fa-check"></i><b>10.1</b> Tripartite network analysis?</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="affiliation-data.html"><a href="affiliation-data.html#lab"><i class="fa fa-check"></i><b>10.1.1</b> Lab</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html"><i class="fa fa-check"></i><b>11</b> Transitivity, structural balance, and hierarchy</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-dyad"><i class="fa fa-check"></i><b>11.1</b> The Dyad</a></li>
+<li class="chapter" data-level="11.2" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#generating-a-random-graph-for-comparison"><i class="fa fa-check"></i><b>11.2</b> Generating a random graph for comparison</a></li>
+<li class="chapter" data-level="11.3" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#the-triad"><i class="fa fa-check"></i><b>11.3</b> The Triad</a></li>
+<li class="chapter" data-level="11.4" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#calculating-a-triad-census"><i class="fa fa-check"></i><b>11.4</b> Calculating a triad census</a></li>
+<li class="chapter" data-level="11.5" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#random-graphs-galore"><i class="fa fa-check"></i><b>11.5</b> Random graphs galore!</a></li>
+<li class="chapter" data-level="11.6" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#producing-a-tau-statistic"><i class="fa fa-check"></i><b>11.6</b> Producing a tau statistic</a></li>
+<li class="chapter" data-level="11.7" data-path="transitivity-structural-balance-and-hierarchy.html"><a href="transitivity-structural-balance-and-hierarchy.html#banning-triads"><i class="fa fa-check"></i><b>11.7</b> Banning triads</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="centrality.html"><a href="centrality.html"><i class="fa fa-check"></i><b>12</b> Centrality</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="centrality.html"><a href="centrality.html#loading-the-example-network"><i class="fa fa-check"></i><b>12.0.1</b> Loading the example network</a></li>
+<li class="chapter" data-level="12.0.2" data-path="centrality.html"><a href="centrality.html#degree-centrality"><i class="fa fa-check"></i><b>12.0.2</b> Degree Centrality</a></li>
+<li class="chapter" data-level="12.0.3" data-path="centrality.html"><a href="centrality.html#betweenness-centrality"><i class="fa fa-check"></i><b>12.0.3</b> Betweenness Centrality</a></li>
+<li class="chapter" data-level="12.0.4" data-path="centrality.html"><a href="centrality.html#closeness-centrality"><i class="fa fa-check"></i><b>12.0.4</b> Closeness Centrality</a></li>
+<li class="chapter" data-level="12.1" data-path="centrality.html"><a href="centrality.html#eigenvector-centrality"><i class="fa fa-check"></i><b>12.1</b> Eigenvector Centrality</a></li>
+<li class="chapter" data-level="12.2" data-path="centrality.html"><a href="centrality.html#bonacich-centrality"><i class="fa fa-check"></i><b>12.2</b> Bonacich Centrality</a></li>
+<li class="chapter" data-level="12.3" data-path="centrality.html"><a href="centrality.html#page-rank"><i class="fa fa-check"></i><b>12.3</b> Page Rank</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="centrality.html"><a href="centrality.html#measure-correlations"><i class="fa fa-check"></i><b>12.3.1</b> Measure Correlations</a></li>
+<li class="chapter" data-level="12.3.2" data-path="centrality.html"><a href="centrality.html#centralization-and-degree-distributions"><i class="fa fa-check"></i><b>12.3.2</b> Centralization and Degree Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="centrality.html"><a href="centrality.html#distance-weighted-reach"><i class="fa fa-check"></i><b>12.4</b> Distance weighted reach</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html"><i class="fa fa-check"></i><b>13</b> Bridges, Holes, the Small World Problem, and Simulation</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#its-a-small-world-after-all."><i class="fa fa-check"></i><b>13.1</b> It’s a small world after all.</a></li>
+<li class="chapter" data-level="13.2" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#measuring-connectivity-of-networks"><i class="fa fa-check"></i><b>13.2</b> Measuring connectivity of networks</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="bridges-holes-the-small-world-problem-and-simulation.html"><a href="bridges-holes-the-small-world-problem-and-simulation.html#one-last-thing"><i class="fa fa-check"></i><b>13.2.1</b> One last thing…</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html"><i class="fa fa-check"></i><b>14</b> Finding Groups in Networks</a>
+<ul>
+<li class="chapter" data-level="14.0.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#component-analysis"><i class="fa fa-check"></i><b>14.0.1</b> Component analysis</a></li>
+<li class="chapter" data-level="14.0.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cliques"><i class="fa fa-check"></i><b>14.0.2</b> Cliques</a></li>
+<li class="chapter" data-level="14.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#cohesive-blocking"><i class="fa fa-check"></i><b>14.1</b> Cohesive Blocking</a></li>
+<li class="chapter" data-level="14.2" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#group-detection"><i class="fa fa-check"></i><b>14.2</b> Group Detection</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="finding-groups-in-networks.html"><a href="finding-groups-in-networks.html#modularity"><i class="fa fa-check"></i><b>14.2.1</b> Modularity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html"><i class="fa fa-check"></i><b>15</b> Homophily and Exponential Random Graphs (ERGM)</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#homophily"><i class="fa fa-check"></i><b>15.1</b> Homophily</a></li>
+<li class="chapter" data-level="15.2" data-path="homophily-and-exponential-random-graphs-ergm.html"><a href="homophily-and-exponential-random-graphs-ergm.html#ergms"><i class="fa fa-check"></i><b>15.2</b> ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html"><i class="fa fa-check"></i><b>16</b> Positional analysis in networks</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#toy-data"><i class="fa fa-check"></i><b>16.1</b> Toy data</a></li>
+<li class="chapter" data-level="16.2" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#structural-equivalence"><i class="fa fa-check"></i><b>16.2</b> Structural equivalence</a></li>
+<li class="chapter" data-level="16.3" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#block-modeling-with-concor"><i class="fa fa-check"></i><b>16.3</b> Block Modeling with CONCOR</a></li>
+<li class="chapter" data-level="16.4" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#isomorphic-local-graphs"><i class="fa fa-check"></i><b>16.4</b> Isomorphic local graphs</a></li>
+<li class="chapter" data-level="16.5" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#stochastic-block-models-sbms"><i class="fa fa-check"></i><b>16.5</b> Stochastic Block Models (SBMs)</a></li>
+<li class="chapter" data-level="16.6" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#feature-based-strategies"><i class="fa fa-check"></i><b>16.6</b> Feature-based strategies</a></li>
+<li class="chapter" data-level="16.7" data-path="positional-analysis-in-networks.html"><a href="positional-analysis-in-networks.html#lab-try-these-different-strategies-on-a-real-graph-of-your-choosing-go-with-smaller-networks-and-compare-the-different-results-using-correlation.-which-methods-perform-similarly-do-the-roles-that-they-identify-look-meaningful-plot-the-network-coloring-the-nodes-by-role."><i class="fa fa-check"></i><b>16.7</b> Lab: Try these different strategies on a real graph of your choosing (go with smaller networks) and compare the different results using correlation. Which methods perform similarly? Do the roles that they identify look meaningful? Plot the network coloring the nodes by role.</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="culture-and-networks.html"><a href="culture-and-networks.html"><i class="fa fa-check"></i><b>17</b> Culture and Networks</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#rca"><i class="fa fa-check"></i><b>17.1</b> RCA</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-1"><i class="fa fa-check"></i><b>17.1.1</b> Group 1</a></li>
+<li class="chapter" data-level="17.1.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-4"><i class="fa fa-check"></i><b>17.1.2</b> Group 4:</a></li>
+<li class="chapter" data-level="17.1.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#group-5"><i class="fa fa-check"></i><b>17.1.3</b> Group 5:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="culture-and-networks.html"><a href="culture-and-networks.html#semantic-network-analysis"><i class="fa fa-check"></i><b>17.2</b> Semantic Network Analysis</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="culture-and-networks.html"><a href="culture-and-networks.html#counting-words"><i class="fa fa-check"></i><b>17.2.1</b> Counting Words</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="culture-and-networks.html"><a href="culture-and-networks.html#from-counts-to-a-document-to-term-matrix"><i class="fa fa-check"></i><b>17.3</b> From counts to a document-to-term matrix</a></li>
+<li class="chapter" data-level="17.4" data-path="culture-and-networks.html"><a href="culture-and-networks.html#producing-a-skip-gram-matrix-for-semantic-network-analysis-and-embedding-models"><i class="fa fa-check"></i><b>17.4</b> Producing a skip-gram matrix for semantic network analysis and embedding models</a></li>
+<li class="chapter" data-level="17.5" data-path="culture-and-networks.html"><a href="culture-and-networks.html#comparing-texts-with-cosine"><i class="fa fa-check"></i><b>17.5</b> Comparing texts with cosine</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="dynamics.html"><a href="dynamics.html"><i class="fa fa-check"></i><b>18</b> Dynamics</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="dynamics.html"><a href="dynamics.html#tergms"><i class="fa fa-check"></i><b>18.1</b> TERGMs</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="dynamics.html"><a href="dynamics.html#tergm-terms-and-types"><i class="fa fa-check"></i><b>18.1.1</b> TERGM terms and types</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="dynamics.html"><a href="dynamics.html#tergm-syntax"><i class="fa fa-check"></i><b>18.2</b> <code>tergm</code> syntax</a></li>
+<li class="chapter" data-level="18.3" data-path="dynamics.html"><a href="dynamics.html#rsiena--"><i class="fa fa-check"></i><b>18.3</b> RSiena -</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Methods for Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dynamics" class="section level1" number="18">
+<h1><span class="header-section-number">18</span> Dynamics</h1>
+<p>In our last week, we will cover network dynamics. In general, there are two primary methods sociologists tend to use when modeling networks over time: TERGMs (temporal ERGMs) and SAOMs (stochastic actor-oriented models). TERGMs build off of the ERGM framework to model network dynamics and therefore model network change primarily at the dyadic-level. SAOMs, on the other hand, models changes in ties as being determined by the actors in question. Each has its strengths and weaknesses, which we will discuss in the following tutorial.</p>
+<div id="tergms" class="section level2" number="18.1">
+<h2><span class="header-section-number">18.1</span> TERGMs</h2>
+<p>We’ll begin with TERGMs. Like ERGMs, TERGMs are part of the statnet suite of packages. The basic idea behind them is that rather than specifying a single model regarding how ties are formed in ERGM, we’ll specify two models - one governing formation and the other governing dissolution or persistence. In doing so, we specify the factors that govern tie change over time. It therefore requires data with multiple snapshots of a single network as it changed over time. Generally, this type of data comes in cross-sections, as in the case of Add Health, where network data was collected at two different time points, one year apart. As an example, we will use Sampson’s monastery data, which we mentioned in a previous class. Here networks represent monk’s social relations at a monastery at three different moments in time.</p>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="dynamics.html#cb463-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statnet)</span>
+<span id="cb463-2"><a href="dynamics.html#cb463-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb463-3"><a href="dynamics.html#cb463-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(samplk)</span></code></pre></div>
+<p>statnet has a separate object for dynamic networks. We can create it from the network panels via a list and a simple function call, like so:</p>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="dynamics.html#cb464-1" aria-hidden="true" tabindex="-1"></a>samp_networks <span class="ot">&lt;-</span> <span class="fu">list</span>(samplk1,samplk2,samplk3)</span>
+<span id="cb464-2"><a href="dynamics.html#cb464-2" aria-hidden="true" tabindex="-1"></a>samp_dynm_net <span class="ot">&lt;-</span> <span class="fu">networkDynamic</span>(<span class="at">network.list =</span> samp_networks)</span></code></pre></div>
+<pre><code>## Neither start or onsets specified, assuming start=0
+## Onsets and termini not specified, assuming each network in network.list should have a discrete spell of length 1
+## Argument base.net not specified, using first element of network.list instead
+## Created net.obs.period to describe network
+##  Network observation period info:
+##   Number of observation spells: 1 
+##   Maximal time range observed: 0 until 3 
+##   Temporal mode: discrete 
+##   Time unit: step 
+##   Suggested time increment: 1</code></pre>
+<p>Although they are in a single object now, you can still extract each network individually and plot them. Here is the network at time 2, for example.</p>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="dynamics.html#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">network.extract</span>(samp_dynm_net, <span class="at">at =</span> <span class="dv">2</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-287-1.png" width="672" /></p>
+<p>statnet also has cool options for visualizing this kind of data. For example, one of its key features is the ability to calculate temporal paths in networks. Temporal paths trace the sequences and distances of nodes in a <code>networkDynamic</code> object reachable from an initial node, following paths constrained by edge timing and direction, if the network is directed.</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="dynamics.html#cb467-1" aria-hidden="true" tabindex="-1"></a>v11path <span class="ot">&lt;-</span> <span class="fu">tPath</span>(samp_dynm_net, <span class="at">v =</span> <span class="dv">11</span>, <span class="at">direction =</span> <span class="st">&#39;fwd&#39;</span>)</span>
+<span id="cb467-2"><a href="dynamics.html#cb467-2" aria-hidden="true" tabindex="-1"></a>v17path<span class="ot">&lt;-</span><span class="fu">tPath</span>(samp_dynm_net, <span class="at">v=</span><span class="dv">17</span>, <span class="at">direction =</span> <span class="st">&#39;fwd&#39;</span>)</span>
+<span id="cb467-3"><a href="dynamics.html#cb467-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb467-4"><a href="dynamics.html#cb467-4" aria-hidden="true" tabindex="-1"></a>coords<span class="ot">&lt;-</span><span class="fu">plot</span>(samp_dynm_net,</span>
+<span id="cb467-5"><a href="dynamics.html#cb467-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">displaylabels=</span><span class="cn">TRUE</span>,</span>
+<span id="cb467-6"><a href="dynamics.html#cb467-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">label.cex=</span><span class="fl">0.8</span>,</span>
+<span id="cb467-7"><a href="dynamics.html#cb467-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">label.pos=</span><span class="dv">5</span>,</span>
+<span id="cb467-8"><a href="dynamics.html#cb467-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.col=</span><span class="st">&#39;white&#39;</span>,</span>
+<span id="cb467-9"><a href="dynamics.html#cb467-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.cex=</span><span class="dv">3</span>,</span>
+<span id="cb467-10"><a href="dynamics.html#cb467-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">edge.label.cex=</span><span class="fl">0.7</span></span>
+<span id="cb467-11"><a href="dynamics.html#cb467-11" aria-hidden="true" tabindex="-1"></a>   )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-288-1.png" width="672" /></p>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="dynamics.html#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPaths</span>(samp_dynm_net, <span class="at">coord=</span>coords, <span class="fu">list</span>(v11path,v17path))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-288-2.png" width="672" /></p>
+<div id="tergm-terms-and-types" class="section level3" number="18.1.1">
+<h3><span class="header-section-number">18.1.1</span> TERGM terms and types</h3>
+<p>TERGMs have very similar term names as ERGMs. For example, edges counts the number of ties in the network and nodematch captures homophily. What changes is how these terms are counted and used in the model, which will depend on the type of TERGM one specifies. This will in turn affect how the models are interpreted.</p>
+<p>While there are five different types of models one can specify within a TERGM, each governing a specific type of tie change in the network. Here, we focus on what is called a separable TERGM (STERGM). <em>Separable models</em> specify a process for tie dynamics using operators that are independent within time-step; the <code>Form() + Diss()</code> (or <code>Persist()</code>) model is the classic example. Here, the dyads can be partitioned into two sets at each timepoint: the empty dyads, which are subject to formation, and the tied dyads, which are subject to dissolution. A single dyad change will affect either the <code>Form()</code> model statistics or the <code>Diss()/Persist()</code> model statistics at each timestep, but not both. So the terms in the two operators are uncorrelated, and can be separately evaluated at each step for estimation or simulation.</p>
+<ul>
+<li><code>Form()</code> tracks the formation of ties and its terms represent the factors that influence tie formation.<br />
+</li>
+<li><code>Diss()</code> tracks the dissolution of ties and its terms represent the factors that influence tie dissolution</li>
+</ul>
+<p>Note that while these separable sets are independent <em>within</em> timestep, they are still Markov-dependent between timesteps: the formation of a tie at time <code>t</code> can influence the dissolution of an adjacent tie at <code>t+1</code>. And within each operator set, there can still be dyad-dependence within step (if dyad-dependent terms are specified in the model).</p>
+</div>
+</div>
+<div id="tergm-syntax" class="section level2" number="18.2">
+<h2><span class="header-section-number">18.2</span> <code>tergm</code> syntax</h2>
+<p>For a call to <code>tergm</code>, you pass</p>
+<ul>
+<li><p>the formula, but this now will typically include more than one Operator (each with its own set of terms), and</p></li>
+<li><p>the estimation method, which will depend on the type of data you have.</p></li>
+</ul>
+<p>For example, for a model specified with <code>Form()</code> and <code>Diss()</code> operators:</p>
+<pre><code># tergm(my.dynamic.network ~                    #do not run this!
+#       Form(~ edges + gwesp(0, fixed=T)) +
+#       Diss(~ edges + nodefactor(&#39;age&#39;)),
+#       estimate =  `insert method`
+# )</code></pre>
+<p>Let’s return to the Sampson monastery data, and consider models for the way this network changes across the 3 observed time points. This is a directed network, so it would be natural to consider mutuality as a predictor. We can also add terms for the presence of cycles and transitive triads.</p>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="dynamics.html#cb470-1" aria-hidden="true" tabindex="-1"></a>samp_fit <span class="ot">&lt;-</span> <span class="fu">tergm</span>(</span>
+<span id="cb470-2"><a href="dynamics.html#cb470-2" aria-hidden="true" tabindex="-1"></a>  samp_dynm_net <span class="sc">~</span></span>
+<span id="cb470-3"><a href="dynamics.html#cb470-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Form</span>(<span class="sc">~</span>edges<span class="sc">+</span>mutual<span class="sc">+</span>cyclicalties<span class="sc">+</span>transitiveties) <span class="sc">+</span></span>
+<span id="cb470-4"><a href="dynamics.html#cb470-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Diss</span>(<span class="sc">~</span>edges<span class="sc">+</span>mutual<span class="sc">+</span>cyclicalties<span class="sc">+</span>transitiveties),</span>
+<span id="cb470-5"><a href="dynamics.html#cb470-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">&quot;CMLE&quot;</span>,</span>
+<span id="cb470-6"><a href="dynamics.html#cb470-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb470-7"><a href="dynamics.html#cb470-7" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p>This is a small network, so we shouldn’t expect many of the terms to be significant. However, we do see that mutual ties are more likely to form and that ties which are in transitive triads are less likely to dissolve than those in intransitive triads. This may signal norms towards reciprocity and hierarchy formation.</p>
+</div>
+<div id="rsiena--" class="section level2" number="18.3">
+<h2><span class="header-section-number">18.3</span> RSiena -</h2>
+<p>The SAOM is a probability model for network changes in continuous time, and the estimation theory was elaborated for network data available at discrete time points. Network ties are assumed to change one tie at a time (Holland and Leinhardt 1977), with actors choosing which of the outgoing ties to change based on a multinomial choice probability model (McFadden 1974). Dependence between ties is modeled by allowing the actors’ choices concerning tie changes to be influenced by the embedding of the potential ties in local configurations. These are akin to the local configurations in the ERGM but take the perspective of a focal actor, while there is no focal actor in the ERGM. Due to its actor-oriented formulation, the SAOM offers a direct interpretation of parameters as reflecting differential probabilities of actors’ choices with regard to their outgoing ties.</p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="dynamics.html#cb471-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;RSiena&quot;</span>, <span class="at">repos=</span><span class="st">&quot;https://cloud.r-project.org&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="dynamics.html#cb472-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSiena)</span></code></pre></div>
+<p>First, we have to assemble the three different time points as a single three-dimensional array. This is the data format that RSiena requires. It implies that networks at each time point must have the same set of nodes. If a node is not part of your network at a certain time point, you should add them as an isolate.</p>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="dynamics.html#cb473-1" aria-hidden="true" tabindex="-1"></a>samp_mats <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">c</span>(<span class="fu">as.matrix</span>(samplk1), <span class="fu">as.matrix</span>(samplk2), <span class="fu">as.matrix</span>(samplk3)), <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">3</span>))</span></code></pre></div>
+<p>Next we will create siena data from the array using the <code>sienaDataCreate()</code> function.</p>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="dynamics.html#cb474-1" aria-hidden="true" tabindex="-1"></a>samp_siena <span class="ot">&lt;-</span> <span class="fu">sienaDataCreate</span>(<span class="fu">sienaDependent</span>(samp_mats))</span></code></pre></div>
+<p>You can get an outline of the data set with some basic descriptives from</p>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="dynamics.html#cb475-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print01Report</span>( samp_siena, <span class="at">modelname=</span><span class="st">&quot;sampson_monastery_siena&quot;</span>)</span></code></pre></div>
+<p>Now we will begin fitting the model. To do so, we first need to create an effects object. This is where the set of terms we want to include in our models will be stored.</p>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="dynamics.html#cb476-1" aria-hidden="true" tabindex="-1"></a>sampeff <span class="ot">&lt;-</span> <span class="fu">getEffects</span>(samp_siena)</span></code></pre></div>
+<p>All the effects that you can possibly include in the model given your network’s structure can be seen using the <code>effectsDocumentation()</code> function.</p>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="dynamics.html#cb477-1" aria-hidden="true" tabindex="-1"></a><span class="fu">effectsDocumentation</span>(sampeff)</span></code></pre></div>
+<p>For a detailed description of all of these terms, see Chapter 12 in the RSiena manual.</p>
+<p>Let’s build a simple model. For example, we can build a basic structural effects model with reciprocity, transitivity, and 3-cycles</p>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="dynamics.html#cb478-1" aria-hidden="true" tabindex="-1"></a>sampeff <span class="ot">&lt;-</span> <span class="fu">includeEffects</span>(sampeff, transTrip, cycle3, recip)</span></code></pre></div>
+<pre><code>##   effectName          include fix   test  initialValue parm
+## 1 reciprocity         TRUE    FALSE FALSE          0   0   
+## 2 transitive triplets TRUE    FALSE FALSE          0   0   
+## 3 3-cycles            TRUE    FALSE FALSE          0   0</code></pre>
+<p>Now we will initiate the algorithm. You can adjust how RSiena fits the model by changing the options in <code>sienaAlgorithmCreate()</code>.</p>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="dynamics.html#cb480-1" aria-hidden="true" tabindex="-1"></a>sampalgorithm <span class="ot">&lt;-</span> <span class="fu">sienaAlgorithmCreate</span>( <span class="at">projname =</span> <span class="st">&#39;sampson_monastery_siena&#39;</span> )</span></code></pre></div>
+<pre><code>## If you use this algorithm object, siena07 will create/use an output file sampson_monastery_siena.txt .</code></pre>
+<p>Finally, we’ll run the model.</p>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="dynamics.html#cb482-1" aria-hidden="true" tabindex="-1"></a>samp_out <span class="ot">&lt;-</span> <span class="fu">siena07</span>( sampalgorithm, <span class="at">data =</span> samp_siena, <span class="at">effects =</span> sampeff)</span></code></pre></div>
+<p>We can check the following to see if it converged properly. If the convergence criterion is less than 0.25, convergence is good.</p>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="dynamics.html#cb483-1" aria-hidden="true" tabindex="-1"></a>samp_out<span class="sc">$</span>tconv.max <span class="sc">&lt;</span> <span class="fl">0.25</span></span></code></pre></div>
+<pre><code>##      [,1]
+## [1,] TRUE</code></pre>
+<p>Here, convergence is good. If convergence is inadequate, then you can estimate again using your previous output as the “previous answer” from which estimation continues.</p>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="dynamics.html#cb485-1" aria-hidden="true" tabindex="-1"></a>samp_out_continued <span class="ot">&lt;-</span> <span class="fu">siena07</span>( sampalgorithm, <span class="at">data =</span> samp_siena, <span class="at">effects =</span> sampeff, <span class="at">prevAns=</span>samp_out)</span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="dynamics.html#cb486-1" aria-hidden="true" tabindex="-1"></a>samp_out_continued<span class="sc">$</span>tconv.max <span class="sc">&lt;</span> <span class="fl">0.25</span></span></code></pre></div>
+<pre><code>##      [,1]
+## [1,] TRUE</code></pre>
+<p>If convergence is good, you can look at the estimates using the <code>summary()</code> function.</p>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="dynamics.html#cb488-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(samp_out)</span></code></pre></div>
+<pre><code>## Estimates, standard errors and convergence t-ratios
+## 
+##                                    Estimate   Standard   Convergence 
+##                                                 Error      t-ratio   
+## 
+## Rate parameters: 
+##   0.1      Rate parameter period 1  3.5408  ( 0.6619   )             
+##   0.2      Rate parameter period 2  2.6203  ( 0.5250   )             
+## 
+## Other parameters: 
+##   1.  eval outdegree (density)     -1.5187  ( 0.2018   )   -0.1029   
+##   2.  eval reciprocity              1.3855  ( 0.2853   )   -0.1177   
+##   3.  eval transitive triplets      0.3594  ( 0.1223   )   -0.1304   
+##   4.  eval 3-cycles                -0.2229  ( 0.2123   )   -0.1064   
+## 
+## Overall maximum convergence ratio:    0.1466 
+## 
+## 
+## Total of 1907 iteration steps.
+## 
+## Covariance matrix of estimates (correlations below diagonal)
+## 
+##        0.041       -0.029       -0.016        0.003
+##       -0.499        0.081        0.010       -0.022
+##       -0.645        0.291        0.015       -0.015
+##        0.082       -0.362       -0.562        0.045
+## 
+## Derivative matrix of expected statistics X by parameters:
+## 
+##       91.992       61.044      193.574       52.117
+##       31.220       42.238       70.209       23.099
+##      131.638       83.923      417.135      104.920
+##       51.912       44.267      163.402       58.824
+## 
+## Covariance matrix of X (correlations below diagonal):
+## 
+##      100.620       69.180      224.305       61.143
+##        0.771       79.925      165.169       51.389
+##        0.841        0.695      706.700      188.817
+##        0.771        0.727        0.899       62.446</code></pre>
+<p>If you would like to update your model, you can use <code>includeEffects()</code> to add or remove effects. For example, the following will remove the 3-cycle term.</p>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="dynamics.html#cb490-1" aria-hidden="true" tabindex="-1"></a>sampeff <span class="ot">&lt;-</span> <span class="fu">includeEffects</span>(sampeff, cycle3, <span class="at">include =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] effectName   include      fix          test         initialValue
+## [6] parm        
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<p>You can then refit the model.</p>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="dynamics.html#cb492-1" aria-hidden="true" tabindex="-1"></a>samp_out_wo_3cycle <span class="ot">&lt;-</span> <span class="fu">siena07</span>(sampalgorithm, <span class="at">data =</span> samp_siena, <span class="at">effects =</span> sampeff, <span class="at">prevAns=</span>samp_out_continued)</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="culture-and-networks.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,254 @@
+---
+output: html_document
+---
+
+# Homophily and Exponential Random Graphs (ERGM)
+## Homophily
+In this tutorial, we cover how to A) calculate homophily on a network and B) fit exponential random graphs to networks. First, we will need one of the Add Health data sets that we have been playing around with in previous tutorials. The code below downloads the data from Moreno's website and converts it into an igraph object. We went over this in the Transitivy tutorial, so here, I just paste the code.
+
+Through this tutorial, we will rely on igraph to analyze the comm59 Add Health network that we made use of last class. 
+
+```{r}
+# read in the edge list from our github
+el <- read.table("https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/comm59.dat.txt", header = T)
+# Read in attributes from our github
+attributes <- read.table("https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/comm59_att.dat.txt", header = T)
+# add an ID column
+attributes$ID <- 1:nrow(attributes)
+
+# Indexing data so that you only put in certain columns
+el_no_weight <- el[,1:2] # We will ignore the ranking variable for now.
+el_no_weight <- as.matrix(el_no_weight) # igraph requires a matrix
+
+# convert ids to characters so they are preserved as names
+el_no_weight[,1] <- as.character(el_no_weight[,1])
+el_no_weight[,2] <- as.character(el_no_weight[,2])
+
+# Graph the network
+library(igraph)
+net59 <- graph.edgelist(el_no_weight, directed = T)
+
+# Finally, add attributes  
+# First link vertex names to their place in the attribute dataset
+linked_ids <- match(V(net59)$name, attributes$ID)
+
+# Then we can use that to assign a variable to each user in the network
+V(net59)$race <- attributes$race[linked_ids]
+V(net59)$sex <- attributes$sex[linked_ids]
+V(net59)$grade <- attributes$grade[linked_ids]
+V(net59)$school <- attributes$school[linked_ids]
+
+net59 <- delete.vertices(net59, which(is.na(V(net59)$sex) | V(net59)$sex == 0))
+net59 <- delete.vertices(net59, which(is.na(V(net59)$race) | V(net59)$race == 0))
+net59 <- delete.vertices(net59, which(is.na(V(net59)$grade) | V(net59)$grade == 0))
+```
+
+Great, now that we have the network, we can evaluate homophily. We can either use igraph's built in function...
+```{r}
+assortativity(net59, types1 = as.numeric(V(net59)$sex))
+```
+
+Or do it ourselves. If you'll remember from class on Tuesday, assortativity on variable is calculated by simply correlating the values of an attribute for every ego-alter pair in the network. We just grab the edgelist, match in ego and alter's values for the variable of interest, and correlate with cor.test.
+```{r}
+df <- data.frame(get.edgelist(net59), stringsAsFactors = F)
+df$sex1 <- as.numeric(attributes$sex[match(df$X1, attributes$ID)])
+df$sex2 <- as.numeric(attributes$sex[match(df$X2, attributes$ID)])
+cor.test(df$sex1, df$sex2)
+```
+
+Race, however, is probably better conceptualized as a categorical variable. Assortativity_nominal can be used to evaluate assortativity for categorical variables. It requires a numeric vector, denoting the different categories, which starts at 1, so we add one to the race variable, which starts at 0. 
+```{r}
+assortativity_nominal(net59, types = as.numeric(V(net59)$race) + 1)
+```
+
+## ERGMs
+
+Now imagine, like Wimmer and Lewis, we wanted to calculate homophily for race, but wanted to control for other network factors, such as transitivity, which might lead to a higher degree of same race friendships, but which don't actually signal an in-group preference. Just like them, we can use exponential random graphs, which model networks as a function of network statistics. Specifically, ERGMs imagine the observed network to be just one instantiation of a set of possible networks with similar features, that is, as the outcome of a stochastic process, which is unknown and must therefore be inferred. 
+
+The package that allows one to fit ergm models is part of the statnet (statistical networks) suite of packages. Much like tidyverse, which you might be familiar with, statnet includes a number of complementary packages for the statistical analysis of networks. Let's install statnet and load it into R. 
+
+```{r eval = F}
+install.packages("statnet")
+```
+
+```{r results = 'hide', message=F, warning=F}
+library(statnet)
+```
+
+Great, now we can use statnet's ergm() function to fit our first ERGM. The only problem? Our network is an igraph object rather than a statnet one. There is some good news though. People have built a package for converting igraph objects to statnet and vise versa - intergraph. Let's install that and load it in too. 
+```{r eval = F}
+install.packages("intergraph")
+```
+```{r results = 'hide'}
+library(intergraph)
+```
+
+Now that we have intergraph installed and in our R environment, we can use the asNetwork function to convert it to a statnet object. I will also subset the data here, because ERGMs take forever to run and the network is somewhat large (~1000 nodes).
+
+```{r}
+set.seed(1234)
+sampled_students <- sample(V(net59)$name, 350, replace = F)
+net59_for_ergm <- igraph::delete.vertices(net59, !V(net59)$name %in% sampled_students)
+
+statnet59 <- asNetwork(net59_for_ergm)
+statnet59
+```
+
+It even ported over our node attributes! You can plot it to see if it looks the same as it did in igraph. 
+```{r}
+plot(statnet59, 
+     vertex.col = "tomato", 
+     vertex.cex = 1)
+```
+
+With our data ready for analysis using statnet, let's build our first ERGM. There are a number of potential ERG model terms that we could use in fitting our model. You can view a full list by looking at the documentation for: 
+```{r eval = F}
+?ergm.terms
+```
+
+That said, it is common to build up from some basic terms first. The McFarland-Moody paper we read in class is a useful reference point as is the Wimmer-Lewis paper. Generally, the first term that people use is the edges term. It is a statistic which counts how many edges there are in the network.  
+```{r results = 'hide', message=F}
+random_graph <- ergm(statnet59 ~ edges, control = control.ergm(seed = 1234))
+```
+
+How do we interpret this coefficient? Coefficients in ERGMs represent the change in the (log-odds) likelihood of a tie for a unit change in a predictor. We can use a simple formula for converting log-odds to probability to understand them better. 
+```{r}
+inv.logit <- function(logit){
+  odds <- exp(logit)
+  prob <- odds / (1 + odds)
+  return(prob)
+}
+
+theta <- coef(random_graph)
+inv.logit(theta)
+```
+
+So the probability of an edge being in the graph is roughly 0.02. The probability of an edge being drawn should in theory be the same as density - let's check. 
+```{r}
+network.density(statnet59)
+```
+Nice. 
+
+To put it all back into the theoretical underpinnings of ERGMs, we have modeled a stochastic generating process, and the only constraint we have put on the stochastic process is the probability with which edges are drawn, which was set equal to the network density of our observed graph. 
+
+We can more closely examine the model fit using the summary() function, just like lm() or glm() in base R. 
+```{r}
+summary(random_graph)
+```
+
+We can also simulate graphs using our ERGM fit. We did something similar to this when we simulated random graphs and set the probability of an edge being drawn to be equal to our network's density. We just didn't know it at the time!
+
+```{r results = 'hide', message=F}
+set.seed(1234)
+hundred_simulations <- simulate(random_graph, 
+                  coef = theta,
+                  nsim = 100,
+                  control = control.simulate.ergm(MCMC.burnin = 1000,
+                                             MCMC.interval = 1000))
+```
+
+Let's examine the first nine simulations.
+```{r results = 'hide', message=F}
+par(mfrow = c(3, 3))
+sapply(hundred_simulations[1:9], plot, vertex.cex = 1, vertex.col = "tomato")
+```
+
+We can compare the number of edges our observed graph has to the average of the simulated networks.
+```{r}
+net_densities <- unlist(lapply(hundred_simulations, network.density))
+
+hist(net_densities, xlab = "Density", main = "", col = "lightgray")
+abline(v = network.density(statnet59), col = "red", lwd = 3, lty = 2)
+abline(v = mean(net_densities), col = "blue", lwd = 3, lty = 1)
+
+```
+Pretty close!
+
+Another way to evaluate our model is to use the built-in goodness of fit measures. Essentially, we will evaluate whether our network has similar structural features as the simulated graphs. ergm has a built-in function - gof() - which calculates the statistics for us. We just have to tell it how many simulations we want to use in the comparison set - the larger the number, the more accurate representation of the model.
+
+```{r}
+gof_stats <- gof(random_graph)
+
+par(mfrow = c(2, 3))
+plot(gof_stats, main = '')
+```
+
+On one measure, edgewise shared partners, our model looks okay.  On the others, especially in and out degree, it looks awful. How to we improve our fit? By adding more terms to the model!
+
+First, let's build a model with only dyad-independent terms. Just like with the random graph, we are essentially fitting a logistic regression. 
+
+nodematch is the homophily term in ergm. We can specify the attribute we want to examine as well as the diff argument, which allows for differential levels of homophily for different groups. 
+
+```{r results = 'hide', message=F}
+model1 <- ergm(statnet59 ~ edges + 
+                 nodematch("race") + 
+                 nodematch("sex") + 
+                 nodematch("grade"))
+```
+
+```{r}
+summary(model1)
+```
+Every variable is significant! Grade and race have especially large coefficients and all three are positive. 
+
+Let's try it with diff set to T. We will limit our examination to only grade/race/sex categories represented by a large number of vertices in our network. You can examine this using the table function
+```{r results = 'hide', message=F}
+table(V(net59_for_ergm)$race) # 1 = white, 2 = black, 3 = hispanic, 4 = asian, and 5 = mixed/other
+table(V(net59_for_ergm)$sex) # 1 = male, 2 = female
+table(V(net59_for_ergm)$grade)
+
+model2 <- ergm(statnet59 ~ edges + 
+                 nodematch("race", diff = T, levels = c("1", "2", "5")) + 
+                 nodematch("sex", diff = T, levels = c("1", "2")) + 
+                 nodematch("grade", diff = T, levels = as.character(c(7:12))))
+```
+
+```{r}
+summary(model2)
+```
+
+Interesting! Now let's add some dyad-dependent terms. These can be a bit finnicky, especially transitivity ones.
+
+mutual is the term for reciprocity. 
+```{r results = 'hide', message=F}
+
+model3 <- ergm(statnet59 ~ edges + 
+                 nodematch("race") + 
+                 nodematch("sex") + 
+                 nodematch("grade") + 
+                 mutual)
+```
+
+```{r}
+summary(model3)
+```
+Now let's add a term for triadic closure. There are a few terms for triads - one of them, triangles, tends to lead to degeneracy. The gwesp term behaves better, though convergence is far from guaranteed. 
+
+It may be a good time to use the bathroom. This will take a while...
+
+```{r, eval = F, results='hide', message=F}
+model4 <- ergm(statnet59 ~ edges + 
+                 nodematch("race") + 
+                 nodematch("sex") + 
+                 nodematch("grade") + 
+                 mutual + 
+                 gwesp(0.25, fixed = T),
+               control=control.ergm(MCMLE.maxit= 40))
+# you can change a number of other things about the MCMC algorithm - from its burn-in to its step and sample size
+# here we just up the maximum iterations we wait to see if it has converged
+```
+```{r, eval = F, results='hide', message=F}
+summary(model4)
+```
+
+Let's take a look at the goodness-of-fit statistics for this most elaborate model. 
+```{r, eval = F, results='hide', message=F}
+model4_gof <- gof(model4)
+
+par(mfrow = c(3, 2))
+plot(model4_gof, main = '')
+```
+
+Definitely an improvement over the random graph. 
+
+Lab: Run ergm on a graph of interest to you and include balance (reciprocity and triadic closure) and homophily terms. Interpret the results. Simulate a graph from this model and compare it to your original graph. 

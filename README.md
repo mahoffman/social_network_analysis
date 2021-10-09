@@ -1,0 +1,2 @@
+# Tutorials and course materials for Soc 379: Methods for Network Analysis
+This github repository includes the tutorials and course materials for Soc 379: Methods for Network Analysis, an introductory methods course to social network analysis for graduate students. The tutorials contained here are also published in Bookdown format at http://www.bookdown.org/markhoff/social_network_analysis. The code is in R and primarily makes use of the igraph and statnet packages. Please feel free to use any of the materials here for your own work or classes. 
